@@ -1,0 +1,13 @@
+EmployeeSlides(outline)
+AcceptInvite
+  1 - Use Case Overview
+  2 - Accept Invite Use Case Zoom
+  3 - Activity Register Employee OverView
+  4 - Employee Activity Register Zoom
+    Important because it starts user story, however should be presented quickly
+View Plant Info
+  1 - Use Case Overview
+  2 - View Plant Info Zoom
+  3 - Plant Info Activity Diagram
+    Possibly can be omitted because Employee can only view plant info. Perhaps just a quick mention, no activity slides
+    

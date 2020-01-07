@@ -26,8 +26,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
+    <?= $this->Html->css('all.min.css') // Font Awesome ?>
+    <?= $this->Html->css('base.css') // CakePHP Built-in CSS Frameworks TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
+    <?= $this->Html->css('style.css') // CakePHP Default CSS styling TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -49,6 +50,21 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </nav>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
+        <nav class="large-3 medium-4 columns" id="actions-sidebar">
+            <ul class="side-nav">
+                <li class="heading"><?= __('Controllers') ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-building"></i> Businesses'), ['controller' => 'Businesses', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-user"></i> Users'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-seedling"></i> Plants'), ['controller' => 'Plants', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-list-ul"></i> Growth Profiles'), ['controller' => 'GrowthProfiles', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('Stages'), ['controller' => 'Stages', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('Steps'), ['controller' => 'Steps', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-box-full"></i> Batches'), ['controller' => 'Batches', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i> Readings'), ['controller' => 'Readings', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i> Notes'), ['controller' => 'Notes', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-clipboard-list-check"></i> Reports'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false]) ?></li>
+            </ul>
+        </nav>
         <?= $this->fetch('content') ?>
     </div>
     <footer>

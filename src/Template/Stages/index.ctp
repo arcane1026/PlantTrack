@@ -4,18 +4,9 @@
  * @var \App\Model\Entity\Stage[]|\Cake\Collection\CollectionInterface $stages
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Stage'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Growth Profiles'), ['controller' => 'GrowthProfiles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Growth Profile'), ['controller' => 'GrowthProfiles', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Steps'), ['controller' => 'Steps', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Step'), ['controller' => 'Steps', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="stages index large-9 medium-8 columns content">
     <h3><?= __('Stages') ?></h3>
+    <div><?= $this->Html->link(__('New Stage'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

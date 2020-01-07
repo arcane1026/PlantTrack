@@ -4,20 +4,9 @@
  * @var \App\Model\Entity\Step[]|\Cake\Collection\CollectionInterface $steps
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Step'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Stages'), ['controller' => 'Stages', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Stage'), ['controller' => 'Stages', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Notes'), ['controller' => 'Notes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Note'), ['controller' => 'Notes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Readings'), ['controller' => 'Readings', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Reading'), ['controller' => 'Readings', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="steps index large-9 medium-8 columns content">
     <h3><?= __('Steps') ?></h3>
+    <div><?= $this->Html->link(__('New Step'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

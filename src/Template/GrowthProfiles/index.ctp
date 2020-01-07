@@ -4,22 +4,9 @@
  * @var \App\Model\Entity\GrowthProfile[]|\Cake\Collection\CollectionInterface $growthProfiles
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Growth Profile'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Plants'), ['controller' => 'Plants', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Plant'), ['controller' => 'Plants', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Batches'), ['controller' => 'Batches', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Batch'), ['controller' => 'Batches', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Stages'), ['controller' => 'Stages', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Stage'), ['controller' => 'Stages', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="growthProfiles index large-9 medium-8 columns content">
     <h3><?= __('Growth Profiles') ?></h3>
+    <div><?= $this->Html->link(__('New Growth Profile'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

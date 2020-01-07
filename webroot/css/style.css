@@ -11,6 +11,13 @@ a {
     color: #1798A5;
 }
 
+.side-nav li a {
+    font-size: 18px;
+}
+.side-nav li a i {
+    font-size: 22px;
+}
+
 .side-nav li a:not(.button) {
     color: #15848F;
 }

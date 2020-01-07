@@ -29,7 +29,7 @@ CREATE TABLE users (
     locked				BOOLEAN			NOT NULL DEFAULT 0,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY business_key (business_id) REFERENCES businesses(id)
+    FOREIGN KEY business_key_users (business_id) REFERENCES businesses(id)
 );
 
 CREATE TABLE plants (
@@ -40,7 +40,7 @@ CREATE TABLE plants (
     resource_path		VARCHAR(255),
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key (user_id) REFERENCES users(id)
+    FOREIGN KEY user_key_plants (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE growth_profiles (
@@ -51,8 +51,8 @@ CREATE TABLE growth_profiles (
     description 		VARCHAR(100)	NOT NULL,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key (user_id) REFERENCES users(id),
-    FOREIGN KEY plant_key (plant_id) REFERENCES plants(id)
+    FOREIGN KEY user_key_growth_profiles (user_id) REFERENCES users(id),
+    FOREIGN KEY plant_key_growth_profiles (plant_id) REFERENCES plants(id)
 );
 
 CREATE TABLE stages (
@@ -62,7 +62,7 @@ CREATE TABLE stages (
     description 		VARCHAR(100)	NOT NULL,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY growth_profile_key (growth_profile_id) REFERENCES growth_profiles(id)
+    FOREIGN KEY growth_profile_key_stages (growth_profile_id) REFERENCES growth_profiles(id)
 );
 
 CREATE TABLE steps (
@@ -73,7 +73,7 @@ CREATE TABLE steps (
     duration			INT 			UNSIGNED NOT NULL COMMENT 'Duration of step in days.',
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY stage_key (stage_id) REFERENCES stages(id)
+    FOREIGN KEY stage_key_steps (stage_id) REFERENCES stages(id)
 );
 
 CREATE TABLE batches (
@@ -91,12 +91,11 @@ CREATE TABLE batches (
     resource_path		VARCHAR(255),
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key (user_id) REFERENCES users(id),
-    FOREIGN KEY growth_profile_key (growth_profile_id) REFERENCES growth_profiles(id),
-    FOREIGN KEY plant_key (plant_id) REFERENCES plants(id)
+    FOREIGN KEY user_key_batches (user_id) REFERENCES users(id),
+    FOREIGN KEY growth_profile_key_batches (growth_profile_id) REFERENCES growth_profiles(id),
+    FOREIGN KEY plant_key_batches (plant_id) REFERENCES plants(id)
 );
 
-# RENAMED FROM step_values
 CREATE TABLE readings (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     step_id 			INT 			UNSIGNED NOT NULL,
@@ -105,11 +104,10 @@ CREATE TABLE readings (
     value 		 		VARCHAR(100)	NOT NULL,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY step_key (step_id) REFERENCES steps(id),
-    FOREIGN KEY batch_key (batch_id) REFERENCES batches(id)
+    FOREIGN KEY step_key_readings (step_id) REFERENCES steps(id),
+    FOREIGN KEY batch_key_readings (batch_id) REFERENCES batches(id)
 );
 
-# RENAMED FROM step_notes
 CREATE TABLE notes (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id 			INT 			UNSIGNED NOT NULL,
@@ -118,12 +116,11 @@ CREATE TABLE notes (
     body 		 		TEXT			NOT NULL,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key (user_id) REFERENCES users(id),
-    FOREIGN KEY step_key (step_id) REFERENCES steps(id),
-    FOREIGN KEY batch_key (batch_id) REFERENCES batches(id)
+    FOREIGN KEY user_key_notes (user_id) REFERENCES users(id),
+    FOREIGN KEY step_key_notes (step_id) REFERENCES steps(id),
+    FOREIGN KEY batch_key_notes (batch_id) REFERENCES batches(id)
 );
 
-# REPORTS - INCOMPLETE TABLE - NEEDS MORE FIELDS TO STORE DATA
 CREATE TABLE reports (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id 			INT 			UNSIGNED NOT NULL,
@@ -132,6 +129,6 @@ CREATE TABLE reports (
     description 		VARCHAR(100)	NOT NULL,
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key (user_id) REFERENCES users(id),
-    FOREIGN KEY batch_key (batch_id) REFERENCES batches(id)
+    FOREIGN KEY user_key_reports (user_id) REFERENCES users(id),
+    FOREIGN KEY batch_key_reports (batch_id) REFERENCES batches(id)
 );

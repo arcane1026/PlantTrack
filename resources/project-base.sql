@@ -1,4 +1,4 @@
-USE plant_track;
+USE plant_track;  
 
 CREATE TABLE businesses (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,

@@ -1,3 +1,5 @@
+CREATE DATABASE plant_track;
+
 USE plant_track;  
 
 CREATE TABLE businesses (

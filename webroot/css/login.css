@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px #000;
+    color: #efeeb6;
+    font-family: 'Salsa', cursive;
+}
+.full-screen-background {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.img-background {
+    background-image: url("../img/AdobeStock_249965164.jpeg");
+}
+.single-panel-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.single-panel-centered .panel {
+    width: 400px;
+    background: #0004;
+    margin: 0 0 0 15%;
+    border-radius: 6px;
+    box-shadow: -1px 1px 5px #000;
+    /* Light Source Shadow */
+    border-right: 1px solid #313211;
+    border-top: 1px solid #313211;
+}
+.single-panel-centered .panel h1 {
+    text-align: center;
+    font-size: 58px;
+    padding: 15px 0 0;
+    font-family: 'Playball', cursive;
+    margin: 0;
+}
+.single-panel-centered .panel h2 {
+    text-align: center;
+    font-size: 28px;
+    padding: 0 0 15px 0;
+//font-family: 'Playball', cursive;
+}
+.single-panel-centered .panel form ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.single-panel-centered .panel form ul li {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+}
+.single-panel-centered .panel form ul li > span {
+    padding: 0 12px;
+    background: #4b4c2c;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.single-panel-centered .panel form ul li > span i {
+    line-height: 50px;
+    font-size: 24px;
+}
+.single-panel-centered .panel form ul li input {
+    width: 60%;
+    line-height: 50px;
+    padding: 0 16px;
+    background: #efeeb6;
+    color: #24250f;
+    border: 1px solid #24250f;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 18px;
+//text-shadow: 1px 1px 1px #646341;
+}
+.single-panel-centered .panel form ul li button {
+    background: #6e753a;
+    box-shadow: -1px 1px 5px #000;
+    border-radius: 4px;
+    border: 1px solid #000;
+    text-shadow: inherit;
+    color: inherit;
+    font-size: 22px;
+    padding: 7px 30px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    /* Light Source Shadow */
+    border-right-color: #8a913d;
+    border-top-color: #8a913d;
+}
+.single-panel-centered .panel form ul li button i {
+    margin-right: 5px;
+}
+.single-panel-centered .panel form ul li button span {
+
+}

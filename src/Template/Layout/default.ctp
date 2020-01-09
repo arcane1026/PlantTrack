@@ -30,9 +30,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('all.min.css') // Font Awesome ?>
     <?= $this->Html->css('base.css') // CakePHP Built-in CSS Frameworks TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
     <?= $this->Html->css('style.css') // CakePHP Default CSS styling TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
-    <?= '' // $this->Html->css('bootstrap.min.css') // CSS specific to the default layout ?>
-    <?= '' // $this->Html->css('bootstrap-grid.min.css') // CSS specific to the default layout ?>
-    <?= '' // $this->Html->css('bootstrap-reboot.min.css') // CSS specific to the default layout ?>
+    <?= '' // $this->Html->css('bootstrap.min.css') //  ?>
+    <?= '' // $this->Html->css('bootstrap-grid.min.css') //  ?>
+    <?= '' // $this->Html->css('bootstrap-reboot.min.css') //  ?>
     <?= $this->Html->css('default.css') // CSS specific to the default layout ?>
 
     <?= '' // $this->Html->script('bootstrap.min.js') ?>
@@ -50,8 +50,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a><i class="fas fa-user-circle"></i> <?= $username ?? 'NOT SIGNED IN' ?></a></li>
-                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sign-out"></i> Log Out'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-user-circle"></i> ' . ($activeUser['username'] ?? 'NOT SIGNED IN') ), ['controller' => 'Users', 'action' => 'view', $activeUser['id'] ?? ''], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sign-out"></i> Sign Out'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]) ?></li>
             </ul>
             </ul>
         </div>
@@ -70,7 +70,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-box-full"></i> Batches'), ['controller' => 'Batches', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-flask"></i> Testing'), ['controller' => 'Batches', 'action' => 'testing'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i> Readings'), ['controller' => 'Readings', 'action' => 'index'], ['escape' => false]) ?></li>
-                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i> Notes'), ['controller' => 'Notes', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-comment-alt-lines"></i> Notes'), ['controller' => 'Notes', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-analytics"></i> Reports'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false]) ?></li>
         </nav>
         <?= $this->fetch('content') ?>

@@ -23,10 +23,14 @@ body {
     flex-direction: column;
     justify-content: center;
 }
-.single-panel-centered .panel {
-    width: 400px;
+.login-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.panel {
+    max-width: 600px;
     background: #0004;
-    margin: 0 0 0 15vw;
     border-radius: 6px;
     box-shadow: -1px 1px 5px #000;
     /* Light Source Shadow */
@@ -35,60 +39,84 @@ body {
     opacity: 0;
     position: relative;
     top: 15px;
+    margin: 0 auto;
+}
+.login-panel .panel {
+    margin: 0 0 0 15vw;
+    width: 430px;
 }
 @media only screen and (max-width: 1050px) {
-    .single-panel-centered .panel {
+    .login-panel .panel {
         margin: 0 auto;
     }
 }
-.single-panel-centered .panel h1 {
+.panel h1 {
     text-align: center;
     font-size: 68px;
-    padding: 20px 0 10px;
+    padding: 20px 0 0px;
     font-family: 'Playball', cursive;
     margin: 0;
     font-weight: normal;
 }
-.single-panel-centered .panel h2 {
+.panel h2 {
+    margin: 0;
     text-align: center;
     font-size: 28px;
-    padding: 0 0 15px 0;
+    padding: 0 0 0;
 //font-family: 'Playball', cursive;
 }
-.single-panel-centered .panel form ul {
+.panel h3 {
+    text-align: center;
+}
+.panel form ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.single-panel-centered .panel form ul li {
-    margin: 0;
+.panel form ul li {
+    margin: 0 auto;
     padding: 0;
+    padding: 6px 0;
+    width: 80%;
+}
+.panel form ul li.row {
     display: flex;
     justify-content: center;
-    padding: 6px 0;
+    flex-wrap: wrap;
 }
-.single-panel-centered .panel form ul li > span {
+.panel form ul li > span {
     padding: 0 12px;
     background: #4b4c2c;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.single-panel-centered .panel form ul li > span i {
+.panel form ul li > span i {
     line-height: 50px;
     font-size: 24px;
 }
-.single-panel-centered .panel form ul li div {
-
-    width: 60%;
+.panel form ul li p {
+    width: 80%;
+    margin: 10px auto;
+    font-size: 20px;
+    text-align: center;
+    background: #000000aa;
+    border-radius: 4px;
+    padding: 5px;
 }
-.single-panel-centered .panel form ul li div.message {
+.panel form ul li div {
+    width: 100%;
+}
+.login-panel .panel form ul li div {
+    width: 80%;
+}
+.panel .message {
     text-align: center;
     font-size: 20px;
 }
-.single-panel-centered .panel form ul li div.message.error {
+.panel .error {
     color: #D95A1A;
 }
-.single-panel-centered .panel form ul li input {
+.panel form ul li input {
     width: 100%;
     box-sizing: border-box;
     line-height: 50px;
@@ -96,12 +124,19 @@ body {
     background: #efeeb6;
     color: #24250f;
     border: 1px solid #24250f;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
     font-size: 18px;
 //text-shadow: 1px 1px 1px #646341;
 }
-.single-panel-centered .panel form ul li button, .single-panel-centered .panel form ul li .button {
+.login-panel .panel form ul li input {
+
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.panel form ul li input:focus {
+    background: #cdca9d;
+}
+.panel form ul li button, .panel form ul li .button {
     background: #6e753a;
     box-shadow: -1px 1px 5px #000;
     border-radius: 4px;
@@ -118,19 +153,26 @@ body {
     border-top-color: #8a913d;
     cursor: pointer;
     text-decoration: none;
+    white-space: nowrap;
 }
-.single-panel-centered .panel form ul li button i, .single-panel-centered .panel form ul li .button i {
-    margin-right: 5px;
-}
-.single-panel-centered .panel form ul li button span, .single-panel-centered .panel form ul li .button span {
+.panel form ul li button:hover, .panel form ul li .button:hover {
+    background: #50572b;
+    border-right-color: #767d3b;
+    border-top-color: #767d3b;
 
 }
-.single-panel-centered .panel form ul li a {
+.panel form ul li button i, .panel form ul li .button i {
+    margin-right: 5px;
+}
+.panel form ul li button span, .panel form ul li .button span {
+
+}
+.panel form ul li a {
     box-sizing: border-box;
     margin-right: 25px;
     white-space: nowrap;
 }
-.single-panel-centered .panel form ul li a:last-child {
+.panel form ul li a:last-child {
     margin-right: 0px;
 }
 
@@ -180,35 +222,4 @@ body {
     animation-timing-function: linear;
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-}
-
-/* Underline From Center */
-.hvr-underline-from-center {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    position: relative;
-    overflow: hidden;
-}
-.hvr-underline-from-center:before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 51%;
-    right: 51%;
-    bottom: 0;
-    background: #2098D1;
-    height: 4px;
-    -webkit-transition-property: left, right;
-    transition-property: left, right;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-}
-.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before { /**/
-    left: 0;
-    right: 0;
 }

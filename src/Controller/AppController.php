@@ -75,8 +75,10 @@ class AppController extends Controller
         // continues to work. Also enable the read only actions.
         $this->Auth->allow(['display', 'view', 'index', 'edit', 'add', 'delete']);
 
-        $username = $this->Auth->User('username');
+        $activeUser = [];
+        $activeUser['username'] = $this->Auth->User('username');
+        $activeUser['id'] = $this->Auth->User('id');
         $webroot = Router::url('/', true);
-        $this->set(compact('username', 'webroot'));
+        $this->set(compact('activeUser', 'webroot'));
     }
 }

@@ -13,11 +13,11 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 ?>
-Hi <!--?php echo $user['first_name'] . ' ' . $user['last_name'] ?-->,
+Hi <?= $first_name ?> <?= $last_name ?>,
 
 Congratulations on your new PlantTrack account!
 
-Please click this link to confirm your email address: <!--? echo $_SERVER['HTTP_HOST'] . '/confirm-email/' . sha1($user['id'] . '' . $user['created']) ?--></a>'
+Please click this link to confirm your email address: <a href="<?= $confirmation_url ?>">Confirmation Link</a>'
 
 Thanks,
 

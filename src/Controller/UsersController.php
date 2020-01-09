@@ -18,7 +18,6 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->Auth->allow(['logout', 'login', 'register']);
-        //$this->loadComponent('Email');
     }
 
     /**
@@ -34,6 +33,7 @@ class UsersController extends AppController
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
+
     }
 
     /**
@@ -166,29 +166,23 @@ class UsersController extends AppController
                         $user = $this->Users->newEntity(); // Create a new user
                         $user = $this->Users->patchEntity($user, $data); // Fill user with form data
                         $user['business'] = $businessData; // Add business from session to user
+                        var_dump($user);
                         if ($this->Users->save($user)) { // If the user and business saved properly
-                            $this->Email = new Email('default'); // Create a new email
-                            /*$email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set email from address
-                                ->setTo($user['email'])
-                                ->setSubject('Welcome to PlantTrack!')
-                                ->send('Hi ' . $user['first_name'] . ' ' . $user['last_name'] . ',\n' .
-                                                '\n' .
-                                                'Congratulations on your new PlantTrack account! Please click this link to confirm your email address: <a href="' . $_SERVER['HTTP_HOST'] . '/confirm-email/' . sha1($user['id'] . '' . $user['created']) . '">Confirmation Link</a>');
-                            */
-                            /*
-                            //$this->Email-> delivery = 'smtp';
-                            $this->Email->setTransport(new SmtpTransport());
-                            $this->Email->setFrom('Plant Track ');
-                            $this->Email->setTo ($user['email']);
-                            //$this->set('name', $user['email']);
-                            $this->Email->setSubject('Welcome to PlantTrack!');
-                            $this->Email->viewBuilder()->setTemplate('registration');
-                            $this->Email->setEmailFormat('both');
-                            $this->Email->send();
-                            */
+                            $email = new Email('default'); // Create a new email using default email profile (set in app.config)
+                            $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
+                                ->setTo($user['email']) // Set to address
+                                ->setSubject('Welcome to PlantTrack!') // Set subject
+                                ->setTemplate('owner-register') // Choose while file to send
+                                ->setEmailFormat('both')
+                                ->viewVars([ // Pass variables to the template
+                                    'first_name' => $user['first_name'],
+                                    'last_name' => $user['last_name'],
+                                    'confirmation_url' => $_SERVER['HTTP_HOST'] . '/confirm-email/' . sha1($user['id'] . '' . $user['email'])
+                                ])
+                                ->send(); // Send the email
                             $this->Flash->success(__('Your account has been created but you need to confirm your email address before you can sign in. Please check your email for further instructions.')); // Success message
                             $session->delete('business'); // Delete business from session now that its saved in database
-                            return $this->redirect(['action' => 'login']); // Redirect user to login page
+                            //return $this->redirect(['action' => 'login']); // Redirect user to login page
                         }
                         $this->view = 'register-step-3'; // Set view to step 3
                         $this->set(compact('user', 'errors')); // Save user and error data to view

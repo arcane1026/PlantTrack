@@ -26,7 +26,7 @@ body {
 .single-panel-centered .panel {
     width: 400px;
     background: #0004;
-    margin: 0 0 0 15%;
+    margin: 0 0 0 15vw;
     border-radius: 6px;
     box-shadow: -1px 1px 5px #000;
     /* Light Source Shadow */
@@ -36,12 +36,18 @@ body {
     position: relative;
     top: 15px;
 }
+@media only screen and (max-width: 1050px) {
+    .single-panel-centered .panel {
+        margin: 0 auto;
+    }
+}
 .single-panel-centered .panel h1 {
     text-align: center;
-    font-size: 58px;
+    font-size: 68px;
     padding: 20px 0 10px;
     font-family: 'Playball', cursive;
     margin: 0;
+    font-weight: normal;
 }
 .single-panel-centered .panel h2 {
     text-align: center;
@@ -95,7 +101,7 @@ body {
     font-size: 18px;
 //text-shadow: 1px 1px 1px #646341;
 }
-.single-panel-centered .panel form ul li button {
+.single-panel-centered .panel form ul li button, .single-panel-centered .panel form ul li .button {
     background: #6e753a;
     box-shadow: -1px 1px 5px #000;
     border-radius: 4px;
@@ -103,7 +109,7 @@ body {
     text-shadow: inherit;
     color: inherit;
     font-size: 22px;
-    padding: 7px 30px;
+    padding: 7px 20px;
     margin-top: 15px;
     margin-bottom: 25px;
     font-weight: bold;
@@ -111,12 +117,21 @@ body {
     border-right-color: #8a913d;
     border-top-color: #8a913d;
     cursor: pointer;
+    text-decoration: none;
 }
-.single-panel-centered .panel form ul li button i {
+.single-panel-centered .panel form ul li button i, .single-panel-centered .panel form ul li .button i {
     margin-right: 5px;
 }
-.single-panel-centered .panel form ul li button span {
+.single-panel-centered .panel form ul li button span, .single-panel-centered .panel form ul li .button span {
 
+}
+.single-panel-centered .panel form ul li a {
+    box-sizing: border-box;
+    margin-right: 25px;
+    white-space: nowrap;
+}
+.single-panel-centered .panel form ul li a:last-child {
+    margin-right: 0px;
 }
 
 

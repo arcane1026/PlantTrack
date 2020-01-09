@@ -25,6 +25,10 @@
                 <li>
                     <?= $this->Form->button('<i class="fas fa-sign-in hvr-icon"></i> Sign In', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
                 </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-headset"></i> Help'), '#', ['class' => 'button', 'escape' => false]) ?>
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'button', 'escape' => false]) ?>
+                </li>
             </ul>
         <?= $this->Form->end() ?>
     </div>

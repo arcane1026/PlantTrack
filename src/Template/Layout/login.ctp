@@ -26,11 +26,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('all.min.css') // Font Awesome ?>
-    <?= $this->Html->css('login.css') // Font Awesome ?>
-    <link href="https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap" rel="stylesheet">
-    <?= '' // $this->Html->css('base.css') // CakePHP Built-in CSS Frameworks TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
-    <?= '' // $this->Html->css('style.css') // CakePHP Default CSS styling TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
+    <?= $this->Html->css('https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap') // Google Fonts ?>
+    <?= $this->Html->css('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css') // jQuery UI css ?>
+    <?= $this->Html->css('all.min.css') // Font Awesome icons library ?>
+    <?= $this->Html->css('login.css') // Login page specific CSS ?>
+
+    <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') // jQuery library ?>
+    <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js') // jQuery UI javascript ?>
+    <?= $this->Html->script('popmotion.min.js') // Popmotion Javascript library ?>
+    <?= $this->Html->script('login.js') // Login page javascript ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

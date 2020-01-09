@@ -6,7 +6,6 @@
 ?>
 <div id="root" class="full-screen-background single-panel-centered img-background">
     <div class="panel">
-
         <?= $this->Form->create() ?>
             <ul>
                 <li>
@@ -14,20 +13,17 @@
                 </li>
                 <li>
                     <span><i class="fas fa-fw fa-user"></i></span>
-                    <!--<input type="text" placeholder="Username" />-->
-                    <?= $this->Form->control('username') ?>
+                    <?= $this->Form->control('username', ['placeholder' => 'Username', 'label' => false]) // Username input element ?>
                 </li>
                 <li>
                     <span><i class="fas fa-fw fa-key"></i></span>
-                    <!--<input type="password" placeholder="Password" />-->
-                    <?= $this->Form->control('password') ?>
+                    <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false]) ?>
                 </li>
                 <li>
-                    <!--<button>
-                        <i class="fas fa-sign-in"></i>
-                        <span>Sign In</span>
-                    </button>-->
-                    <?= $this->Form->button('login') ?>
+                    <?= $this->Flash->render() // Render flash message if one is set.?>
+                </li>
+                <li>
+                    <?= $this->Form->button('<i class="fas fa-sign-in hvr-icon"></i> Sign In', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
                 </li>
             </ul>
         <?= $this->Form->end() ?>

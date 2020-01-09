@@ -13,7 +13,7 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('business_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
+                <!--<th scope="col"><?= $this->Paginator->sort('password') ?></th>-->
                 <th scope="col"><?= $this->Paginator->sort('role') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
@@ -33,15 +33,15 @@
                 <td><?= $this->Number->format($user->id) ?></td>
                 <td><?= $user->has('business') ? $this->Html->link($user->business->name, ['controller' => 'Businesses', 'action' => 'view', $user->business->id]) : '' ?></td>
                 <td><?= h($user->username) ?></td>
-                <td><?= h($user->password) ?></td>
+                <!--<td><?= h($user->password) ?></td>-->
                 <td><?= $this->Number->format($user->role) ?></td>
                 <td><?= h($user->first_name) ?></td>
                 <td><?= h($user->last_name) ?></td>
                 <td><?= h($user->email) ?></td>
                 <td><?= h($user->phone) ?></td>
                 <td><?= h($user->resource_path) ?></td>
-                <td><?= h($user->confirmed) ?></td>
-                <td><?= h($user->locked) ?></td>
+                <td><?= ($user->confirmed) ? '<i class="fas fa-check"></i>' : '<i class="fas fa-ban"></i>' ?></td>
+                <td><?= ($user->locked) ? '<i class="fas fa-check"></i>' : '<i class="fas fa-ban"></i>' ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td class="actions">

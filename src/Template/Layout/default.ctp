@@ -66,7 +66,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-flask"></i> Testing'), ['controller' => 'Batches', 'action' => 'testing'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i> Readings'), ['controller' => 'Readings', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i> Notes'), ['controller' => 'Notes', 'action' => 'index'], ['escape' => false]) ?></li>
-                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-clipboard-list-check"></i> Reports'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-analytics"></i> Reports'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false]) ?></li>
         </nav>
         <?= $this->fetch('content') ?>
     </div>

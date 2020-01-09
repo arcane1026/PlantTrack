@@ -30,7 +30,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('all.min.css') // Font Awesome ?>
     <?= $this->Html->css('base.css') // CakePHP Built-in CSS Frameworks TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
     <?= $this->Html->css('style.css') // CakePHP Default CSS styling TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
-    <?= $this->Html->css('default.css') // Font Awesome ?>
+    <?= '' // $this->Html->css('bootstrap.min.css') // CSS specific to the default layout ?>
+    <?= '' // $this->Html->css('bootstrap-grid.min.css') // CSS specific to the default layout ?>
+    <?= '' // $this->Html->css('bootstrap-reboot.min.css') // CSS specific to the default layout ?>
+    <?= $this->Html->css('default.css') // CSS specific to the default layout ?>
+
+    <?= '' // $this->Html->script('bootstrap.min.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

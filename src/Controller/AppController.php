@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Routing\Router;
 use Cake\Event\Event;
 
 /**
@@ -75,6 +76,7 @@ class AppController extends Controller
         $this->Auth->allow(['display', 'view', 'index', 'edit', 'add', 'delete']);
 
         $username = $this->Auth->User('username');
-        $this->set(compact('username'));
+        $webroot = Router::url('/', true);
+        $this->set(compact('username', 'webroot'));
     }
 }

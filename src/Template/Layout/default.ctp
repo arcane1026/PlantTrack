@@ -26,9 +26,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <?= $this->Html->css('https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap') // Google Fonts ?>
     <?= $this->Html->css('all.min.css') // Font Awesome ?>
     <?= $this->Html->css('base.css') // CakePHP Built-in CSS Frameworks TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
     <?= $this->Html->css('style.css') // CakePHP Default CSS styling TODO: EVENTUALLY REMOVE ONCE OUR UI IS COMPLETE ?>
+    <?= $this->Html->css('default.css') // Font Awesome ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -38,7 +40,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1><a href=""><i class="fal fa-seedling"></i> Plant Track<?php //echo $this->fetch('title') ?></a></h1>
+                <h1><a href="<?= $webroot ?>"><i class="fal fa-seedling"></i> Plant Track<?php //echo $this->fetch('title') ?></a></h1>
             </li>
         </ul>
         <div class="top-bar-section">
@@ -53,14 +55,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="container clearfix">
         <nav class="large-3 medium-4 columns" id="actions-sidebar">
             <ul class="side-nav">
-                <li class="heading"><?= __('Controllers') ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-tachometer-alt"></i> Dashboard'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-building"></i> Businesses'), ['controller' => 'Businesses', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-user"></i> Users'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false]) ?></li>
-                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-seedling"></i> Plants'), ['controller' => 'Plants', 'action' => 'index'], ['escape' => false]) ?></li>
-                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-list-ul"></i> Growth Profiles'), ['controller' => 'GrowthProfiles', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-leaf"></i> Plants'), ['controller' => 'Plants', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-hand-holding-seedling"></i> Growth Profiles'), ['controller' => 'GrowthProfiles', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('Stages'), ['controller' => 'Stages', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('Steps'), ['controller' => 'Steps', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-box-full"></i> Batches'), ['controller' => 'Batches', 'action' => 'index'], ['escape' => false]) ?></li>
+                <li><?= $this->Html->link(__('<i class="fas fa-fw fa-flask"></i> Testing'), ['controller' => 'Batches', 'action' => 'testing'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i> Readings'), ['controller' => 'Readings', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i> Notes'), ['controller' => 'Notes', 'action' => 'index'], ['escape' => false]) ?></li>
                 <li><?= $this->Html->link(__('<i class="fas fa-fw fa-clipboard-list-check"></i> Reports'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false]) ?></li>

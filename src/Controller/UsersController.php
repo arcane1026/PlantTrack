@@ -133,4 +133,9 @@ class UsersController extends AppController
         $this->Flash->success('You are now logged out.');
         return $this->redirect($this->Auth->logout());
     }
+
+    public function dashboard()
+    {
+
+    }
 }

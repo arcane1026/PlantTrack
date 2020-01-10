@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Mailer\Email;
 use Cake\Mailer\Transport\SmtpTransport;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -17,7 +18,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'login', 'register']);
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail']);
     }
 
     /**
@@ -124,17 +125,31 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+            //var_dump($user);
+            if ($user) { // Check that user exists after checking username and password
+                if ($user['confirmed'] === true) { // Check that user has confirmed their email address
+                    $this->Auth->setUser($user); // Sign user in
+                    return $this->redirect($this->Auth->redirectUrl());
+                } else  {
+                    $resendURL = Router::url(['controller' => 'Users', 'action' => 'resend-activation-email']) . '/' . base64_encode($user['email']);
+
+                    $this->Flash->error('You must confirm your email address. <a href="' . $resendURL . '">Click Here</a> to resend the confirmation email.', ['escape' => false]);
+                }
+            } else {
+                $this->Flash->error('Your username or password is incorrect.');
             }
-            $this->Flash->error('Your username or password is incorrect.');
         }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('You are now logged out.');
+        return $this->redirect($this->Auth->logout());
     }
 
     public function register()
     {
-        $this->layout = 'login'; // Set layout to login
+        $this->viewBuilder()->setLayout('login'); // Set layout to login
         if ($this->request->is('post')) { // Check if is post request
             $data = $this->request->getData(); // Get form data
             if (empty($data)) { // If no form data, step 1 button click
@@ -166,23 +181,23 @@ class UsersController extends AppController
                         $user = $this->Users->newEntity(); // Create a new user
                         $user = $this->Users->patchEntity($user, $data); // Fill user with form data
                         $user['business'] = $businessData; // Add business from session to user
-                        var_dump($user);
                         if ($this->Users->save($user)) { // If the user and business saved properly
-                            $email = new Email('default'); // Create a new email using default email profile (set in app.config)
+                            /*$email = new Email('default'); // Create a new email using default email profile (set in app.config)
                             $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
                                 ->setTo($user['email']) // Set to address
                                 ->setSubject('Welcome to PlantTrack!') // Set subject
                                 ->setTemplate('owner-register') // Choose while file to send
-                                ->setEmailFormat('both')
+                                ->setEmailFormat('both') // Send both text and HTML variants
                                 ->viewVars([ // Pass variables to the template
                                     'first_name' => $user['first_name'],
                                     'last_name' => $user['last_name'],
-                                    'confirmation_url' => $_SERVER['HTTP_HOST'] . '/confirm-email/' . sha1($user['id'] . '' . $user['email'])
+                                    'confirmation_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/confirm-email/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email'])
                                 ])
-                                ->send(); // Send the email
+                                ->send(); // Send the email*/
+                            $this->sendActivationEmail($user);
                             $this->Flash->success(__('Your account has been created but you need to confirm your email address before you can sign in. Please check your email for further instructions.')); // Success message
                             $session->delete('business'); // Delete business from session now that its saved in database
-                            //return $this->redirect(['action' => 'login']); // Redirect user to login page
+                            return $this->redirect(['action' => 'login']); // Redirect user to login page
                         }
                         $this->view = 'register-step-3'; // Set view to step 3
                         $this->set(compact('user', 'errors')); // Save user and error data to view
@@ -192,14 +207,57 @@ class UsersController extends AppController
         }
     }
 
-    public function logout()
+    public function confirmEmail($encryptedEmail = null, $accountIdHash = null)
     {
-        $this->Flash->success('You are now logged out.');
-        return $this->redirect($this->Auth->logout());
+        $user = $this->Users->find('all')->where(['email' => base64_decode($encryptedEmail)])->first(); // Find the first user who's email matches the decoded email address
+        if (sha1($user['id'] . $user['email']) === $accountIdHash) { // Check if the hash matches the sha1 of the user id and user's email address.
+            $user['confirmed'] = 1; // Update the user's confirmed value to true
+            $this->Users->save($user); // Save the user
+            $this->Flash->success(__('Your email address has been confirmed. You are now able to sign in.')); // Notify the user
+        } else {
+            $this->Flash->error(__('Sorry we were unable to confirm your email address. Please contact support for further assistance.'));
+        }
+        return $this->redirect(['action' => 'login']); // Redirect user to login page
+        $this->layout = 'login';
+        $this->view = 'login';
+        //return $this->redirect(['action' => 'login']); // Redirect user to login page
+    }
+
+    public function resendActivationEmail($email = null)
+    {
+        if (!empty($email)) {
+            $user = $this->Users->find('all')->where(['email' => base64_decode($email)])->first();
+            $this->sendActivationEmail($user);
+            $this->Flash->success(__('Confirmation email sent.')); // Notify the user
+        } else {
+            $this->Flash->error(__('Unable to send confirmation email.'));
+        }
+        return $this->redirect(['action' => 'login']); // Redirect user to login page
+        $this->view = 'login';
+        $this->layout = 'login';
     }
 
     public function dashboard()
     {
 
+    }
+
+    private function sendActivationEmail($user) {
+        $activateURL = $url = Router::url(['controller' => 'Users', 'action' => 'confirm-email'], ['_full' => true]) . '/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email']);
+        $email = new Email('default'); // Create a new email using default email profile (set in app.config)
+        //var_dump($activateURL);
+        //var_dump($email);
+        var_dump($user);
+        $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
+        ->setTo($user['email']) // Set to address
+        ->setSubject('Welcome to PlantTrack!') // Set subject
+        ->setTemplate('owner-register') // Choose while file to send
+        ->setEmailFormat('both') // Send both text and HTML variants
+        ->viewVars([ // Pass variables to the template
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'confirmation_url' => $activateURL
+        ])
+        ->send(); // Send the email
     }
 }

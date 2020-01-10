@@ -66,6 +66,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
+    $routes->connect('/confirm-email/*', ['controller' => 'Users', 'action' => 'confirm_email']);
+    $routes->connect('/resend-activation-email/*', ['controller' => 'Users', 'action' => 'resend_activation_email']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

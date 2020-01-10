@@ -1,6 +1,6 @@
 CREATE DATABASE plant_track;
 
-USE plant_track;  
+USE plant_track;
 
 CREATE TABLE businesses (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -131,4 +131,13 @@ CREATE TABLE reports (
     modified			DATETIME,
     FOREIGN KEY user_key_reports (user_id) REFERENCES users(id),
     FOREIGN KEY batch_key_reports (batch_id) REFERENCES batches(id)
+);
+
+CREATE TABLE access_log (
+    id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username 	 		VARCHAR(255)	NOT NULL,
+    password     		VARCHAR(255)	,
+    ip_address          VARCHAR(30)     ,
+    result              BOOLEAN         NOT NULL DEFAULT 0 COMMENT '0: Failure, 1: Success',
+    created             DATETIME
 );

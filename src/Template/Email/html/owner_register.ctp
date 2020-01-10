@@ -13,12 +13,12 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 ?>
-Hi <?= $first_name ?> <?= $last_name ?>,
-
-Congratulations on your new PlantTrack account!
-
-Please click this link to confirm your email address: <a href="<?= $confirmation_url ?>">Confirmation Link</a>'
-
-Thanks,
-
-The PlantTrack Team
+Hi <?= $first_name ?> <?= $last_name ?>,<br />
+<br />
+Congratulations on your new PlantTrack account!<br />
+<br />
+Please click this link to confirm your email address: <a href="<?= $confirmation_url ?>">Confirmation Link</a><br />
+<br />
+Thanks,<br />
+<br />
+The PlantTrack Team<br />

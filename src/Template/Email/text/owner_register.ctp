@@ -19,6 +19,7 @@ Congratulations on your new PlantTrack account!
 
 Please navigate to this URL in your browser to confirm your email address: <?= $confirmation_url ?>
 
+
 Thanks,
 
 The PlantTrack Team

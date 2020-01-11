@@ -29,7 +29,7 @@ body {
     justify-content: center;
 }
 .panel {
-    max-width: 600px;
+    width: 500px;
     background: #0004;
     border-radius: 6px;
     box-shadow: -1px 1px 5px #000;

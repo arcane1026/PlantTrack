@@ -2,8 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Mailer\Email;
 use Cake\Mailer\Transport\SmtpTransport;
+use Cake\Mailer\Email;
 use Cake\Routing\Router;
 
 /**
@@ -119,6 +119,19 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * Dashboard method
+     */
+    public function dashboard()
+    {
+
+    }
+
+    /**
+     * Login method
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function login()
     {
         $this->layout = 'login';
@@ -141,12 +154,22 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * Logout method
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function logout()
     {
         $this->Flash->success('You are now logged out.');
         return $this->redirect($this->Auth->logout());
     }
 
+    /**
+     * Register method
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function register()
     {
         $this->viewBuilder()->setLayout('login'); // Set layout to login
@@ -182,18 +205,6 @@ class UsersController extends AppController
                         $user = $this->Users->patchEntity($user, $data); // Fill user with form data
                         $user['business'] = $businessData; // Add business from session to user
                         if ($this->Users->save($user)) { // If the user and business saved properly
-                            /*$email = new Email('default'); // Create a new email using default email profile (set in app.config)
-                            $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
-                                ->setTo($user['email']) // Set to address
-                                ->setSubject('Welcome to PlantTrack!') // Set subject
-                                ->setTemplate('owner-register') // Choose while file to send
-                                ->setEmailFormat('both') // Send both text and HTML variants
-                                ->viewVars([ // Pass variables to the template
-                                    'first_name' => $user['first_name'],
-                                    'last_name' => $user['last_name'],
-                                    'confirmation_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/confirm-email/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email'])
-                                ])
-                                ->send(); // Send the email*/
                             $this->sendActivationEmail($user);
                             $this->Flash->success(__('Your account has been created but you need to confirm your email address before you can sign in. Please check your email for further instructions.')); // Success message
                             $session->delete('business'); // Delete business from session now that its saved in database
@@ -207,6 +218,13 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * Confirm email method
+     *
+     * @param null $encryptedEmail
+     * @param null $accountIdHash
+     * @return \Cake\Http\Response|null
+     */
     public function confirmEmail($encryptedEmail = null, $accountIdHash = null)
     {
         $user = $this->Users->find('all')->where(['email' => base64_decode($encryptedEmail)])->first(); // Find the first user who's email matches the decoded email address
@@ -218,11 +236,16 @@ class UsersController extends AppController
             $this->Flash->error(__('Sorry we were unable to confirm your email address. Please contact support for further assistance.'));
         }
         return $this->redirect(['action' => 'login']); // Redirect user to login page
-        $this->layout = 'login';
-        $this->view = 'login';
-        //return $this->redirect(['action' => 'login']); // Redirect user to login page
+        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
+        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
+    /**
+     * Resend activation email
+     *
+     * @param null $email
+     * @return \Cake\Http\Response|null
+     */
     public function resendActivationEmail($email = null)
     {
         if (!empty($email)) {
@@ -233,21 +256,18 @@ class UsersController extends AppController
             $this->Flash->error(__('Unable to send confirmation email.'));
         }
         return $this->redirect(['action' => 'login']); // Redirect user to login page
-        $this->view = 'login';
-        $this->layout = 'login';
+        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
+        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
-    public function dashboard()
-    {
-
-    }
-
+    /**
+     * Sends activation email to the specified user.
+     *
+     * @param $user
+     */
     private function sendActivationEmail($user) {
         $activateURL = $url = Router::url(['controller' => 'Users', 'action' => 'confirm-email'], ['_full' => true]) . '/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email']);
         $email = new Email('default'); // Create a new email using default email profile (set in app.config)
-        //var_dump($activateURL);
-        //var_dump($email);
-        var_dump($user);
         $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
         ->setTo($user['email']) // Set to address
         ->setSubject('Welcome to PlantTrack!') // Set subject

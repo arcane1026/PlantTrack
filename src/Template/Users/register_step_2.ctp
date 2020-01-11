@@ -54,7 +54,7 @@
                 </li>
                 <li class="row">
                     <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-left hvr-icon"></i> Cancel'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'button hvr-icon-pulse', 'escape' => false]) ?>
-                    <?= $this->Form->button('Continue Registration <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
+                    <?= $this->Form->button('Next <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
                 </li>
             </ul>
         <?= $this->Form->end() ?>

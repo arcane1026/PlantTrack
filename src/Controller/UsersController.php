@@ -137,19 +137,40 @@ class UsersController extends AppController
         $this->layout = 'login';
 
         if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            //var_dump($user);
-            if ($user) { // Check that user exists after checking username and password
-                if ($user['confirmed'] === true) { // Check that user has confirmed their email address
-                    $this->Auth->setUser($user); // Sign user in
-                    return $this->redirect($this->Auth->redirectUrl());
-                } else  {
-                    $resendURL = Router::url(['controller' => 'Users', 'action' => 'resend-activation-email']) . '/' . base64_encode($user['email']);
-
-                    $this->Flash->error('You must confirm your email address. <a href="' . $resendURL . '">Click Here</a> to resend the confirmation email.', ['escape' => false]);
+            $this->loadModel('AccessLog');
+            $formData = $this->request->getData();
+            $recentAccessAttempts = $this->AccessLog->find('all', ['conditions' => [
+                'AccessLog.created >=' => date('Y-m-d H:i:s', strtotime('-30 minutes'))]]
+            )->where(['username' => $formData['username'], 'result' => false])->count();
+            if ($recentAccessAttempts < 11) {
+                $logEntity = $this->AccessLog->NewEntity();
+                $logEntity->username = $formData['username'];
+                $logEntity->ipAddress = $this->request->clientIp();
+                $user = $this->Auth->identify();
+                //var_dump($user);
+                if ($user) { // Check that user exists after checking username and password
+                    $logEntity->result = 1;
+                    if ($user['confirmed'] === true) { // Check that user has confirmed their email address
+                        $this->Auth->setUser($user); // Sign user in
+                        $this->AccessLog->save($logEntity);
+                        return $this->redirect($this->Auth->redirectUrl());
+                    } else {
+                        $resendURL = Router::url(['controller' => 'Users', 'action' => 'resend-activation-email']) . '/' . base64_encode($user['email']);
+                        $this->Flash->error('You must confirm your email address. <a href="' . $resendURL . '">Click Here</a> to resend the confirmation email.', ['escape' => false]);
+                    }
+                } else {
+                    $logEntity->password = $formData['password'];
+                    $logEntity->result = 0;
+                    $msg = 'Your username or password is incorrect.';
+                    if ($recentAccessAttempts > 5) {
+                        $msg .= ' You have ' . (11 - $recentAccessAttempts) . ' attempt(s) remaining before being locked out.';
+                    }
+                    $this->Flash->error($msg);
                 }
+                $this->AccessLog->save($logEntity);
             } else {
-                $this->Flash->error('Your username or password is incorrect.');
+                // Too many access attempts
+                $this->Flash->error('You have exceeded the maximum allowable number of access attempts and this account is now temporarily locked.');
             }
         }
     }

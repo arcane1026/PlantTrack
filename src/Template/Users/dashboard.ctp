@@ -8,7 +8,7 @@
     <h3><?= __('Dashboard') ?></h3>
     <p>Dashboard Content</p>
 </div>-->
-        <nav class="navbar navbar-transparent navbar-absolute">
+        <nav id="page-navbar" class="navbar navbar-transparent navbar-absolute">
             <div class="container-fluid">
                 <div>
                     <div class="navbar-minimize">
@@ -17,14 +17,14 @@
                             <i class="far fa-bars visible-on-sidebar-mini"></i>
                         </button>
                     </div>
-                    <!--<a class="navbar-brand" href=""><?= __('Dashboard') ?></a>-->
-                    <?= $this->Html->link(__('<i class="fas fa-tachometer-alt"></i> Dashboard'), ['controller' => 'Users', 'action' => 'dashboard'], ['class' => 'navbar-brand', 'escape' => false]) ?>
+                    <a class="navbar-brand"><?= __('Dashboard') ?></a>
                 </div>
-
-
-
-
-
+                <div class="form-inline">
+                    <a class="nav-link btn btn-rose" href="#">Button</a>
+                    <a class="nav-link btn btn-info" href="#">Button</a>
+                    <a class="nav-link btn btn-success" href="#">Button</a>
+                    <a class="nav-link btn btn-danger" href="#">Button</a>
+                </div>
                 <!--<div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user-circle"></i> Username

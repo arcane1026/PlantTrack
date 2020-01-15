@@ -58,20 +58,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         -->
 
         <div class="logo">
-            <a href="<?= $webroot ?>" class="simple-text logo-mini">
-                <i class="fal fa-seedling" style="font-size: 26px;"></i>
-            </a>
-
-            <a href="<?= $webroot ?>" class="simple-text logo-normal">
-                Plant Track
-            </a>
+            <?= $this->Html->link(__('<i class="fal fa-seedling" style="font-size: 26px;"></i>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false, '_full' => true, 'class' => 'simple-text logo-mini']) ?>
+            <?= $this->Html->link(__('Plant Track'), ['controller' => 'Users', 'action' => 'dashboard'], ['_full' => true, 'class' => 'simple-text logo-normal']) ?>
         </div>
 
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
                     <!--<img src="../assets/img/faces/avatar.jpg">-->
-                    <i class="fas fa-user-circle" style="font-size: 34px;"></i>
+                    <i class="fas fa-user-circle" style="font-size: 34px; color: green;"></i>
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -82,93 +77,55 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </a>
                     <div class="clearfix"></div>
                     <div class="collapse" id="collapseExample">
-                        <ul class="nav">
+                        <ul class="nav flex-column list-unstyled">
                             <li>
-                                <a href="#">
-                                    <span class="sidebar-mini"> MP </span>
-                                    <span class="sidebar-normal"> My Profile </span>
-                                </a>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user"></i>View Profile</span>'), ['controller' => 'Users', 'action' => 'view'], ['escape' => false]) ?>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="sidebar-mini"> EP </span>
-                                    <span class="sidebar-normal"> Edit Profile </span>
-                                </a>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-edit"></i>Edit Profile</span>'), ['controller' => 'Users', 'action' => 'edit'], ['escape' => false]) ?>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="sidebar-mini"> S </span>
-                                    <span class="sidebar-normal"> Settings </span>
-                                </a>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-cog"></i>User Settings</span>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false]) ?>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <ul class="list-unstyled components">
+            <ul class="nav user flex-column list-unstyled components">
 
                 <li class="active">
-                    <a href="./dashboard.html">
-                        <p> <i class="fas fa-tachometer"></i> Dashboard </p>
-                    </a>
+                    <?= $this->Html->link(__('<i class="fas fa-tachometer-alt"></i><p>Dashboard</p>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false ]) ?>
                 </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-box-full"></i><p>Batches</p>'), ['controller' => 'Batches', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-flask"></i><p>Testing</p>'), ['controller' => 'Batches', 'action' => 'testing'], ['escape' => false ]) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-analytics"></i><p>Reports</p>'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+            </ul>
+            <ul class="nav user flex-column list-unstyled components">
 
                 <li>
-                    <a data-toggle="collapse" href="#pagesExamples">
-                        <i class="material-icons">image</i>
-                        <p> Pages
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-
-                    <div class="collapse" id="pagesExamples">
-                        <ul class=" list-unstyled">
-                            <li>
-                                <a href="./pages/pricing.html">
-                                    <span class="sidebar-mini"> P </span>
-                                    <span class="sidebar-normal"> Pricing </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/rtl.html">
-                                    <span class="sidebar-mini"> RS </span>
-                                    <span class="sidebar-normal"> RTL Support </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/timeline.html">
-                                    <span class="sidebar-mini"> T </span>
-                                    <span class="sidebar-normal"> Timeline </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/login.html">
-                                    <span class="sidebar-mini"> LP </span>
-                                    <span class="sidebar-normal"> Login Page </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/register.html">
-                                    <span class="sidebar-mini"> RP </span>
-                                    <span class="sidebar-normal"> Register Page </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/lock.html">
-                                    <span class="sidebar-mini"> LSP </span>
-                                    <span class="sidebar-normal"> Lock Screen Page </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./pages/user.html">
-                                    <span class="sidebar-mini"> UP </span>
-                                    <span class="sidebar-normal"> User Profile </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <?= $this->Html->link(__('<i class="fas fa-hand-holding-seedling"></i><p>Growth Profiles</p>'), ['controller' => 'GrowthProfiles', 'action' => 'index'], ['escape' => false ]) ?>
                 </li>
-
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-leaf"></i><p>Plants</p>'), ['controller' => 'Plants', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+            </ul>
+            <ul class="nav flex-column list-unstyled components">
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-building"></i><p>Business Info</p>'), ['controller' => 'Businesses', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-users"></i><p>Employees</p>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(__('<i class="fas fa-users-crown"></i><p>Managers</p>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
+                </li>
+<!--
                 <li>
                     <a data-toggle="collapse" href="#componentsExamples">
                         <i class="material-icons">apps</i>
@@ -346,11 +303,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <i class="material-icons">date_range</i>
                         <p> Calendar </p>
                     </a>
-                </li>
+                </li> -->
 
             </ul>
         </div>
-        <div class="sidebar-background" style="background-image: url(http://static.coastlineapplications.com/plant_track/plant_bg.jpeg); background-position: 70% center; "></div></div>
+        <div class="sidebar-background" style="background-image: url(http://static.coastlineapplications.com/plant_track/plant_bg4.jpeg); background-position: 70% center; "></div></div>
 
     <div class="main-panel">
         <?= $this->fetch('content') ?>

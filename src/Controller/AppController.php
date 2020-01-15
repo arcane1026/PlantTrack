@@ -79,6 +79,6 @@ class AppController extends Controller
         $activeUser['username'] = $this->Auth->User('username');
         $activeUser['id'] = $this->Auth->User('id');
         $webroot = Router::url('/', true);
-        $this->set(compact('activeUser', 'webroot'));
+        $this->set(compact('activeUser', 'webroot', 'pageTitle'));
     }
 }

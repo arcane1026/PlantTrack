@@ -281,6 +281,27 @@ class UsersController extends AppController
         $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
+    public function changePassword() {
+        if ($this->request->is('post')) { // Check if request is post
+            $data = $this->request->getData(); // Get data from post
+            if ($data['new-password'] === $data['repeat-new-password']) { // Check if new password and repeat new password match
+                $user = $this->Users->get($this->Auth->User('id')); // Get the current user object from the database
+                $data['password'] = $data['new-password']; // Set the current password equal to the new password in the form data
+                $data = array_intersect_key( $data, array_flip( ['password'] ) ); // Remove all elements from data array except the new password that is now stored in 'password' key
+                $user = $this->Users->patchEntity($user, $data); // Patch user entity with new password
+                if ($this->Users->save($user)) { // If saving user to DB was successful
+                    $this->Flash->success(__('Your password has been changed.')); // Message success!
+                    return $this->redirect(['action' => 'dashboard']); // Redirect user to dashboard with success message.
+                }
+                $this->Flash->error(__('Error saving new password.')); // Generate error message
+            } else {
+                $this->Flash->error(__('New Password and Repeat New Password fields must match.')); // Generate error message
+            }
+        }
+        $user = $this->Users->newEntity(); // Create empty user for view
+        $this->set(compact('user')); // Send user data to the view
+    }
+
     /**
      * Sends activation email to the specified user.
      *

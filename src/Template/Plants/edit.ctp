@@ -32,17 +32,6 @@
                     </div>
                     <div class="card-content">
                         <div class="row">
-                            <label class="col-sm-2 label-on-left">User</label>
-
-                            <div class="col-sm-10">
-                                <div class="form-group label-floating is-empty">
-                                    <label class="control-label"></label>
-                                    <?= $this->Form->control('user_id', ['options' => $users, 'label' => false, 'class' => 'form-control']); ?>
-                                    <span class="help-block">A block of help text that breaks onto a new line.</span>
-                                    <span class="material-input"></span></div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <label class="col-sm-2 label-on-left">Name</label>
 
                             <div class="col-sm-10">
@@ -101,6 +90,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group form-button">
+                                    <?= $this->Html->link(__('Save Plant'), ['controller' => 'Plants', 'action' => 'index'], ['class' => 'btn btn-fill btn-rose']) ?>
                                     <?= $this->Form->button(__('Save Plant'), ['class' => 'btn btn-fill btn-rose btn-right']) ?>
                                 </div>
                             </div>

@@ -78,7 +78,20 @@ class AppController extends Controller
         $activeUser = [];
         $activeUser['username'] = $this->Auth->User('username');
         $activeUser['id'] = $this->Auth->User('id');
+        $activeUser['business_id'] = $this->Auth->User('business_id');
         $webroot = Router::url('/', true);
-        $this->set(compact('activeUser', 'webroot', 'pageTitle'));
+        $controller = $this->getName();
+        $action = $this->request->getParam('action');
+        $activePrimaryNav = $controller;
+        if ($controller === 'Batches') {
+            if ($action === 'testing') {
+                $activePrimaryNav = 'Testing';
+            }
+        } elseif ($controller === 'Users') {
+            if ($action === 'dashboard') {
+                $activePrimaryNav = 'Dashboard';
+            }
+        }
+        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav'));
     }
 }

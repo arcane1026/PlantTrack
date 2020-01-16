@@ -70,19 +70,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                    <span>
-                         <?= $activeUser['username'] ?? 'NOT SIGNED IN' ?>
-                        <b class="caret"></b>
-                    </span>
+                        <span>
+                             <?= $activeUser['username'] ?? 'NOT SIGNED IN' ?>
+                            <i class="fas fa-caret-down caret" style="font-size: 30px; margin-top: -15px;"></i>
+                        </span>
                     </a>
                     <div class="clearfix"></div>
                     <div class="collapse" id="collapseExample">
                         <ul class="nav flex-column list-unstyled">
                             <li>
-                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user"></i>View Profile</span>'), ['controller' => 'Users', 'action' => 'view'], ['escape' => false]) ?>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user"></i>View Profile</span>'), ['controller' => 'Users', 'action' => 'view', $activeUser['id']], ['escape' => false]) ?>
                             </li>
                             <li>
-                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-edit"></i>Edit Profile</span>'), ['controller' => 'Users', 'action' => 'edit'], ['escape' => false]) ?>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-edit"></i>Edit Profile</span>'), ['controller' => 'Users', 'action' => 'edit', $activeUser['id']], ['escape' => false]) ?>
                             </li>
                             <li>
                                 <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-cog"></i>User Settings</span>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false]) ?>
@@ -91,40 +91,61 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </div>
                 </div>
             </div>
+            <div class="user">
+                <div class="photo" style=" border-radius: 0px; padding: 5px 0 0 5px">
+                    <!--<img src="../assets/img/faces/avatar.jpg">-->
+                    <i class="fas fa-building" style="font-size: 24px; color: #fff;"></i>
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#businessCollapse" class="collapsed">
+                        <span>
+                            Business
+                            <i class="fas fa-caret-down caret" style="font-size: 30px; margin-top: -15px;"></i>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div class="collapse" id="businessCollapse">
+                        <ul class="nav flex-column list-unstyled">
+                            <li>
+                                <?= $this->Html->link(__('<i class="fal fa-info"></i>View Information'), ['controller' => 'Businesses', 'action' => 'view', $activeUser['business_id']], ['escape' => false ]) ?>
+                            </li>
+                            <li>
+                                <?= $this->Html->link(__('<i class="fal fa-edit"></i>Edit Information'), ['controller' => 'Businesses', 'action' => 'edit', $activeUser['business_id']], ['escape' => false ]) ?>
+                            </li>
+                            <li>
+                                <?= $this->Html->link(__('<i class="fal fa-users"></i>Manage Employees'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
+                            </li>
+                            <li>
+                                <?= $this->Html->link(__('<i class="fal fa-cogs"></i>Application Settings'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <ul class="nav user flex-column list-unstyled components">
 
-                <li class="active">
+                <li <?= ($activePrimaryNav === 'Dashboard') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-tachometer-alt"></i><p>Dashboard</p>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false ]) ?>
                 </li>
-                <li>
+                <li <?= ($activePrimaryNav === 'Batches') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-box-full"></i><p>Batches</p>'), ['controller' => 'Batches', 'action' => 'index'], ['escape' => false ]) ?>
                 </li>
-                <li>
+                <li <?= ($activePrimaryNav === 'Testing') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-flask"></i><p>Testing</p>'), ['controller' => 'Batches', 'action' => 'testing'], ['escape' => false ]) ?>
                 </li>
-                <li>
+                <li <?= ($activePrimaryNav === 'Reports') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-analytics"></i><p>Reports</p>'), ['controller' => 'Reports', 'action' => 'index'], ['escape' => false ]) ?>
                 </li>
             </ul>
-            <ul class="nav user flex-column list-unstyled components">
+            <ul class="nav flex-column list-unstyled components">
 
-                <li>
+                <li <?= ($activePrimaryNav === 'GrowthProfiles') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-hand-holding-seedling"></i><p>Growth Profiles</p>'), ['controller' => 'GrowthProfiles', 'action' => 'index'], ['escape' => false ]) ?>
                 </li>
-                <li>
+                <li <?= ($activePrimaryNav === 'Plants') ? 'class="active"' : '' ?>>
                     <?= $this->Html->link(__('<i class="fas fa-leaf"></i><p>Plants</p>'), ['controller' => 'Plants', 'action' => 'index'], ['escape' => false ]) ?>
                 </li>
             </ul>
-            <ul class="nav flex-column list-unstyled components">
-                <li>
-                    <?= $this->Html->link(__('<i class="fas fa-building"></i><p>Business Info</p>'), ['controller' => 'Businesses', 'action' => 'index'], ['escape' => false ]) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(__('<i class="fas fa-users"></i><p>Employees</p>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(__('<i class="fas fa-users-crown"></i><p>Managers</p>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false ]) ?>
-                </li>
 <!--
                 <li>
                     <a data-toggle="collapse" href="#componentsExamples">
@@ -303,9 +324,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <i class="material-icons">date_range</i>
                         <p> Calendar </p>
                     </a>
-                </li> -->
+                </li>
 
-            </ul>
+            </ul>-->
         </div>
         <div class="sidebar-background" style="background-image: url(http://static.coastlineapplications.com/plant_track/plant_bg4.jpeg); background-position: 70% center; "></div></div>
 
@@ -355,25 +376,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--

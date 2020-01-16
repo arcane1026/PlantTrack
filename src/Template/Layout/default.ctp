@@ -58,19 +58,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         -->
 
         <div class="logo">
-            <?= $this->Html->link(__('<i class="fal fa-seedling" style="font-size: 26px;"></i>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false, '_full' => true, 'class' => 'simple-text logo-mini']) ?>
-            <?= $this->Html->link(__('Plant Track'), ['controller' => 'Users', 'action' => 'dashboard'], ['_full' => true, 'class' => 'simple-text logo-normal']) ?>
+            <?= $this->Html->link(__('<i class="fas fa-seedling"></i>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false, '_full' => true, 'class' => 'simple-text logo-mini']) ?>
+            <?= $this->Html->link(__('PlantTrack'), ['controller' => 'Users', 'action' => 'dashboard'], ['_full' => true, 'class' => 'simple-text logo-normal']) ?>
         </div>
 
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
                     <!--<img src="../assets/img/faces/avatar.jpg">-->
-                    <i class="fas fa-user-circle" style="font-size: 34px; color: green;"></i>
+                    <i class="fas fa-user-circle" style="font-size: 34px; color: #9fa659;"></i>
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                        <span>
+                        <span style="color: #9fa659;">
                              <?= $activeUser['username'] ?? 'NOT SIGNED IN' ?>
                             <i class="fas fa-caret-down caret" style="font-size: 30px; margin-top: -15px;"></i>
                         </span>
@@ -87,6 +87,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li>
                                 <?= $this->Html->link(__('<span><i class="fal fa-fw fa-user-cog"></i>User Settings</span>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false]) ?>
                             </li>
+                            <li>
+                                <?= $this->Html->link(__('<span><i class="fal fa-fw fa-sign-out"></i>Sign Out</span>'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]) ?>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -94,11 +97,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <div class="user">
                 <div class="photo" style=" border-radius: 0px; padding: 5px 0 0 5px">
                     <!--<img src="../assets/img/faces/avatar.jpg">-->
-                    <i class="fas fa-building" style="font-size: 24px; color: #fff;"></i>
+                    <i class="fas fa-building" style="font-size: 24px; color: #9fa659;"></i>
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#businessCollapse" class="collapsed">
-                        <span>
+                        <span style="color: #9fa659;">
                             Business
                             <i class="fas fa-caret-down caret" style="font-size: 30px; margin-top: -15px;"></i>
                         </span>
@@ -107,7 +110,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <div class="collapse" id="businessCollapse">
                         <ul class="nav flex-column list-unstyled">
                             <li>
-                                <?= $this->Html->link(__('<i class="fal fa-info"></i>View Information'), ['controller' => 'Businesses', 'action' => 'view', $activeUser['business_id']], ['escape' => false ]) ?>
+                                <?= $this->Html->link(__('<i class="fal fa-info-circle"></i>View Information'), ['controller' => 'Businesses', 'action' => 'view', $activeUser['business_id']], ['escape' => false ]) ?>
                             </li>
                             <li>
                                 <?= $this->Html->link(__('<i class="fal fa-edit"></i>Edit Information'), ['controller' => 'Businesses', 'action' => 'edit', $activeUser['business_id']], ['escape' => false ]) ?>

@@ -8901,3 +8901,17 @@ footer .btn {
     margin-right: 0;
     right: 0px;
 }
+.sidebar .logo .logo-mini {
+    color: #9fa659;
+    font-size: 34px;
+    width: 34px !important;
+    margin-top: -4px;
+    text-shadow: 1px 1px 1px #000;
+}
+.sidebar .logo .logo-normal {
+    text-transform: initial;
+    font-family: Playball;
+    color: #9fa659;
+    font-size: 40px;
+    text-shadow: 1px 1px 1px #000;
+}

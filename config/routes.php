@@ -69,6 +69,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/confirm-email/*', ['controller' => 'Users', 'action' => 'confirm_email']);
     $routes->connect('/resend-activation-email/*', ['controller' => 'Users', 'action' => 'resend_activation_email']);
     $routes->connect('/change-password', ['controller' => 'Users', 'action' => 'change_password']);
+    $routes->connect('/promote/*', ['controller' => 'Users', 'action' => 'promote']);
+    $routes->connect('/demote/*', ['controller' => 'Users', 'action' => 'demote']);
+    $routes->connect('/change-owner', ['controller' => 'Users', 'action' => 'change_owner']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

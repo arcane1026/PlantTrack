@@ -317,9 +317,9 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function promote($id = null) {
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        //if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->get($id);
-            if ($user->role === 0) {
+            if ($user->role === 0 && $user->business_id === $this->Auth->User('business_id')) {
                 $user->role = 1;
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('The user has been promoted to manager.'));
@@ -329,7 +329,7 @@ class UsersController extends AppController
             } else {
                 $this->Flash->error(__('This user cannot be promoted this way.'));
             }
-        }
+        //}
         return $this->redirect(['action' => 'index']);
     }
 
@@ -342,21 +342,32 @@ class UsersController extends AppController
      */
     public function demote($id = null)
     {
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        //if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->get($id);
             if ($user->role === 1) {
-                $user->role = 0;
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('The user has been demoted to employee.'));
+                if ($user->business_id === $this->Auth->User('business_id') || $this->Auth->User('role') === 3) {
+                    $user->role = 0;
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success(__('The user has been demoted to employee.'));
+                    } else {
+                        $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                    }
                 } else {
-                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                    $this->Flash->error(__('User must be a member of your business.'));
                 }
             } else {
                 $this->Flash->error(__('This user cannot be demoted this way.'));
             }
-        }
+        //}
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Change Owner
+     * Change the owner of the business account
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function changeOwner() {
         if ($this->request->is('post')) {
             if ($this->Auth->User('role') === 2) { // Must be owner

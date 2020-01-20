@@ -317,19 +317,17 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null
      */
     public function promote($id = null) {
-        //if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->get($id);
-            if ($user->role === 0 && $user->business_id === $this->Auth->User('business_id')) {
-                $user->role = 1;
-                if ($this->Users->save($user)) {
-                    $this->Flash->success(__('The user has been promoted to manager.'));
-                } else {
-                    $this->Flash->error(__('Error saving user.'));
-                }
+        $user = $this->Users->get($id);
+        if ($user->role === 0 && $user->business_id === $this->Auth->User('business_id')) {
+            $user->role = 1;
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been promoted to manager.'));
             } else {
-                $this->Flash->error(__('This user cannot be promoted this way.'));
+                $this->Flash->error(__('Error saving user.'));
             }
-        //}
+        } else {
+            $this->Flash->error(__('This user cannot be promoted this way.'));
+        }
         return $this->redirect(['action' => 'index']);
     }
 
@@ -342,23 +340,21 @@ class UsersController extends AppController
      */
     public function demote($id = null)
     {
-        //if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->get($id);
-            if ($user->role === 1) {
-                if ($user->business_id === $this->Auth->User('business_id') || $this->Auth->User('role') === 3) {
-                    $user->role = 0;
-                    if ($this->Users->save($user)) {
-                        $this->Flash->success(__('The user has been demoted to employee.'));
-                    } else {
-                        $this->Flash->error(__('The user could not be saved. Please, try again.'));
-                    }
+        $user = $this->Users->get($id);
+        if ($user->role === 1) {
+            if ($user->business_id === $this->Auth->User('business_id') || $this->Auth->User('role') === 3) {
+                $user->role = 0;
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been demoted to employee.'));
                 } else {
-                    $this->Flash->error(__('User must be a member of your business.'));
+                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 }
             } else {
-                $this->Flash->error(__('This user cannot be demoted this way.'));
+                $this->Flash->error(__('User must be a member of your business.'));
             }
-        //}
+        } else {
+            $this->Flash->error(__('This user cannot be demoted this way.'));
+        }
         return $this->redirect(['action' => 'index']);
     }
 
@@ -412,16 +408,16 @@ class UsersController extends AppController
             'last_name' => $user['last_name'],
             'confirmation_url' => $activateURL
         ])
-            ->send(); // Send the email
+        ->send(); // Send the email
     }
 
     /**
-     * Sends activation email to the specified user.
+     * Send NEw Owner Notification Emails
+     * Email to send notification of ownership transfer to old owner and new owner.
      *
      * @param $user
      */
-    private function sendNewOwnerNotificationEmails($oldOwner, $newOwner) {
-        // Email to send notification of ownership transfer to old owner and new owner
+    private function sendNewOwnerNotificationEmails($oldOwner, $newOwner) {//
         $email = new Email('default'); // Create a new email using default email profile (set in app.php)
         $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
         ->setTo($oldOwner->email) // Set to address
@@ -437,6 +433,6 @@ class UsersController extends AppController
             'new_owner_last_name' => $newOwner->last_name,
             'new_owner_username' => $newOwner->username
         ])
-            ->send(); // Send the email
+        ->send(); // Send the email
     }
 }

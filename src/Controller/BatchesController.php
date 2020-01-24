@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
 
 /**
  * Batches Controller
@@ -12,6 +13,7 @@ use App\Controller\AppController;
  */
 class BatchesController extends AppController
 {
+    private $testingStatuses = [['icon' => 'box', 'name' => 'Untested', 'buttonStyle' => 'btn-default'], ['icon' => 'sync', 'name' => 'In Progress', 'buttonStyle' => 'btn-warning'], ['icon' => 'badge-check', 'name' => 'Passed', 'buttonStyle' => 'btn-success'], ['icon' => 'times', 'name' => 'Failed', 'buttonStyle' => 'btn-danger']];
     /**
      * Index method
      *
@@ -21,10 +23,12 @@ class BatchesController extends AppController
     {
         $this->paginate = [
             'contain' => ['Users', 'GrowthProfiles', 'Plants'],
+            'limit' => 5
         ];
         $batches = $this->paginate($this->Batches);
+        $testingStatuses = $this->testingStatuses;
 
-        $this->set(compact('batches'));
+        $this->set(compact('batches', 'testingStatuses'));
     }
 
     /**
@@ -52,18 +56,26 @@ class BatchesController extends AppController
     {
         $batch = $this->Batches->newEntity();
         if ($this->request->is('post')) {
-            $batch = $this->Batches->patchEntity($batch, $this->request->getData());
+            $data = $this->request->getData();
+            $data['user_id'] = $this->Auth->User('id');
+            $data['testing_status'] = 0;
+            //$data['plant_date'] = '01/24/2020 09:48 AM';
+            //$data['plant_date'] = [ 'year' => '2020', 'month' => '24', 'day' => '01', 'hour' => '09','minute' => '48'];
+            $data['plant_date'] = str_replace('/','-',$data['plant_date']);
+
+            Log::write('debug', $data);
+            $batch = $this->Batches->patchEntity($batch, $data);
             if ($this->Batches->save($batch)) {
                 $this->Flash->success(__('The batch has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The batch could not be saved. Please, try again.'));
         }
-        $users = $this->Batches->Users->find('list', ['limit' => 200]);
+        //$users = $this->Batches->Users->find('list', ['limit' => 200]);
         $growthProfiles = $this->Batches->GrowthProfiles->find('list', ['limit' => 200]);
         $plants = $this->Batches->Plants->find('list', ['limit' => 200]);
-        $this->set(compact('batch', 'users', 'growthProfiles', 'plants'));
+        $this->set(compact('batch', 'growthProfiles', 'plants'));
     }
 
     /**
@@ -79,7 +91,9 @@ class BatchesController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $batch = $this->Batches->patchEntity($batch, $this->request->getData());
+            $data = $this->request->getData();
+            $data['user_id'] = $this->Auth->User('id');
+            $batch = $this->Batches->patchEntity($batch, $data);
             if ($this->Batches->save($batch)) {
                 $this->Flash->success(__('The batch has been saved.'));
 

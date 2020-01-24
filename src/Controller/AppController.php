@@ -74,24 +74,19 @@ class AppController extends Controller
         // Allow the display action so our PagesController
         // continues to work. Also enable the read only actions.
         $this->Auth->allow(['display', 'view', 'index', 'edit', 'add', 'delete']);
+        $this->loadModel('Businesses');
 
         $activeUser = [];
         $activeUser['username'] = $this->Auth->User('username');
         $activeUser['id'] = $this->Auth->User('id');
         $activeUser['business_id'] = $this->Auth->User('business_id');
+        $activeUser['role'] = $this->Auth->User('role');
+        $activeUser['business_name'] = $this->Businesses->find('all')->where(['id' => $this->Auth->User('business_id')])->first()->name ?? 'Business Not Found';
         $webroot = Router::url('/', true);
         $controller = $this->getName();
         $action = $this->request->getParam('action');
         $activePrimaryNav = $controller;
-        if ($controller === 'Batches') {
-            if ($action === 'testing') {
-                $activePrimaryNav = 'Testing';
-            }
-        } elseif ($controller === 'Users') {
-            if ($action === 'dashboard') {
-                $activePrimaryNav = 'Dashboard';
-            }
-        }
+
         $this->set(compact('activeUser', 'webroot', 'activePrimaryNav'));
     }
 }

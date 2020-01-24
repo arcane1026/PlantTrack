@@ -36,5 +36,6 @@ class AppView extends View
      */
     public function initialize()
     {
+        $this->loadHelper('Paginator', ['templates' => 'paginator-templates']); // Custom templates for paginator to work with material dashboard/bootstrap in config/paginator-templates
     }
 }

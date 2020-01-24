@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Log\Log;
 
 /**
  * Batch Entity
@@ -60,4 +61,17 @@ class Batch extends Entity
         'readings' => true,
         'reports' => true,
     ];
+
+    // Add this method
+    /*
+    protected function _setPlantDate($value)
+    {
+
+        $date = \DateTime::createFromFormat('m-d-Y h:i A', $value); //01-24-2020 10:53 AM
+        $timeVal = strtotime($date->getTimestamp());
+        var_dump($timeVal);
+        //$date = date( 'Y-m-d H:i:s', $value );
+        Log::write('debug', $value . ':' . $timeVal);
+        return '2020-1-1 9:09'; //'2020-1-1 9:09'
+    }*/
 }

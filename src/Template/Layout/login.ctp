@@ -28,7 +28,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap') // Google Fonts ?>
     <?= $this->Html->css('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css') // jQuery UI css ?>
-    <?= $this->Html->css('all.min.css') // Font Awesome icons library ?>
+    <?= $this->Html->css('font-awesome-pro.min.css') // Font Awesome icons library ?>
     <?= $this->Html->css('login.css') // Login page specific CSS ?>
 
     <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') // jQuery library ?>

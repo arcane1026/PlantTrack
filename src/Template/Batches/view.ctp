@@ -6,6 +6,7 @@
 ?>
 <div class="batches view large-9 medium-8 columns content">
     <h3><?= h($batch->name) ?></h3>
+    <?= $this->Html->link(__('Generate QR Code'), ['action' => 'qr_code', $batch->growth_profile->id], ['class' => 'button']) ?>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('User') ?></th>

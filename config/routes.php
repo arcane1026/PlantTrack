@@ -69,6 +69,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/confirm-email/*', ['controller' => 'Users', 'action' => 'confirm_email']);
     $routes->connect('/resend-activation-email/*', ['controller' => 'Users', 'action' => 'resend_activation_email']);
     $routes->connect('/change-password', ['controller' => 'Users', 'action' => 'change_password']);
+    $routes->connect('/generate-qr-code/*', ['controller' => 'Batches', 'action' => 'qr_code']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Cake\Routing\Router;
 use App\Controller\AppController;
 
 /**
@@ -116,5 +117,19 @@ class BatchesController extends AppController
     public function testing()
     {
 
+    }
+
+    public function qrCode($id = null)
+    {
+        if ($this->request->is('post')) {                                                              // If request is a post
+            $this->viewBuilder()->setLayout('qr_code');                                               // Set layout to qr_code
+            $this->viewBuilder()->setTemplate('qr_code_display');                                     // Set template file to qr_code_display
+            $batch = $this->Batches->get($id, [                                                             // Get this batch's information
+                'contain' => ['GrowthProfiles', 'Plants'],                                                  // Also get the related plant and growth profile data
+            ]);
+            $fields = $this->request->getData();                                                            // Get the form data that was submitted on post
+            $qrUrl = Router::url(['controller' => 'Batches', 'action' => 'view', $id], ['_full' => true]);  // Get the full URL to the batch
+            $this->set(compact('batch', 'qrUrl', 'fields'));                                    // Pass necessary data to the view
+        }                                                                                                   // Otherwise not a post and just display the regular layout and view for this method
     }
 }

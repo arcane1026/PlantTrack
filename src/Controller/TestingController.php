@@ -16,7 +16,15 @@ class TestingController extends AppController
      */
     public function index()
     {
+        $this->loadModel('Batches');
+        $this->paginate = [
+            'contain' => ['Users', 'GrowthProfiles', 'Plants'],
+            'limit' => 5
+        ];
+        $batches = $this->paginate($this->Batches);
+        $testingStatuses = $this->testingStatuses;
 
+        $this->set(compact('batches', 'testingStatuses'));
     }
 
 }

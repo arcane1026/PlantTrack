@@ -28,6 +28,18 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+    protected $testingStatuses = [
+        ['icon' => 'box', 'name' => 'Untested', 'style' => 'default'],
+        ['icon' => 'sync', 'name' => 'In Progress', 'style' => 'warning'],
+        ['icon' => 'badge-check', 'name' => 'Passed', 'style' => 'success'],
+        ['icon' => 'times', 'name' => 'Failed', 'style' => 'danger']];
+
+    protected $userRoles = [
+        ['name' => 'Employee'],
+        ['name' => 'Manager'],
+        ['name' => 'Owner'],
+        ['name' => 'Admin']
+    ];
 
     /**
      * Initialization hook method.
@@ -73,7 +85,7 @@ class AppController extends Controller
 
         // Allow the display action so our PagesController
         // continues to work. Also enable the read only actions.
-        $this->Auth->allow(['display', 'view', 'index', 'edit', 'add', 'delete']);
+        //$this->Auth->allow(['display', 'view', 'index', 'edit', 'add', 'delete']);
         $this->loadModel('Businesses');
 
         $activeUser = [];

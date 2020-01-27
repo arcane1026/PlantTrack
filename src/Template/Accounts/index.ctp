@@ -1,7 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Batch[]|\Cake\Collection\CollectionInterface $reports
+ * @var \App\Model\Entity\Business[]|\Cake\Collection\CollectionInterface $businesses
+ */
+?>
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Batch[]|\Cake\Collection\CollectionInterface $plants
  */
 ?>
 
@@ -15,7 +21,7 @@
                     <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo"><?= __('Reports') ?></a>
+            <a class="navbar-brand" href="#pablo"><?= __('Accounts') ?></a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -26,7 +32,7 @@
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-plus"></i> New Report'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                    <?= ''// $this->Html->link(__('<i class="fas fa-plus"></i> New Plant'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
                 </li>
             </ul>
         </div>
@@ -41,41 +47,26 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="fas fa-analytics"></i>
+                            <i class="fas fa-leaf"></i>
                         </div>
-                        <h4 class="card-title"><?= __('Reports') ?></h4>
+                        <h4 class="card-title"><?= __('Accounts') ?></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                                    <th scope="col" class="fill-remaining"><?= $this->Paginator->sort('description') ?></th>
-                                    <th scope="col" class="text-right"><?= __('Actions') ?></th>
+                                    <th scope="col"><?= $this->Paginator->sort('name', ['label' => 'Business Name']) ?></th>
+                                    <th scope="col"><?= $this->Paginator->sort('username', ['label' => 'Business Owner']) ?></th>
+                                    <th scope="col" class="text-right"><?= $this->Paginator->sort('created') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($reports as $report): ?>
+                                <?php foreach ($businesses as $business): ?>
                                     <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </td>
-
-                                        <td><?= $this->Html->link(h($report->name), ['action' => 'view', $report->id]) ?></td>
-                                        <td><?= h($report->description) ?></td>
-                                        <td class="text-right">
-                                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
-                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>
-                                        </td>
+                                        <td><?= $this->Html->link(h($business->name), ['action' => 'view', $business->id]) ?></td>
+                                        <td><?= $this->Html->link(h($business->owner['username']), ['controller' => 'Accounts', 'action' => 'view_user', $business->owner['id']]) ?></td>
+                                        <td class="text-right"><?= h($business->created) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
@@ -108,36 +99,41 @@
 
 
 <!--
-<div class="reports index large-9 medium-8 columns content">
-    <h3><?= __('Reports') ?></h3>
-    <div><?= $this->Html->link(__('New Report'), ['action' => 'add'], ['class' => 'button']) ?></div>
+
+<div class="businesses index large-9 medium-8 columns content">
+    <h3><?= __('Businesses') ?></h3>
+    <div><?= $this->Html->link(__('New Business'), ['action' => 'add'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('batch_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('street') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('street2') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('city') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('state') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('zip') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($reports as $report): ?>
+            <?php foreach ($businesses as $business): ?>
             <tr>
-                <td><?= $this->Number->format($report->id) ?></td>
-                <td><?= $report->has('user') ? $this->Html->link($report->user->id, ['controller' => 'Users', 'action' => 'view', $report->user->id]) : '' ?></td>
-                <td><?= $report->has('batch') ? $this->Html->link($report->batch->name, ['controller' => 'Batches', 'action' => 'view', $report->batch->id]) : '' ?></td>
-                <td><?= h($report->name) ?></td>
-                <td><?= h($report->description) ?></td>
-                <td><?= h($report->created) ?></td>
-                <td><?= h($report->modified) ?></td>
+                <td><?= $this->Number->format($business->id) ?></td>
+                <td><?= h($business->name) ?></td>
+                <td><?= h($business->street) ?></td>
+                <td><?= h($business->street2) ?></td>
+                <td><?= h($business->city) ?></td>
+                <td><?= h($business->state) ?></td>
+                <td><?= h($business->zip) ?></td>
+                <td><?= h($business->created) ?></td>
+                <td><?= h($business->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $business->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $business->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $business->id], ['confirm' => __('Are you sure you want to delete # {0}?', $business->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

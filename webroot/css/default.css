@@ -30,3 +30,12 @@ body {
 .pagination {
     justify-content: flex-end;
 }
+.main-panel > .content {
+    min-height: calc(100vh - 155px);
+}
+.card-icon i {
+    font-size: 1.2rem;
+}
+.fill-remaining {
+    width: 100%;
+}

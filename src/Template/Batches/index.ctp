@@ -123,7 +123,7 @@
                                         </td>
                                         <td><?=
                                             $this->Html->link(__($batch->name), ['action' => 'view', $batch->id]) ?></td>
-                                        <td><?= h($batch->description) ?></td>
+                                        <td class="fill-remaining"><?= h($batch->description) ?></td>
                                         <td class="text-center"><?= $this->Number->format($batch->quantity) ?></td>
                                         <td class="text-center">
                                             <a href="#" type="button" class="btn <?= ($batch->watched === true) ? 'btn-rose' : 'btn-default' ?> btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="<?= ($batch->watched === true) ? 'Favorite' : '' ?>">
@@ -132,7 +132,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="#" class="btn <?= $testingStatuses[$batch->testing_status]['buttonStyle'] ?> btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="<?= $testingStatuses[$batch->testing_status]['name'] ?>">
+                                            <a href="#" class="btn btn-<?= $testingStatuses[$batch->testing_status]['style'] ?> btn-link" rel="tooltip" data-placement="bottom" title="" data-original-title="<?= $testingStatuses[$batch->testing_status]['name'] ?>">
                                                 <i class="fas fa-<?= $testingStatuses[$batch->testing_status]['icon'] ?>"></i>
                                                 <div class="ripple-container"></div>
                                             </a>

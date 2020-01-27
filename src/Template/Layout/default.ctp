@@ -33,18 +33,18 @@
                 </div>
                 <div class="user-info">
                     <a data-toggle="collapse" href="#userCollapse" class="username">
-              <span>
-                <?= $activeUser['username'] ?? 'NOT SIGNED IN' ?>
-                <b class="caret"></b>
-              </span>
+                        <span>
+                            <?= $activeUser['username'] ?? 'NOT SIGNED IN' ?>
+                            <b class="caret"></b>
+                        </span>
                     </a>
                     <div class="collapse" id="userCollapse">
                         <ul class="nav">
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user"></i> </span><span class="sidebar-normal"> My Profile </span>'), ['controller' => 'Users', 'action' => 'view_profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user"></i> </span><span class="sidebar-normal"> My Profile </span>'), ['controller' => 'Users', 'action' => 'view-profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-edit"></i> </span><span class="sidebar-normal"> Edit Profile </span>'), ['controller' => 'Users', 'action' => 'edit_profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-edit"></i> </span><span class="sidebar-normal"> Edit Profile </span>'), ['controller' => 'Users', 'action' => 'edit-profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
                                 <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-cog"></i> </span><span class="sidebar-normal"> User Settings </span>'), ['controller' => 'Users', 'action' => 'settings'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <?= (!empty($activeUser['role'])) ? $this->element('sidebar_' . $activeUser['role']) : 'No Sidebar Loaded' ?>
+            <?= (isset($activeUser['role'])) ? $this->element('sidebar_' . $activeUser['role']) : 'No Sidebar Loaded' ?>
         </div>
         <div class="sidebar-background" style="background-image: url(http://static.coastlineapplications.com/plant_track/plant_bg4.jpeg); background-position: 70% center; "></div>
     </div>
@@ -68,22 +68,22 @@
                 <nav class="float-left">
                     <ul>
                         <li>
-                            <a href="https://www.planttrackapp.com/about">
+                            <a href="#" data-toggle="modal" data-target="#exampleModal3">
                                 Terms of Use
                             </a>
                         </li>
                         <li>
-                            <a href="http://blog.creative-tim.com">
+                            <a href="#" onclick="Swal.fire('<?= h($this->element('privacy_policy')); ?>')">
                                 Privacy Policy
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.creative-tim.com/license">
+                            <a href="#">
                                 Get Help
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.creative-tim.com/license">
+                            <a href="#">
                                 Contact Us
                             </a>
                         </li>

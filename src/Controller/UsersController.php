@@ -54,6 +54,23 @@ class UsersController extends AppController
     }
 
     /**
+     * View method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewProfile()
+    {
+        $user = $this->Users->get($this->Auth->User('id'), [
+            'contain' => ['Businesses', 'Batches', 'GrowthProfiles', 'Notes', 'Plants', 'Reports'],
+        ]);
+        $userRoles = $this->userRoles;
+
+        $this->set(compact('user', 'userRoles'));
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

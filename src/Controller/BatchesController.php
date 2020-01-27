@@ -13,7 +13,6 @@ use Cake\Log\Log;
  */
 class BatchesController extends AppController
 {
-    private $testingStatuses = [['icon' => 'box', 'name' => 'Untested', 'buttonStyle' => 'btn-default'], ['icon' => 'sync', 'name' => 'In Progress', 'buttonStyle' => 'btn-warning'], ['icon' => 'badge-check', 'name' => 'Passed', 'buttonStyle' => 'btn-success'], ['icon' => 'times', 'name' => 'Failed', 'buttonStyle' => 'btn-danger']];
     /**
      * Index method
      *
@@ -68,7 +67,7 @@ class BatchesController extends AppController
             if ($this->Batches->save($batch)) {
                 $this->Flash->success(__('The batch has been saved.'));
 
-                //return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The batch could not be saved. Please, try again.'));
         }

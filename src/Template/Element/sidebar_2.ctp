@@ -1,7 +1,7 @@
 <?php
 ?>
 <ul class="nav">
-    <li class="nav-item pt-separator">
+    <li class="nav-item pt-separator<?= ($activePrimaryNav === 'Businesses') ? ' active' : ''?>">
         <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
             <i class="fas fa-building"></i>
             <p> <?= $activeUser['business_name'] ?>
@@ -11,10 +11,10 @@
         <div class="collapse" id="pagesExamples">
             <ul class="nav">
                 <li class="nav-item ">
-                    <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-info-circle"></i> </span> <span class="sidebar-normal"> View Information </span>'), ['controller' => 'Businesses', 'action' => 'view', $activeUser['business_id']], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                    <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-info-circle"></i> </span> <span class="sidebar-normal"> View Information </span>'), ['controller' => 'Businesses', 'action' => 'view-info'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item ">
-                    <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-edit"></i> </span> <span class="sidebar-normal"> Edit Information </span>'), ['controller' => 'Businesses', 'action' => 'edit', $activeUser['business_id']], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                    <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-edit"></i> </span> <span class="sidebar-normal"> Edit Information </span>'), ['controller' => 'Businesses', 'action' => 'edit-info'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
                 </li>
                 <li class="nav-item ">
                     <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-users"></i> </span> <span class="sidebar-normal"> Manage Employees </span>'), ['controller' => 'Users', 'action' => 'index'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>

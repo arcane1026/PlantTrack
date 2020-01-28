@@ -65,7 +65,7 @@
                                 <?php foreach ($businesses as $business): ?>
                                     <tr>
                                         <td><?= $this->Html->link(h($business->name), ['action' => 'view', $business->id]) ?></td>
-                                        <td><?= $this->Html->link(h($business->owner['username']), ['controller' => 'Accounts', 'action' => 'view_user', $business->owner['id']]) ?></td>
+                                        <td><?= $this->Html->link(h($business->owner['username'] ?? 'UNKNOWN'), ['controller' => 'Accounts', 'action' => 'view_user', $business->owner['id']]) ?></td>
                                         <td class="text-right"><?= h($business->created) ?></td>
                                     </tr>
                                 <?php endforeach; ?>

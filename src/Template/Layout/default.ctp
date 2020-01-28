@@ -26,7 +26,7 @@
             <?= $this->Html->link(__('PlantTrack'), ['controller' => 'Users', 'action' => 'dashboard'], ['_full' => true, 'class' => 'simple-text logo-normal']) ?>
         </div>
         <div class="sidebar-wrapper">
-            <div class="user">
+            <div class="user<?= ($activePrimaryNav === 'Usersk') ? ' active' : ''?>">
                 <div class="photo">
                     <!--<img src="../assets/img/faces/avatar.jpg" />-->
                     <i class="fas fa-user-circle" style="font-size: 32px; color: #eee"></i>

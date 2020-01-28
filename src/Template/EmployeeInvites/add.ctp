@@ -15,10 +15,10 @@
     <fieldset>
         <legend><?= __('Add Employee Invite') ?></legend>
         <?php
-        echo $this->Form->control('first_name');
-        echo $this->Form->control('last_name');
-        echo $this->Form->control('email');
-        echo $this->Form->control('phone');
+            echo $this->Form->control('first_name');
+            echo $this->Form->control('last_name');
+            echo $this->Form->control('email');
+            echo $this->Form->control('phone');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

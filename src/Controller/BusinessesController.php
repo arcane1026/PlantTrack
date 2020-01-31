@@ -41,6 +41,22 @@ class BusinessesController extends AppController
     }
 
     /**
+     * View method
+     *
+     * @param string|null $id Business id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewInfo()
+    {
+        $business = $this->Businesses->get($this->Auth->User('id'), [
+            'contain' => ['Users'],
+        ]);
+
+        $this->set('business', $business);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

@@ -24,18 +24,4 @@ class AccessLogController extends AppController
         $this->set(compact('accessLog'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Access Log id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $accessLog = $this->AccessLog->get($id);
-
-        $this->set('accessLog', $accessLog);
-    }
-
 }

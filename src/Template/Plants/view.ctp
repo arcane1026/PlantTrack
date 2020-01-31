@@ -4,6 +4,226 @@
  * @var \App\Model\Entity\Plant $plant
  */
 ?>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <div class="navbar-minimize">
+                <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
+                    <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
+                    <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                </button>
+            </div>
+            <a class="navbar-brand" href="#pablo"><?= __('Plant Information') ?></a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="form-inline">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-pencil-alt"></i> Edit'), ['action' => 'edit', $plant->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
+                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i> Delete'), ['action' => 'delete', $plant->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete the plant named: {0}?', $plant->name)]) ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+<div class="content">
+    <div class="container-fluid">
+        <?= $this->Flash->render(); ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i> <?= __('Plant Information') ?>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-horizontal table-hover">
+                                <tr>
+                                    <th><?= __('Name') ?></th>
+                                    <td class="text-right"><?= h($plant->name) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Description') ?></th>
+                                    <td class="text-right"><?= h($plant->description) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Resource Path (Image)') ?></th>
+                                    <td class="text-right"><?= h($plant->resource_path) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created By') ?></th>
+                                    <td class="text-right"><?= $plant->has('user') ? $this->Html->link($plant->user->first_name . ' ' . $plant->user->last_name, ['controller' => 'Users', 'action' => 'view', $plant->user->id]) : '' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created On') ?></th>
+                                    <td class="text-right"><?= h($plant->created) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Last Modified') ?></th>
+                                    <td class="text-right"><?= h($plant->modified) ?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+
+<nav id="page-navbar" class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid">
+        <div>
+            <div class="navbar-minimize">
+                <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                    <i class="far fa-ellipsis-v visible-on-sidebar-regular"></i>
+                    <i class="far fa-bars visible-on-sidebar-mini"></i>
+                </button>
+            </div>
+            <a class="navbar-brand"><?= __('View Plant') ?></a>
+        </div>
+        <div class="form-inline">
+            <?= $this->Html->link(__('<i class="fas fa-fw fa-pencil-alt"></i> Edit'), ['action' => 'edit', $plant->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
+            <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i> Delete'), ['action' => 'delete', $plant->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete the plant named: {0}?', $plant->name)]) ?>
+        </div>
+    </div>
+</nav>
+
+<div class="content">
+    <div class="container-fluid">
+        <?= $this->Flash->render(); ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h4 class="card-header card-header-icon" data-background-color="rose">
+                        <i class="fas fa-leaf"></i> <?= __('Plant Details') ?>
+                    </h4>
+
+                    <div class="card-content">
+                        <h4 class="card-title">&nbsp;</h4>
+                        <div class="table-responsive">
+                            <table class="table vertical-table">
+                                <tbody>
+                                <tr>
+                                    <th><?= __('Name') ?></th>
+                                    <td class="text-right"><?= h($plant->name) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Description') ?></th>
+                                    <td class="text-right"><?= h($plant->description) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Resource Path (Image)') ?></th>
+                                    <td class="text-right"><?= h($plant->resource_path) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created By') ?></th>
+                                    <td class="text-right"><?= $plant->has('user') ? $this->Html->link($plant->user->first_name . ' ' . $plant->user->last_name, ['controller' => 'Users', 'action' => 'view', $plant->user->id]) : '' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created On') ?></th>
+                                    <td class="text-right"><?= h($plant->created) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Last Modified') ?></th>
+                                    <td class="text-right"><?= h($plant->modified) ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h4 class="card-header card-header-icon" data-background-color="rose">
+                        <i class="fas fa-box-full"></i> <?= __('Batches Using This Plant') ?>
+                    </h4>
+
+                    <div class="card-content">
+                        <h4 class="card-title">&nbsp;</h4>
+                        <div class="table-responsive">
+                            <?php if (!empty($plant->batches)): ?>
+                                <table cellpadding="0" cellspacing="0" class="table">
+                                    <tr>
+                                        <th scope="col"><?= __('Name') ?></th>
+                                        <th scope="col"><?= __('Watched') ?></th>
+                                        <th scope="col"><?= __('Description') ?></th>
+                                        <th class="text-right" scope="col"><?= __('Created') ?></th>
+                                    </tr>
+                                    <?php foreach ($plant->batches as $batches): ?>
+                                        <tr>
+                                            <td><?= $this->Html->link(h($batches->name), ['controller' => 'Batches', 'action' => 'view', $batches->id]) ?></td>
+                                            <td><?= h($batches->watched) ?></td>
+                                            <td><?= h($batches->description) ?></td>
+                                            <td class="text-right"><?= h($batches->created) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            <?php else: ?>
+                                <div>There are no batches using this plant.</div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h4 class="card-header card-header-icon" data-background-color="rose">
+                        <i class="fas fa-hand-holding-seedling"></i> <?= __('Growth Profiles Using This Plant') ?>
+                    </h4>
+
+                    <div class="card-content">
+                        <h4 class="card-title">&nbsp;</h4>
+                        <div class="table-responsive">
+                            <?php if (!empty($plant->growth_profiles)): ?>
+                                <table cellpadding="0" cellspacing="0" class="table">
+                                    <tr>
+                                        <th scope="col"><?= __('Name') ?></th>
+                                        <th scope="col"><?= __('Description') ?></th>
+                                        <th class="text-right" scope="col"><?= __('Created') ?></th>
+                                    </tr>
+                                    <?php foreach ($plant->growth_profiles as $growthProfiles): ?>
+                                        <tr>
+                                            <td><?= $this->Html->link(h($growthProfiles->name), ['controller' => 'GrowthProfiles', 'action' => 'view', $growthProfiles->id]) ?></td>
+                                            <td><?= h($growthProfiles->description) ?></td>
+                                            <td class="text-right"><?= h($growthProfiles->created) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            <?php else: ?>
+                                <div>There are no growth profiles using this plant.</div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
 <div class="plants view large-9 medium-8 columns content">
     <h3><?= h($plant->name) ?></h3>
     <table class="vertical-table">
@@ -116,4 +336,4 @@
         </table>
         <?php endif; ?>
     </div>
-</div>
+</div> -->

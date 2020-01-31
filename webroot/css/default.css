@@ -1,10 +1,62 @@
-.title-area li.name h1 a {
-    font-size: 30px;
-    font-family: 'Playball', cursive;
+body {
+    min-width: 335px;
 }
-.title-area li.name h1 a i {
-     font-size: 26px;
- }
-.top-bar-section .right li a {
-    font-size: 16px;
+.logo-mini i {
+    font-size: 26px;
+}
+.sidebar .logo a:last-child {
+    font-family: Playball;
+    text-transform: initial;
+    font-size: 36px;
+}
+.sidebar .pt-separator {
+    padding-bottom: 20px;
+    margin: 20px auto 0;
+    position: relative;
+}
+.sidebar .pt-separator::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    height: 1px;
+    width: calc(100% - 30px);
+    background-color: hsla(0,0%,71%,.3);
+}
+
+.table i {
+    font-size: 1.1rem;
+}
+.pagination {
+    justify-content: flex-end;
+}
+.main-panel > .content {
+    min-height: calc(100vh - 155px);
+}
+.card-icon i {
+    font-size: 1.2rem;
+}
+.fill-remaining {
+    width: 100%;
+}
+
+/* Stages */
+.growth-profile-add .stage:first-child .stage-toolbar > *:nth-child(2) > * {
+    display: none;
+}
+.growth-profile-add .stage:first-child .stage-toolbar > *:first-child > * {
+    display: none;
+}
+.growth-profile-add .stage:last-child .stage-toolbar > *:last-child > * {
+    display: none;
+}
+/* Steps */
+.growth-profile-add .stage .step:only-child .step-toolbar > *:nth-child(2) > * {
+    display: none;
+}
+.growth-profile-add .stage .step:first-child .step-toolbar > *:first-child > * {
+    display: none;
+}
+.growth-profile-add .stage .step:last-child .step-toolbar > *:last-child > * {
+    display: none;
 }

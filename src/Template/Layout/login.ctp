@@ -26,9 +26,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <?= $this->Html->css('https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap') // Google Fonts ?>
     <?= $this->Html->css('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css') // jQuery UI css ?>
-    <?= $this->Html->css('all.min.css') // Font Awesome icons library ?>
+    <?= $this->Html->css('font-awesome-pro.min.css') // Font Awesome icons library ?>
+    <?= $this->Html->css('material-dashboard.min.css') // Material Dashboard ?>
+    <?= $this->Html->css('global.css') // Global Application CSS ?>
     <?= $this->Html->css('login.css') // Login page specific CSS ?>
 
     <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') // jQuery library ?>
@@ -40,7 +43,42 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body>
+<body class="off-canvas-sidebar">
     <?= $this->fetch('content') ?>
+
+    <!--   Core JS  -->
+    <?= $this->Html->script('core/jquery.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('core/popper.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('core/bootstrap-material-design.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/perfect-scrollbar.jquery.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/moment.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/sweetalert2.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/jquery.validate.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/jquery.bootstrap-wizard.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/bootstrap-selectpicker.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/bootstrap-datetimepicker.min.js') . PHP_EOL  ?>
+    <?= $this->Html->script('plugins/jquery.dataTables.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/bootstrap-tagsinput.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/jasny-bootstrap.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/fullcalendar.min.js') . PHP_EOL ?>
+    <?= ''//$this->Html->script('plugins/jquery-jvectormap.js') . PHP_EOL  ?>
+    <?= $this->Html->script('plugins/nouislider.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/arrive.min.js') . PHP_EOL ?>
+    <?= ''//$this->Html->script('https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/chartist.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('plugins/bootstrap-notify.js') . PHP_EOL ?>
+    <?= $this->Html->script('material-dashboard.min.js') . PHP_EOL ?>
+
+    <script>
+        $(document).ready(function() {
+            // Javascript method's body can be found in assets/js/demos.js
+            md.initDashboardPageCharts();
+            md.initFormExtendedDatetimepickers();
+
+            //md.initVectorMap();
+
+        });
+    </script>
 </body>
 </html>

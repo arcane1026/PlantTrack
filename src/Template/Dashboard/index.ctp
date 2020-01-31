@@ -30,6 +30,7 @@
 <div class="content">
     <div class="content">
         <div class="container-fluid">
+            <?= $this->Flash->render(); ?>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card card-chart">

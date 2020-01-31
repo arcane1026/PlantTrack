@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Mailer\Transport\SmtpTransport;
 use Cake\Mailer\Email;
 use Cake\Routing\Router;
+use Cake\Validation\Validator;
 
 /**
  * Users Controller
@@ -237,10 +238,21 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('login'); // Set layout to login
         if ($this->request->is('post')) { // Check if is post request
             $data = $this->request->getData(); // Get form data
-            if (isset($data['city'])) { // If city field was submitted, step 2 button click TODO: Maybe a better way to determine this step?!?
+            if (isset($data['step1'])) { // Business Form Submitted
+                $validator = new Validator();
+                $validator
+                    ->requirePresence('authorized', 'You must certify that you are an authorized representative of this business.')
+                    ->equals('authorized', 1, 'You must certify that you are an authorized representative of this business.');
                 $business = $this->Users->Businesses->newEntity(); // Create a new business
                 $business = $this->Users->Businesses->patchEntity($business, $data); // Fill the business with form data
-                if ($errors = $business->errors()) { // If there are validation errors
+                $errors = $business->errors();
+                $valErrors = $validator->errors($this->request->getData());
+                if (!empty($errors) && !empty($valErrors)) {
+                    $errors = array_merge($errors, $valErrors);
+                } else if (!empty($valErrors) && empty($errors)) {
+                    $errors = $valErrors;
+                }
+                if (!empty($errors)) { // If there are validation errors
                     $this->set(compact('business', 'errors')); // Send business data and errors to view
                 } else { // Step 2 Button Click Success!
                     $session = $this->getRequest()->getSession(); // Get session
@@ -249,13 +261,27 @@ class UsersController extends AppController
                     $user = $this->Users->newEntity(); // Create an empty user
                     $this->set(compact('user')); // Send empty user to view
                 }
-            } else { // Step 3 button click
+            } else { // User Form Submitted
+                $validator = new Validator();
+                $validator
+                    ->requirePresence('repeat_password')
+                    ->notEmptyString('repeat_password', 'Repeat Password is required.')
+                    ->equalToField('password', 'repeat_password', 'Password and Repeat Password must match.')
+                    ->requirePresence('agreement', 'You must agree to the terms and conditions.')
+                    ->equals('agreement', 1, 'You must agree to the terms and conditions.');
                 $data['role'] = '2'; // Set role to owner manually in form data
                 $user = $this->Users->newEntity(); // Create a new empty user
                 $user = $this->Users->patchEntity($user, $data); // Fill the user with form data
-                if ($errors = $user->errors()) { // If there are validation errors
+                $errors = $user->errors();
+                $valErrors = $validator->errors($this->request->getData());
+                if (!empty($errors) && !empty($valErrors)) {
+                    $errors = array_merge($errors, $valErrors);
+                } else if (!empty($valErrors) && empty($errors)) {
+                    $errors = $valErrors;
+                }
+                if (!empty($errors)) { // If there are validation errors
                     $this->set(compact('user', 'errors')); // Send Errors and User data to view
-                    $this->view = 'register-step-3'; // Set form to step 3
+                    $this->view = 'register-2'; // Set form to step 1
                 } else {
                     $session = $this->getRequest()->getSession(); // Get session
                     $businessData = $session->read('business'); // Read business from session
@@ -280,7 +306,8 @@ class UsersController extends AppController
  *
  * @return \Cake\Http\Response|null
  */
-    public function register_old()
+    /* OLD REGISTER FUNCTION, PRE new_ui
+    public function register()
     {
         $this->viewBuilder()->setLayout('login'); // Set layout to login
         if ($this->request->is('post')) { // Check if is post request
@@ -326,7 +353,7 @@ class UsersController extends AppController
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Confirm email method

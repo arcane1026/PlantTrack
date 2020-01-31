@@ -31,6 +31,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css') // jQuery UI css ?>
     <?= $this->Html->css('font-awesome-pro.min.css') // Font Awesome icons library ?>
     <?= $this->Html->css('material-dashboard.min.css') // Material Dashboard ?>
+    <?= $this->Html->css('global.css') // Global Application CSS ?>
     <?= $this->Html->css('login.css') // Login page specific CSS ?>
 
     <?= $this->Html->script('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') // jQuery library ?>
@@ -42,7 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
-<body>
+<body class="off-canvas-sidebar">
     <?= $this->fetch('content') ?>
 
     <!--   Core JS  -->

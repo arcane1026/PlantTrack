@@ -4,6 +4,84 @@
  * @var \App\Model\Entity\Plant $plant
  */
 ?>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <div class="navbar-minimize">
+                <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
+                    <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
+                    <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
+                </button>
+            </div>
+            <a class="navbar-brand" href="#pablo"><?= __('Plant Information') ?></a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="form-inline">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-pencil-alt"></i> Edit'), ['action' => 'edit', $plant->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
+                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i> Delete'), ['action' => 'delete', $plant->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete the plant named: {0}?', $plant->name)]) ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+<div class="content">
+    <div class="container-fluid">
+        <?= $this->Flash->render(); ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-building"></i> <?= __('Plant Information') ?>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-horizontal table-hover">
+                                <tr>
+                                    <th><?= __('Name') ?></th>
+                                    <td class="text-right"><?= h($plant->name) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Description') ?></th>
+                                    <td class="text-right"><?= h($plant->description) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Resource Path (Image)') ?></th>
+                                    <td class="text-right"><?= h($plant->resource_path) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created By') ?></th>
+                                    <td class="text-right"><?= $plant->has('user') ? $this->Html->link($plant->user->first_name . ' ' . $plant->user->last_name, ['controller' => 'Users', 'action' => 'view', $plant->user->id]) : '' ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Created On') ?></th>
+                                    <td class="text-right"><?= h($plant->created) ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><?= __('Last Modified') ?></th>
+                                    <td class="text-right"><?= h($plant->modified) ?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+
 <nav id="page-navbar" class="navbar navbar-transparent navbar-absolute">
     <div class="container-fluid">
         <div>
@@ -24,7 +102,7 @@
 
 <div class="content">
     <div class="container-fluid">
-
+        <?= $this->Flash->render(); ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -145,7 +223,7 @@
 
 
 
-<!--
+
 <div class="plants view large-9 medium-8 columns content">
     <h3><?= h($plant->name) ?></h3>
     <table class="vertical-table">

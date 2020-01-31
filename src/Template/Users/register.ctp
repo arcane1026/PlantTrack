@@ -18,29 +18,6 @@
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-        Material Dashboard PRO by Creative Tim
-    </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/demo/demo.css" rel="stylesheet" />
-</head>
-
-<body class="off-canvas-sidebar">
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
     <div class="container">
@@ -82,151 +59,98 @@
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
                                     <div class="info info-horizontal">
-                                        <div class="icon icon-rose">
-                                            <i class="fas fa-user-crown"></i>
+                                        <div class="icon icon-rose text-olive">
+                                            <i class="fas fa-fw fa-user-crown"></i>
                                         </div>
                                         <div class="description">
                                             <h4 class="info-title text-cream ">Owner Registration Only</h4>
                                             <p class="description text-cream ">
-                                                In order to create a new Plant Track account, you must be the owner or authorized representative of a business or organization.
+                                                <b><i>In order to register a new Plant Track account, you must be the owner or authorized representative of a business or organization.</i></b>
                                             </p>
+                                            <p class="description text-cream">If this is the case, please continue with the registration form.</p>
+                                        </div>
+                                        <div class="icon icon-rose text-olive">
+                                            <i class="fas fa-fw fa-users"></i>
+                                        </div>
+                                        <div class="description">
+                                            <h4 class="info-title text-cream ">For Employees</h4>
                                             <p class="description text-cream ">If you are an employee of a business already using Plant Track, please contact your employer for your account information.</p>
                                         </div>
                                     </div>
-<!--
-                                    <li class="row">
-                                        <?= $this->Form->control('street', ['placeholder' => 'Street', 'label' => false, 'class' => 'form-control']) ?>
-                                        <?php if (!empty($errors['street'])): foreach ($errors['street'] as $error): ?>
-                                            <div class="error"><?= $error ?></div>
-                                        <?php endforeach; endif; ?>
-                                    </li>
-                                    <li class="row">
-                                        <?= $this->Form->control('street2', ['placeholder' => '(optional)', 'label' => false, 'class' => 'form-control']) ?>
-                                        <?php if (!empty($errors['street2'])): foreach ($errors['street2'] as $error): ?>
-                                            <div class="error"><?= $error ?></div>
-                                        <?php endforeach; endif; ?>
-                                    </li>
-                                    <li class="row">
-                                        <?= $this->Form->control('city', ['placeholder' => 'City', 'label' => false, 'class' => 'form-control']) ?>
-                                        <?php if (!empty($errors['city'])): foreach ($errors['city'] as $error): ?>
-                                            <div class="error"><?= $error ?></div>
-                                        <?php endforeach; endif; ?>
-                                    </li>
-                                    <li class="row">
-                                        <?= $this->Form->control('state', ['placeholder' => 'State', 'label' => false, 'class' => 'form-control']) ?>
-                                        <?php if (!empty($errors['state'])): foreach ($errors['state'] as $error): ?>
-                                            <div class="error"><?= $error ?></div>
-                                        <?php endforeach; endif; ?>
-                                    </li>
-                                    <li class="row">
-                                        <?= $this->Form->control('zip', ['placeholder' => 'Zip Code', 'label' => false, 'class' => 'form-control']) ?>
-                                        <?php if (!empty($errors['zip'])): foreach ($errors['zip'] as $error): ?>
-                                            <div class="error"><?= $error ?></div>
-                                        <?php endforeach; endif; ?>
-                                    </li>
-                                    <li class="row">
-                                        <?= $this->Flash->render() // Render flash message if one is set.?>
-                                    </li> -->
                                 </div>
                                 <div class="col-md-5 mr-auto">
                                     <!--<form class="form" method="" action="">-->
-                                        <?= $this->Form->create(false, ['class' =>null]) ?>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?php if (!empty($errors['name'])): foreach ($errors['name'] as $error): ?>
-                                                    <label for="" class="bmd-label-floating"><?= $error ?></label>
-                                                <?php endforeach; endif; ?>
-                                                <?= $this->Form->control('name', ['placeholder' => 'Business Name', 'label' => false, 'class' => 'form-control text-cream']); ?>
-                                                <?php if (!empty($errors['name'])): foreach ($errors['name'] as $error): ?>
-                                                    <span class="form-control-feedback">
-                                                        <i class="fas fa-fw fa-times text-cream" style="font-size: 20px;"></i>
-                                                    </span>
-                                                <?php endforeach; endif; ?>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?= $this->Form->control('street', ['placeholder' => 'Street', 'label' => false, 'class' => 'form-control']) ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?= $this->Form->control('street2', ['placeholder' => '(optional)', 'label' => false, 'class' => 'form-control']) ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?= $this->Form->control('city', ['placeholder' => 'City', 'label' => false, 'class' => 'form-control']) ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?= $this->Form->control('state', ['placeholder' => 'State', 'label' => false, 'class' => 'form-control']) ?>
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-default">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                      <i class="fas fa-fw"></i>
-                                                    </span>
-                                                </div>
-                                                <?= $this->Form->control('zip', ['placeholder' => 'Zip Code', 'label' => false, 'class' => 'form-control']) ?>
-                                            </div>
-                                        </div>
+                                    <?= $this->Form->create(false, ['class' =>null]) ?>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['name'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">Business Name *</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('name', ['label' => false, 'class' => 'form-control text-cream']); ?>
+                                        <?php if (!empty($errors['name'])): foreach ($errors['name'] as $error): ?>
+                                            <label id="name-error" class="error" for="name"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['street'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">Street *</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('street', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?php if (!empty($errors['street'])): foreach ($errors['street'] as $error): ?>
+                                            <label id="street-error" class="error" for="street"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['street2'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">Street Line 2</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('street2', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?php if (!empty($errors['street2'])): foreach ($errors['street2'] as $error): ?>
+                                            <label id="street2-error" class="error" for="street2"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['city'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">City *</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('city', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?php if (!empty($errors['city'])): foreach ($errors['city'] as $error): ?>
+                                            <label id="city-error" class="error" for="city"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['state'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">State *</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('state', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?php if (!empty($errors['state'])): foreach ($errors['state'] as $error): ?>
+                                            <label id="state-error" class="error" for="state"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group<?= (!empty($errors['zip'])) ? ' has-danger' : '' ; ?>">
+                                        <label for="exampleEmail" class="bmd-label-floating">Zip Code *</label>
+                                        <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
+                                        <?= $this->Form->control('zip', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?php if (!empty($errors['zip'])): foreach ($errors['zip'] as $error): ?>
+                                            <label id="zip-error" class="error" for="zip"><?= $error ?></label>
+                                        <?php endforeach; endif; ?>
+                                    </div>
+                                    <div class="form-group bmd-form-group">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="authorized_owner" >
+                                                <!--<input class="form-check-input" type="checkbox" value="authorized_owner" >-->
+                                                <?= $this->Form->control('authorized', ['label' => false, 'class' => 'form-check-input', 'type' => 'checkbox', 'value' => 1]) ?>
                                                 <span class="form-check-sign">
                                                     <span class="check"></span>
                                                 </span>
                                                 I certify that I am an authorized representative of this business.
                                             </label>
+                                            <?php if (!empty($errors['authorized'])): foreach ($errors['authorized'] as $error): ?>
+                                                <label id="authorized-error" class="error" for="authorized"><?= $error ?></label>
+                                            <?php endforeach; endif; ?>
                                         </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="accept_terms" >
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                                I agree to the
-                                                <a href="#something">terms and conditions</a>.
-                                            </label>
-                                        </div>
-                                        <div class="text-center">
-                                            <?= $this->Flash->render() // Render flash message if one is set.?>
-                                        </div>
-                                        <div class="text-center">
-                                            <?= $this->Form->button('Continue <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'btn btn-primary btn-round mt-4', 'escape' => false, 'value' => 'step1']) ?>
-                                            <!--<a href="#pablo" class="btn btn-primary btn-round mt-4">Continue...</a>-->
-                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <?= $this->Flash->render() // Render flash message if one is set.?>
+                                    </div>
+                                    <div class="text-center">
+                                        <?= $this->Form->button('Continue <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'btn btn-primary btn-round mt-4', 'escape' => false, 'value' => 'step1', 'type' => 'submit', 'name' => 'step1']) ?>
+                                        <!--<a href="#pablo" class="btn btn-primary btn-round mt-4">Continue...</a>-->
+                                    </div>
                                     <?= $this->Form->end() ?>
                                 </div>
                             </div>
@@ -439,31 +363,3 @@
         md.checkFullPageBackgroundImage();
     });
 </script>
-</body>
-
-</html>
-<!--
-<div id="root" class="full-screen-background single-panel-centered img-background">
-    <div class="panel">
-        <?= $this->Form->create() ?>
-            <ul>
-                <li>
-                    <h1>PlantTrack</h1>
-                    <h2>Registration</h2>
-                    <p>In order to create a new Plant Track account, you must be the owner or authorized representative of a business or organization. If this is the case please continue with registration below.</p>
-                    <p>If you are an employee of a business already using Plant Track, please contact your employer for your account information.</p>
-                </li>
-                <li class="row">
-                    <?= $this->Flash->render() // Render flash message if one is set.?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->button('Continue to Registration <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'hvr-icon-pulse', 'escape' => false, 'value' => 'step1']) ?>
-                </li>
-                <li class="row">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-left hvr-icon"></i> Sign In Instead'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'button hvr-icon-pulse', 'escape' => false]) ?>
-                </li>
-            </ul>
-        <?= $this->Form->end() ?>
-    </div>
-</div>
--->

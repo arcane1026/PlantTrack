@@ -39,3 +39,24 @@ body {
 .fill-remaining {
     width: 100%;
 }
+
+/* Stages */
+.growth-profile-add .stage:first-child .stage-toolbar > *:nth-child(2) > * {
+    display: none;
+}
+.growth-profile-add .stage:first-child .stage-toolbar > *:first-child > * {
+    display: none;
+}
+.growth-profile-add .stage:last-child .stage-toolbar > *:last-child > * {
+    display: none;
+}
+/* Steps */
+.growth-profile-add .stage .step:only-child .step-toolbar > *:nth-child(2) > * {
+    display: none;
+}
+.growth-profile-add .stage .step:first-child .step-toolbar > *:first-child > * {
+    display: none;
+}
+.growth-profile-add .stage .step:last-child .step-toolbar > *:last-child > * {
+    display: none;
+}

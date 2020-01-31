@@ -35,6 +35,7 @@ $this->Form->templates([
 
     <div class="content">
         <div class="container-fluid">
+            <?= $this->Flash->render(); ?>
             <div class="row">
 
                 <div class="col-md-12">
@@ -162,7 +163,6 @@ $this->Form->templates([
                         </div>
                     </div>
                 </div>
-                <?= $this->Flash->render(); ?>
             </div>
         </div>
     </div>

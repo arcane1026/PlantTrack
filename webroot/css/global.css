@@ -1,0 +1,14 @@
+/*
+ * Globbal CSS
+ */
+
+/* Table Horizontal */
+.table.table-horizontal {
+
+}
+.table.table-horizontal td {
+    text-align: right;
+}
+.table.table-horizontal tr:first-child th {
+    border-top: none;
+}

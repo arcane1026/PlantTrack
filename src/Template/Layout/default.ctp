@@ -14,8 +14,16 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <?= $this->Html->css('https://fonts.googleapis.com/css?family=Playball|Salsa&display=swap') // Google Fonts ?>
     <?= $this->Html->css('font-awesome-pro.min.css') // Font Awesome ?>
+    <?= $this->Html->css('jquery-ui.min.css') // Jquery UI ?>
+    <?= $this->Html->css('jquery-ui.structure.min.css') // Jquery UI Structure ?>
+    <?= $this->Html->css('jquery-ui.theme.min.css') // Jquery UI Theme ?>
     <?= $this->Html->css('material-dashboard.min.css') // Material Dashboard ?>
+    <?= $this->Html->css('global.css') // Global Application CSS ?>
     <?= $this->Html->css('default.css') // Default Layout CSS ?>
+
+
+    <?= $this->Html->script('core/jquery.min.js') . PHP_EOL ?>
+    <?= $this->Html->script('jquery-ui.min.js') . PHP_EOL ?>
 </head>
 
 <body class="">
@@ -98,7 +106,6 @@
 </div>
 
 <!--   Core JS  -->
-<?= $this->Html->script('core/jquery.min.js') . PHP_EOL ?>
 <?= $this->Html->script('core/popper.min.js') . PHP_EOL ?>
 <?= $this->Html->script('core/bootstrap-material-design.min.js') . PHP_EOL ?>
 <?= $this->Html->script('plugins/perfect-scrollbar.jquery.min.js') . PHP_EOL ?>

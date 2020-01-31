@@ -35,6 +35,7 @@
 
 <div class="content">
     <div class="container-fluid">
+        <?= $this->Flash->render(); ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

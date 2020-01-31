@@ -72,6 +72,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/change-password', ['controller' => 'Users', 'action' => 'change_password']);
     $routes->connect('/generate-qr-code/*', ['controller' => 'Batches', 'action' => 'qr_code']);
 
+    $routes->connect('/promote/*', ['controller' => 'Users', 'action' => 'promote']);
+    $routes->connect('/demote/*', ['controller' => 'Users', 'action' => 'demote']);
+    $routes->connect('/change-owner', ['controller' => 'Users', 'action' => 'change_owner']);
+
+
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */

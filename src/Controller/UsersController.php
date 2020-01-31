@@ -357,6 +357,7 @@ class UsersController extends AppController
 
     /**
      * Confirm email method
+     * URL that user goes to to confirm their email address
      *
      * @param null $encryptedEmail
      * @param null $accountIdHash
@@ -397,6 +398,12 @@ class UsersController extends AppController
         $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
+    /**
+     * Change Password
+     * Allows a user to change their password
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function changePassword() {
         if ($this->request->is('post')) { // Check if request is post
             $data = $this->request->getData(); // Get data from post
@@ -419,13 +426,94 @@ class UsersController extends AppController
     }
 
     /**
+     * Promote
+     * Allows a user to be promoted from employee to manager
+     *
+     * @param null $id
+     * @return \Cake\Http\Response|null
+     */
+    public function promote($id = null) {
+        $user = $this->Users->get($id);
+        if ($user->role === 0 && $user->business_id === $this->Auth->User('business_id')) {
+            $user->role = 1;
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been promoted to manager.'));
+            } else {
+                $this->Flash->error(__('Error saving user.'));
+            }
+        } else {
+            $this->Flash->error(__('This user cannot be promoted this way.'));
+        }
+        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Demote
+     * Allows a user to be demoted from manager to employee
+     *
+     * @param null $id
+     * @return \Cake\Http\Response|null
+     */
+    public function demote($id = null)
+    {
+        $user = $this->Users->get($id);
+        if ($user->role === 1) {
+            if ($user->business_id === $this->Auth->User('business_id') || $this->Auth->User('role') === 3) {
+                $user->role = 0;
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been demoted to employee.'));
+                } else {
+                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                }
+            } else {
+                $this->Flash->error(__('User must be a member of your business.'));
+            }
+        } else {
+            $this->Flash->error(__('This user cannot be demoted this way.'));
+        }
+        return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Change Owner
+     * Change the owner of the business account
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function changeOwner() {
+        if ($this->request->is('post')) {
+            if ($this->Auth->User('role') === 2) { // Must be owner
+                $user = $this->Auth->identify(); // Check username/password combo
+                if ($user) {
+                    $currentOwner = $this->Users->get($this->Auth->User('id'));
+                    $currentOwner->role = 1;
+                    $newOwner = $this->Users->get($this->request->getData('new-owner'));
+                    $newOwner->role = 2;
+                    if ($this->Users->save($currentOwner) && $this->Users->save($newOwner)) { // If saving user to DB was successful
+                        $this->sendNewOwnerNotificationEmails($currentOwner, $newOwner);
+                        $this->Flash->success(__('Owner change successful.'));
+                        return $this->redirect(['action' => 'logout']); // Redirect user to dashboard with success message.
+                    }
+                    $this->Flash->error(__('Error saving new owner.'));
+                } else {
+                    $this->Flash->error(__('Username or password is incorrect'));
+                }
+            } else {
+                $this->Flash->error(__('Only the current owner can change ownership.'));
+            }
+        }
+        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'username'])->where(['business_id' => $this->Auth->User('business_id')])->where(['NOT' => ['id' => $this->Auth->User('id')]]);
+        $this->set(compact('users'));
+    }
+
+    /**
      * Sends activation email to the specified user.
      *
      * @param $user
      */
     private function sendActivationEmail($user) {
         $activateURL = $url = Router::url(['controller' => 'Users', 'action' => 'confirm-email'], ['_full' => true]) . '/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email']);
-        $email = new Email('default'); // Create a new email using default email profile (set in app.config)
+        $email = new Email('default'); // Create a new email using default email profile (set in app.php)
         $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
         ->setTo($user['email']) // Set to address
         ->setSubject('Welcome to PlantTrack!') // Set subject
@@ -435,6 +523,31 @@ class UsersController extends AppController
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
             'confirmation_url' => $activateURL
+        ])
+        ->send(); // Send the email
+    }
+
+    /**
+     * Send NEw Owner Notification Emails
+     * Email to send notification of ownership transfer to old owner and new owner.
+     *
+     * @param $user
+     */
+    private function sendNewOwnerNotificationEmails($oldOwner, $newOwner) {//
+        $email = new Email('default'); // Create a new email using default email profile (set in app.php)
+        $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
+        ->setTo($oldOwner->email) // Set to address
+        ->addTo($newOwner->email) // Add another to address
+        ->setSubject('Important Notice! Account ownership transferred.') // Set subject
+        ->setTemplate('new-owner-notification') // Choose while file to send
+        ->setEmailFormat('both') // Send both text and HTML variants
+        ->viewVars([ // Pass variables to the template
+            'old_owner_first_name' => $oldOwner->first_name,
+            'old_owner_last_name' => $oldOwner->last_name,
+            'old_owner_username' => $oldOwner->username,
+            'new_owner_first_name' => $newOwner->first_name,
+            'new_owner_last_name' => $newOwner->last_name,
+            'new_owner_username' => $newOwner->username
         ])
         ->send(); // Send the email
     }

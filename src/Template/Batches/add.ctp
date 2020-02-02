@@ -3,9 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Batch $batch
  */
-$this->Form->templates([
-    'inputContainer' => '{{content}}'
-]);
 ?>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">

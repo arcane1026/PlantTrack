@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-edit"></i> Edit Information'), ['action' => 'edit-info'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                    <?= $this->Html->link(__('<i class="fas fa-edit"></i> Edit Information'), ['action' => 'edit_info'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
                 </li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="fas fa-building"></i> <?= __('Business Information') ?>
+                            <i class="fas fa-building"></i>
                         </div>
+                        <h4 class="card-title"><?= __('Business Details') ?></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

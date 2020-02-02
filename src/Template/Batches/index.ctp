@@ -24,49 +24,11 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
-            <div class="form-inline">
-                <?= $this->Html->link(__('<i class="fas fa-plus"></i> New Batch'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-            </div>
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <!--<a class="nav-link" href="#pablo">
-                        <i class="material-icons">dashboard</i>
-                        <p class="d-lg-none d-md-block">
-                            Stats
-                        </p>
-                    </a>-->
-
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i><p class="d-inline-block">New Batch</p>'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link']) ?>
                 </li>
-                <!--<li class="nav-item dropdown">
-                    <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">notifications</i>
-                        <span class="notification">5</span>
-                        <p class="d-lg-none d-md-block">
-                            Some Actions
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                        <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                        <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                        <a class="dropdown-item" href="#">Another Notification</a>
-                        <a class="dropdown-item" href="#">Another One</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">person</i>
-                        <p class="d-lg-none d-md-block">
-                            Account
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
-                    </div>
-                </li>-->
             </ul>
         </div>
     </div>
@@ -89,15 +51,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-hover text-nowrap">
                                 <thead>
-                                <tr><!--
-                                    <th class="text-center">#</th>
-                                    <th></th>
-                                    <th>Product Name</th>
-                                    <th>Type</th>
-                                    <th>Qty</th>
-                                    <th class="text-right">Price</th>
-                                    <th class="text-right">Amount</th>-->
-
+                                <tr>
                                     <th scope="col"></th>
                                     <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                                     <th scope="col"><?= $this->Paginator->sort('description') ?></th>
@@ -170,68 +124,3 @@
         </div>
     </div>
 </div>
-
-
-
-<!--
-<div class="batches index large-9 medium-8 columns content">
-    <h3><?= __('Batches') ?></h3>
-    <div><?= $this->Html->link(__('New Batch'), ['action' => 'add'], ['class' => 'button']) ?></div>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('growth_profile_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plant_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plant_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('harvest_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('watched') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('testing_status') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('resource_path') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($batches as $batch): ?>
-            <tr>
-                <td><?= $this->Number->format($batch->id) ?></td>
-                <td><?= $batch->has('user') ? $this->Html->link($batch->user->id, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
-                <td><?= $batch->has('growth_profile') ? $this->Html->link($batch->growth_profile->name, ['controller' => 'GrowthProfiles', 'action' => 'view', $batch->growth_profile->id]) : '' ?></td>
-                <td><?= $batch->has('plant') ? $this->Html->link($batch->plant->name, ['controller' => 'Plants', 'action' => 'view', $batch->plant->id]) : '' ?></td>
-                <td><?= h($batch->name) ?></td>
-                <td><?= h($batch->description) ?></td>
-                <td><?= $this->Number->format($batch->quantity) ?></td>
-                <td><?= h($batch->plant_date) ?></td>
-                <td><?= h($batch->harvest_date) ?></td>
-                <td><?= h($batch->watched) ?></td>
-                <td><?= ''//$testingStatuses[$batch->testing_status] ?></td>
-                <td><?= h($batch->resource_path) ?></td>
-                <td><?= h($batch->created) ?></td>
-                <td><?= h($batch->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $batch->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $batch->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $batch->id], ['confirm' => __('Are you sure you want to delete # {0}?', $batch->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
-</div>
--->

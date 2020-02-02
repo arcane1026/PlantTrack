@@ -9,6 +9,7 @@
     <title>
         PlantTrack
     </title>
+    <?= $this->Html->meta('icon') ?>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -21,7 +22,6 @@
     <?= $this->Html->css('global.css') // Global Application CSS ?>
     <?= $this->Html->css('default.css') // Default Layout CSS ?>
 
-
     <?= $this->Html->script('core/jquery.min.js') . PHP_EOL ?>
     <?= $this->Html->script('jquery-ui.min.js') . PHP_EOL ?>
 </head>
@@ -30,11 +30,11 @@
 <div class="wrapper ">
     <div class="sidebar" data-color="rose" data-background-color="black">
         <div class="logo">
-            <?= $this->Html->link(__('<i class="fas fa-seedling"></i>'), ['controller' => 'Users', 'action' => 'dashboard'], ['escape' => false, '_full' => true, 'class' => 'simple-text logo-mini']) ?>
-            <?= $this->Html->link(__('PlantTrack'), ['controller' => 'Users', 'action' => 'dashboard'], ['_full' => true, 'class' => 'simple-text logo-normal']) ?>
+            <?= $this->Html->link(__('<div></div>'), ['controller' => 'Dashboard', 'action' => 'index'], ['escape' => false, 'class' => 'simple-text logo-mini']) ?>
+            <?= $this->Html->link(__('PlantTrack'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'simple-text logo-normal']) ?>
         </div>
         <div class="sidebar-wrapper">
-            <div class="user<?= ($activePrimaryNav === 'Usersk') ? ' active' : ''?>">
+            <div class="user<?= ($activePrimaryNav === 'Users') ? ' active' : ''?>">
                 <div class="photo">
                     <!--<img src="../assets/img/faces/avatar.jpg" />-->
                     <i class="fas fa-user-circle" style="font-size: 32px; color: #eee"></i>
@@ -49,16 +49,16 @@
                     <div class="collapse" id="userCollapse">
                         <ul class="nav">
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user"></i> </span><span class="sidebar-normal"> My Profile </span>'), ['controller' => 'Users', 'action' => 'view-profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user"></i> </span><span class="sidebar-normal"> My Profile </span>'), ['controller' => 'Users', 'action' => 'view_profile'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-edit"></i> </span><span class="sidebar-normal"> Edit Profile </span>'), ['controller' => 'Users', 'action' => 'edit-profile'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-edit"></i> </span><span class="sidebar-normal"> Edit Profile </span>'), ['controller' => 'Users', 'action' => 'edit_profile'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-cog"></i> </span><span class="sidebar-normal"> User Settings </span>'), ['controller' => 'Users', 'action' => 'settings'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-cog"></i> </span><span class="sidebar-normal"> User Settings </span>'), ['controller' => 'Users', 'action' => 'settings'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-sign-out-alt"></i> </span><span class="sidebar-normal"> Sign Out </span>'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false, '_full' => true, 'class' => 'nav-link']) ?>
+                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-sign-out-alt"></i> </span><span class="sidebar-normal"> Sign Out </span>'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                         </ul>
                     </div>
@@ -139,5 +139,18 @@
     });
 </script>
 </body>
-
 </html>
+<!--
+ =========================================================
+ Material Dashboard PRO - v2.1.0
+ =========================================================
+
+ Product Page: https://www.creative-tim.com/product/material-dashboard-pro
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+ Coded by Creative Tim
+
+ =========================================================
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->

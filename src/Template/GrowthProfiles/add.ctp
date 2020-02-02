@@ -532,9 +532,6 @@
         </div>
     </div>
 </div>
-<script>
-    //$( ".stage-sortable" ).sortable();
-</script>
 <!--
 <div class="growthProfiles form large-9 medium-8 columns content">
     <?= $this->Form->create($growthProfile) ?>

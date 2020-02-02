@@ -66,11 +66,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     $routes->connect('/view-profile', ['controller' => 'Users', 'action' => 'view_profile']);
+    $routes->connect('/edit-profile', ['controller' => 'Users', 'action' => 'edit_profile']);
+    $routes->connect('/view-business', ['controller' => 'Businesses', 'action' => 'view_info']);
+    $routes->connect('/edit-business', ['controller' => 'Businesses', 'action' => 'edit_info']);
     $routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
     $routes->connect('/confirm-email/*', ['controller' => 'Users', 'action' => 'confirm_email']);
     $routes->connect('/resend-activation-email/*', ['controller' => 'Users', 'action' => 'resend_activation_email']);
     $routes->connect('/change-password', ['controller' => 'Users', 'action' => 'change_password']);
     $routes->connect('/generate-qr-code/*', ['controller' => 'Batches', 'action' => 'qr_code']);
+    $routes->connect('/employee-manager', ['controller' => 'Users', 'action' => 'manage']);
 
     $routes->connect('/promote/*', ['controller' => 'Users', 'action' => 'promote']);
     $routes->connect('/demote/*', ['controller' => 'Users', 'action' => 'demote']);

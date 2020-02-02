@@ -42,8 +42,9 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="fas fa-building"></i> <?= __('Plant Information') ?>
+                            <i class="fas fa-leaf"></i>
                         </div>
+                        <h4 class="card-title"><?= __('Plant Details') ?></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

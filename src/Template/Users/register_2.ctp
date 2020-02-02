@@ -4,47 +4,6 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<!--
- =========================================================
- Material Dashboard PRO - v2.1.0
- =========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard-pro
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
- Coded by Creative Tim
-
- =========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
-    <div class="container">
-        <div class="navbar-wrapper">
-            <a href="http://www.planttrackapp.com" class="navbar-brand">
-                <i class="fas fa-arrow-left"></i> Plant Track Website
-            </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-id-badge"></i> Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- End Navbar -->
 <div class="wrapper wrapper-full-page">
     <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('http://static.coastlineapplications.com/plant_track/plant_bg.jpeg')">
         <div class="container">
@@ -54,7 +13,7 @@
                         <div class="card-header card-header-olive text-center">
                             <h4 class="card-title text-cream text-shadow-cream-on-olive">Plant Track</h4>
                         </div>
-                        <h3 class="text-cream text-center">Register Step 2</h3>
+                        <h3 class="text-cream text-center">Register: User Account</h3>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
@@ -103,7 +62,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['username'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Username *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('username', ['label' => false, 'class' => 'form-control text-cream']); ?>
+                                        <?= $this->Form->control('username', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']); ?>
                                         <?php if (!empty($errors['username'])): foreach ($errors['username'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -111,7 +70,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['password'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Password *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('password', ['label' => false, 'class' => 'form-control text-cream', 'type' => 'password']) ?>
+                                        <?= $this->Form->control('password', ['required' => true, 'label' => false, 'class' => 'form-control text-cream', 'type' => 'password']) ?>
                                         <?php if (!empty($errors['password'])): foreach ($errors['password'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -119,7 +78,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['repeat_password'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Repeat Password *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('repeat_password', ['label' => false, 'class' => 'form-control text-cream', 'type' => 'password']) ?>
+                                        <?= $this->Form->control('repeat_password', ['required' => true, 'equalTo' => '#password', 'label' => false, 'class' => 'form-control text-cream', 'type' => 'password']) ?>
                                         <?php if (!empty($errors['repeat_password'])): foreach ($errors['repeat_password'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -127,7 +86,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['first_name'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">First Name *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('first_name', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('first_name', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['first_name'])): foreach ($errors['first_name'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -135,7 +94,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['last_name'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Last Name *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('last_name', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('last_name', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['last_name'])): foreach ($errors['last_name'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -143,7 +102,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['email'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Email *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('email', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('email', ['required' => true, 'email' => true, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['email'])): foreach ($errors['email'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -151,7 +110,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['phone'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Phone *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('phone', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('phone', ['required' => true, 'minLength' => '10', 'maxLength' => '10', 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['phone'])): foreach ($errors['phone'] as $error): ?>
                                             <label id="exampleEmail-error" class="error" for="exampleEmail"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -160,7 +119,7 @@
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <!--<input class="form-check-input" type="checkbox" value="accept_terms" >-->
-                                                <?= $this->Form->control('agreement', ['label' => false, 'class' => 'form-check-input', 'type' => 'checkbox', 'value' => 1]) ?>
+                                                <?= $this->Form->control('agreement', ['required' => true, 'label' => false, 'class' => 'form-check-input', 'type' => 'checkbox', 'value' => 1]) ?>
                                                 <span class="form-check-sign">
                                                     <span class="check"></span>
                                                 </span>
@@ -391,68 +350,3 @@
         md.checkFullPageBackgroundImage();
     });
 </script>
-<!--
-<div id="root" class="full-screen-background single-panel-centered img-background">
-    <div class="panel">
-        <?= $this->Form->create() ?>
-            <ul>
-                <li>
-                    <h1>PlantTrack</h1>
-                    <h2>Registration</h2>
-                    <h3>User Information</h3>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('username', ['placeholder' => 'Username', 'label' => false]); ?>
-                    <?php if (!empty($errors['username'])): foreach ($errors['username'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false]) ?>
-                    <?php if (!empty($errors['password'])): foreach ($errors['password'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('repeat_password', ['placeholder' => 'Repeat Password', 'label' => false]) ?>
-                    <?php if (!empty($errors['repeat_password'])): foreach ($errors['repeat_password'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <br />
-                <li class="row">
-                    <?= $this->Form->control('first_name', ['placeholder' => 'First Name', 'label' => false]) ?>
-                    <?php if (!empty($errors['first_name'])): foreach ($errors['first_name'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('last_name', ['placeholder' => 'Last Name', 'label' => false]) ?>
-                    <?php if (!empty($errors['last_name'])): foreach ($errors['last_name'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('email', ['placeholder' => 'Email Address', 'label' => false]) ?>
-                    <?php if (!empty($errors['email'])): foreach ($errors['email'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->control('phone', ['placeholder' => 'Phone Number', 'label' => false]) ?>
-                    <?php if (!empty($errors['phone'])): foreach ($errors['phone'] as $error): ?>
-                        <div class="error"><?= $error ?></div>
-                    <?php endforeach; endif; ?>
-                </li>
-                <li class="row">
-                    <?= $this->Flash->render() // Render flash message if one is set.?>
-                </li>
-                <li class="row">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-left hvr-icon"></i> Cancel'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'button hvr-icon-pulse', 'escape' => false]) ?>
-                    <?= $this->Form->button('Complete Registration <i class="fas fa-arrow-right hvr-icon"></i>', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
-                </li>
-            </ul>
-        <?= $this->Form->end() ?>
-    </div>
-</div>
--->

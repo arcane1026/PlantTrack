@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'PlantTrack';
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
+        <?= $cakeDescription ?> -
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
@@ -44,6 +44,35 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body class="off-canvas-sidebar">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+    <div class="container">
+        <div class="navbar-wrapper">
+            <a href="http://www.planttrackapp.com" class="navbar-brand">
+                <i class="fas fa-arrow-left"></i> Plant Track Website
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item<?= ($action === 'login') ? ' active' : ''?>">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-id-card-alt"></i> Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link', 'escape' => false]) ?>
+                </li>
+                <li class="nav-item<?= ($action === 'register') ? ' active' : ''?>">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link', 'escape' => false]) ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
     <?= $this->fetch('content') ?>
 
     <!--   Core JS  -->
@@ -82,3 +111,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </script>
 </body>
 </html>
+<!--
+ =========================================================
+ Material Dashboard PRO - v2.1.0
+ =========================================================
+
+ Product Page: https://www.creative-tim.com/product/material-dashboard-pro
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+ Coded by Creative Tim
+
+ =========================================================
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->

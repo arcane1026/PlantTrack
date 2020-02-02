@@ -101,6 +101,30 @@ class BusinessesController extends AppController
     }
 
     /**
+     * Edit method
+     *
+     * @param string|null $id Business id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function editInfo()
+    {
+        $business = $this->Businesses->get($this->Auth->User('id'), [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $business = $this->Businesses->patchEntity($business, $this->request->getData());
+            if ($this->Businesses->save($business)) {
+                $this->Flash->success(__('The business has been saved.'));
+
+                return $this->redirect(['action' => 'view_info']);
+            }
+            $this->Flash->error(__('The business could not be saved. Please, try again.'));
+        }
+        $this->set(compact('business'));
+    }
+
+    /**
      * Delete method
      *
      * @param string|null $id Business id.

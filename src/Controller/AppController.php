@@ -100,6 +100,6 @@ class AppController extends Controller
         $action = $this->request->getParam('action');
         $activePrimaryNav = $controller;
 
-        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav'));
+        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action'));
     }
 }

@@ -39,6 +39,28 @@ class UsersController extends AppController
     }
 
     /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function manage()
+    {
+        $this->paginate = [
+            'contain' => ['Businesses'],
+        ];
+        $employees = $this->paginate($this->Users->find('all', [
+            'contain' => ['Businesses'],
+        ])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 0]));
+        $managers = $this->paginate($this->Users->find('all', [
+            'contain' => ['Businesses'],
+        ])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 1]));
+
+        $userRoles = $this->userRoles;
+        $this->set(compact('employees', 'managers', 'userRoles'));
+
+    }
+
+    /**
      * View method
      *
      * @param string|null $id User id.
@@ -162,14 +184,6 @@ class UsersController extends AppController
     }
 
     /**
-     * Dashboard method
-     */
-    public function dashboard()
-    {
-
-    }
-
-    /**
      * Login method
      *
      * @return \Cake\Http\Response|null
@@ -187,7 +201,7 @@ class UsersController extends AppController
             if ($recentAccessAttempts < 11) {
                 $logEntity = $this->AccessLog->NewEntity();
                 $logEntity->username = $formData['username'];
-                $logEntity->ipAddress = $this->request->clientIp();
+                $logEntity->ip_address = $this->request->clientIp();
                 $user = $this->Auth->identify();
                 //var_dump($user);
                 if ($user) { // Check that user exists after checking username and password
@@ -209,6 +223,7 @@ class UsersController extends AppController
                     }
                     $this->Flash->error($msg);
                 }
+
                 $this->AccessLog->save($logEntity);
             } else {
                 // Too many access attempts
@@ -301,59 +316,6 @@ class UsersController extends AppController
 
         }
     }
-    /**
- * Register method
- *
- * @return \Cake\Http\Response|null
- */
-    /* OLD REGISTER FUNCTION, PRE new_ui
-    public function register()
-    {
-        $this->viewBuilder()->setLayout('login'); // Set layout to login
-        if ($this->request->is('post')) { // Check if is post request
-            $data = $this->request->getData(); // Get form data
-            if (empty($data)) { // If no form data, step 1 button click
-                $this->view = 'register-step-2'; // Step 1 button click, need step 2 view
-            } else {
-                if (isset($data['city'])) { // If city field was submitted, step 2 button click TODO: Maybe a better way to determine this step?!?
-                    $business = $this->Users->Businesses->newEntity(); // Create a new business
-                    $business = $this->Users->Businesses->patchEntity($business, $data); // Fill the business with form data
-                    if ($errors = $business->errors()) { // If there are validation errors
-                        $this->view = 'register-step-2'; // Set form to step 2
-                        $this->set(compact('business', 'errors')); // Send business data and errors to view
-                    } else { // Step 2 Button Click Success!
-                        $session = $this->getRequest()->getSession(); // Get session
-                        $session->write('business', $business); // Write business data to session
-                        $this->view = 'register-step-3'; // Set form to step 3
-                        $user = $this->Users->newEntity(); // Create an empty user
-                        $this->set(compact('user')); // Send empty user to view
-                    }
-                } else { // Step 3 button click
-                    $data['role'] = '2'; // Set role to owner manually in form data
-                    $user = $this->Users->newEntity(); // Create a new empty user
-                    $user = $this->Users->patchEntity($user, $data); // Fill the user with form data
-                    if ($errors = $user->errors()) { // If there are validation errors
-                        $this->set(compact('user', 'errors')); // Send Errors and User data to view
-                        $this->view = 'register-step-3'; // Set form to step 3
-                    } else {
-                        $session = $this->getRequest()->getSession(); // Get session
-                        $businessData = $session->read('business'); // Read business from session
-                        $user = $this->Users->newEntity(); // Create a new user
-                        $user = $this->Users->patchEntity($user, $data); // Fill user with form data
-                        $user['business'] = $businessData; // Add business from session to user
-                        if ($this->Users->save($user)) { // If the user and business saved properly
-                            $this->sendActivationEmail($user);
-                            $this->Flash->success(__('Your account has been created but you need to confirm your email address before you can sign in. Please check your email for further instructions.')); // Success message
-                            $session->delete('business'); // Delete business from session now that its saved in database
-                            return $this->redirect(['action' => 'login']); // Redirect user to login page
-                        }
-                        $this->view = 'register-step-3'; // Set view to step 3
-                        $this->set(compact('user', 'errors')); // Save user and error data to view
-                    }
-                }
-            }
-        }
-    }*/
 
     /**
      * Confirm email method
@@ -374,8 +336,6 @@ class UsersController extends AppController
             $this->Flash->error(__('Sorry we were unable to confirm your email address. Please contact support for further assistance.'));
         }
         return $this->redirect(['action' => 'login']); // Redirect user to login page
-        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
-        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
     /**
@@ -394,8 +354,6 @@ class UsersController extends AppController
             $this->Flash->error(__('Unable to send confirmation email.'));
         }
         return $this->redirect(['action' => 'login']); // Redirect user to login page
-        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
-        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
     }
 
     /**
@@ -437,14 +395,14 @@ class UsersController extends AppController
         if ($user->role === 0 && $user->business_id === $this->Auth->User('business_id')) {
             $user->role = 1;
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been promoted to manager.'));
+                $this->Flash->success(__('User (' . $user->username . ') has been promoted to manager.'));
             } else {
                 $this->Flash->error(__('Error saving user.'));
             }
         } else {
             $this->Flash->error(__('This user cannot be promoted this way.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'manage']);
     }
 
     /**
@@ -461,7 +419,7 @@ class UsersController extends AppController
             if ($user->business_id === $this->Auth->User('business_id') || $this->Auth->User('role') === 3) {
                 $user->role = 0;
                 if ($this->Users->save($user)) {
-                    $this->Flash->success(__('The user has been demoted to employee.'));
+                    $this->Flash->success(__('User (' . $user->username . ') has been demoted to employee.'));
                 } else {
                     $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 }
@@ -471,7 +429,7 @@ class UsersController extends AppController
         } else {
             $this->Flash->error(__('This user cannot be demoted this way.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'manage']);
     }
 
     /**
@@ -502,7 +460,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Only the current owner can change ownership.'));
             }
         }
-        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'username'])->where(['business_id' => $this->Auth->User('business_id')])->where(['NOT' => ['id' => $this->Auth->User('id')]]);
+        $users = $this->Users->find('list', ['keyField' => 'id', 'valueField' => 'username'])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 1], ['NOT' => ['id' => $this->Auth->User('id')]]);
         $this->set(compact('users'));
     }
 

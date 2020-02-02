@@ -41,7 +41,7 @@ body {
 }
 
 /* Stages */
-.growth-profile-add .stage:first-child .stage-toolbar > *:nth-child(2) > * {
+.growth-profile-add .stage:only-child .stage-toolbar > *:nth-child(2) > * {
     display: none;
 }
 .growth-profile-add .stage:first-child .stage-toolbar > *:first-child > * {
@@ -59,4 +59,29 @@ body {
 }
 .growth-profile-add .stage .step:last-child .step-toolbar > *:last-child > * {
     display: none;
+}
+
+.navbar-nav .form-inline .btn {
+    margin-right: 15px;
+}
+
+.card-toolbar {
+    float: right;
+}
+.card-toolbar .btn {
+    font-size: 1rem;
+}
+.logo-mini {
+    width: 50px !important;
+    margin-left: 12px !important;
+}
+
+.logo-mini > div {
+    position: relative;
+    top: -10px;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-position: center center;
+    background-image: url('http://static.coastlineapplications.com/plant_track/planttrack_logo_icon_cream.png')
 }

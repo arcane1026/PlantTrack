@@ -52,7 +52,9 @@ class PlantsController extends AppController
     {
         $plant = $this->Plants->newEntity();
         if ($this->request->is('post')) {
-            $plant = $this->Plants->patchEntity($plant, $this->request->getData());
+            $data = $this->request->getData();
+            $data['user_id'] = $this->Auth->User('id');
+            $plant = $this->Plants->patchEntity($plant, $data);
             if ($this->Plants->save($plant)) {
                 $this->Flash->success(__('The plant has been saved.'));
 

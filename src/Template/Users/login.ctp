@@ -3,99 +3,17 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
-
-
 ?>
-<!--
- =========================================================
- Material Dashboard PRO - v2.1.0
- =========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard-pro
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
- Coded by Creative Tim
-
- =========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>
-        Material Dashboard PRO by Creative Tim
-    </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-          name='viewport'/>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="../../assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet"/>
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/demo/demo.css" rel="stylesheet"/>
-</head>
-
-<body class="off-canvas-sidebar">
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
-    <div class="container">
-        <div class="navbar-wrapper">
-            <a href="http://www.planttrackapp.com" class="navbar-brand">
-                <i class="fas fa-arrow-left"></i> Plant Track Website
-            </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-                <li class="nav-item active">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-id-badge"></i> Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- End Navbar -->
 <div class="wrapper wrapper-full-page">
     <div class="page-header login-page header-filter" filter-color="black"
          style="background-image: url('http://static.coastlineapplications.com/plant_track/plant_bg.jpeg'); background-size: cover; background-position: top center;">
-        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                    <!--<form class="form" method="" action="">-->
                     <?= $this->Form->create(false, ['class' => 'form']) ?>
                     <div class="card card-login card-hidden">
                         <div class="card-header card-header-olive text-center">
                             <h4 class="card-title text-cream text-shadow-cream-on-olive">Plant Track</h4>
-                            <!--<div class="social-line">
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-white">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </div>-->
                         </div>
                         <div class="card-body ">
                             <h3 class="card-description text-center text-cream">Login</h3>
@@ -106,7 +24,6 @@
                                         <i class="fas fa-user text-cream"></i>
                                     </span>
                                 </div>
-                                <!--<input type="email" class="form-control" placeholder="Email...">-->
                                 <?= $this->Form->control('username', ['placeholder' => 'Username', 'label' => false, 'class' => 'form-control']) // Username input element  ?>
                             </div>
                             </span>
@@ -117,7 +34,6 @@
                                             <i class="fas fa-key text-cream"></i>
                                         </span>
                                     </div>
-                                    <!--<input type="password" class="form-control" placeholder="Password...">-->
                                     <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false, 'class' => 'form-control']) ?>
                                 </div>
                             </span>
@@ -125,12 +41,13 @@
                         <div style="padding: 25px 20px 0">
                             <?= $this->Flash->render() // Render flash message if one is set.  ?>
                         </div>
+                        <div class="text-center" style="padding: 15px 0">
+                            <?= $this->Form->button('<i class="fas fa-sign-in"></i> Sign In', ['class' => 'btn btn-primary btn-lg', 'escape' => false]) ?>
+                        </div>
                         <div class="card-footer justify-content-center">
-                            <!--<a href="#pablo" class="btn btn-rose btn-link btn-lg">Lets Go</a>-->
-                            <?= $this->Form->button('<i class="fas fa-sign-in"></i> Sign In', ['class' => 'btn btn-link btn-lg', 'escape' => false]) ?>
+                            <a href="#" class="text-cream">Need help signing in?</a>
                         </div>
                     </div>
-                    <!--</form>-->
                     <?= $this->Form->end() ?>
                 </div>
             </div>
@@ -348,34 +265,3 @@
 </body>
 
 </html>
-<!--
-<div id="root" class="full-screen-background login-panel img-background">
-    <div class="panel">
-        <?= $this->Form->create() ?>
-            <ul>
-                <li>
-                    <h1>PlantTrack</h1>
-                </li>
-                <li class="row">
-                    <span><i class="fas fa-fw fa-user"></i></span>
-                    <?= $this->Form->control('username', ['placeholder' => 'Username', 'label' => false]) // Username input element  ?>
-                </li>
-                <li class="row">
-                    <span><i class="fas fa-fw fa-key"></i></span>
-                    <?= $this->Form->control('password', ['placeholder' => 'Password', 'label' => false]) ?>
-                </li>
-                <li class="row">
-                    <?= $this->Flash->render() // Render flash message if one is set. ?>
-                </li>
-                <li class="row">
-                    <?= $this->Form->button('<i class="fas fa-sign-in hvr-icon"></i> Sign In', ['class' => 'hvr-icon-pulse', 'escape' => false]) ?>
-                </li>
-                <li class="row">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-headset hvr-icon"></i> Help'), '#', ['class' => 'button hvr-icon-pulse', 'escape' => false]) ?>
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus hvr-icon"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'button hvr-icon-pulse', 'escape' => false]) ?>
-                </li>
-            </ul>
-        <?= $this->Form->end() ?>
-    </div>
-</div>
--->

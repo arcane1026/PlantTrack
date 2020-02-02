@@ -25,8 +25,8 @@
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-user-shield"></i> Change Password'), ['action' => 'change-password'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-                    <?= $this->Html->link(__('<i class="fas fa-user-edit"></i> Edit Profile'), ['action' => 'edit-profile'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                    <?= $this->Html->link(__('<i class="fas fa-user-shield"></i> Change Password'), ['action' => 'change_password'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                    <?= $this->Html->link(__('<i class="fas fa-user-edit"></i> Edit Profile'), ['action' => 'edit_profile'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
                 </li>
             </ul>
         </div>
@@ -42,13 +42,14 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="fas fa-user"></i> <?= __('User Profile') ?>
+                            <i class="fas fa-user"></i>
                         </div>
+                        <h4 class="card-title"><?= __('User Details') ?></h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <h3>Account Details</h3>
-                            <table class="table table-striped">
+                            <h3>Account</h3>
+                            <table class="table table-horizontal table-hover">
                                 <tr>
                                     <th scope="row"><?= __('Username') ?></th>
                                     <td ><?= h($user->username) ?></td>
@@ -76,8 +77,8 @@
                                 </tr>
                                 <?php endif; ?>
                             </table>
-                            <h3>Personal Information</h3>
-                            <table class="table table-striped">
+                            <h3>Personal</h3>
+                            <table class="table table-horizontal table-hover">
                                 <tr>
                                     <th scope="row"><?= __('First Name') ?></th>
                                     <td><?= h($user->first_name) ?></td>
@@ -99,9 +100,7 @@
                                     <td><?= h($user->resource_path) ?></td>
                                 </tr>
                             </table>
-
                         </div>
-
                     </div>
                 </div>
             </div>

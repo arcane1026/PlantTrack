@@ -4,47 +4,6 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<!--
- =========================================================
- Material Dashboard PRO - v2.1.0
- =========================================================
-
- Product Page: https://www.creative-tim.com/product/material-dashboard-pro
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
- Coded by Creative Tim
-
- =========================================================
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
-    <div class="container">
-        <div class="navbar-wrapper">
-            <a href="http://www.planttrackapp.com" class="navbar-brand">
-                <i class="fas fa-arrow-left"></i> Plant Track Website
-            </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-user-plus"></i> Register'), ['controller' => 'Users', 'action' => 'register'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-id-badge"></i> Login'), ['controller' => 'Users', 'action' => 'login'], ['class' => 'nav-link', 'escape' => false]) ?>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- End Navbar -->
 <div class="wrapper wrapper-full-page">
     <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('http://static.coastlineapplications.com/plant_track/plant_bg.jpeg')">
         <div class="container">
@@ -54,7 +13,7 @@
                         <div class="card-header card-header-olive text-center">
                             <h4 class="card-title text-cream text-shadow-cream-on-olive">Plant Track</h4>
                         </div>
-                        <h3 class="text-cream text-center">Register</h3>
+                        <h3 class="text-cream text-center">Register: Business Account</h3>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
@@ -84,7 +43,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['name'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Business Name *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('name', ['label' => false, 'class' => 'form-control text-cream']); ?>
+                                        <?= $this->Form->control('name', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']); ?>
                                         <?php if (!empty($errors['name'])): foreach ($errors['name'] as $error): ?>
                                             <label id="name-error" class="error" for="name"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -92,7 +51,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['street'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Street *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('street', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('street', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['street'])): foreach ($errors['street'] as $error): ?>
                                             <label id="street-error" class="error" for="street"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -108,7 +67,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['city'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">City *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('city', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('city', ['required' => true, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['city'])): foreach ($errors['city'] as $error): ?>
                                             <label id="city-error" class="error" for="city"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -116,7 +75,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['state'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">State *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('state', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('state', ['required' => true, 'minLength' => 2, 'maxLength' => 2, 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['state'])): foreach ($errors['state'] as $error): ?>
                                             <label id="state-error" class="error" for="state"><?= $error ?></label>
                                         <?php endforeach; endif; ?>
@@ -124,7 +83,7 @@
                                     <div class="form-group bmd-form-group<?= (!empty($errors['zip'])) ? ' has-danger' : '' ; ?>">
                                         <label for="exampleEmail" class="bmd-label-floating">Zip Code *</label>
                                         <!--<input type="email" class="form-control" id="exampleEmail" required="true" aria-required="true" aria-invalid="true">-->
-                                        <?= $this->Form->control('zip', ['label' => false, 'class' => 'form-control text-cream']) ?>
+                                        <?= $this->Form->control('zip', ['required' => true, 'minLength' => 5, 'maxLength' => 5, 'number' => 'true', 'label' => false, 'class' => 'form-control text-cream']) ?>
                                         <?php if (!empty($errors['zip'])): foreach ($errors['zip'] as $error): ?>
                                             <label id="zip-error" class="error" for="zip"><?= $error ?></label>
                                         <?php endforeach; endif; ?>

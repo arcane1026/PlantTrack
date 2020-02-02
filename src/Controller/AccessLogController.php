@@ -19,7 +19,7 @@ class AccessLogController extends AppController
      */
     public function index()
     {
-        $accessLog = $this->paginate($this->AccessLog);
+        $accessLog = $this->paginate($this->AccessLog, ['order' => ['AccessLog.created' => 'desc']]);
 
         $this->set(compact('accessLog'));
     }

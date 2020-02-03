@@ -124,7 +124,7 @@ class EmployeeInvitesController extends AppController
     }
 
     private function sendEmployeeInvite($invitation) {
-        $activateURL = $url = Router::url(['controller' => 'Employee_Invites', 'action' => 'confirm-employee-email'], ['_full' => true]) . '/' . base64_encode($invitation['email']) . '/' . sha1($invitation['id'] . $invitation['email']);
+        $activateURL = $url = Router::url(['controller' => 'Employee_Invites', 'action' => 'invite_employee_2'], ['_full' => true]) . '/' . base64_encode($invitation['email']) . '/' . sha1($invitation['id'] . $invitation['email']);
         $email = new Email('default'); // Create a new email using default email profile (set in app.config)
         $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
         ->setTo($invitation['email']) // Set to address
@@ -154,5 +154,9 @@ class EmployeeInvitesController extends AppController
         return $this->redirect(['action' => 'login']); // Redirect user to login page
         $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
         $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
+    }
+
+    public function inviteEmployee2(){
+
     }
 }

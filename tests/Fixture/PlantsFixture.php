@@ -27,7 +27,7 @@ class PlantsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'user_key_plants' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'plants_ibfk_1' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -49,8 +49,8 @@ class PlantsFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'resource_path' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-01-07 01:38:23',
-                'modified' => '2020-01-07 01:38:23',
+                'created' => '2020-02-07 18:28:52',
+                'modified' => '2020-02-07 18:28:52',
             ],
         ];
         parent::init();

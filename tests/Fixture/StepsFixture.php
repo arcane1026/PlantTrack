@@ -27,7 +27,7 @@ class StepsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'stage_key_steps' => ['type' => 'foreign', 'columns' => ['stage_id'], 'references' => ['stages', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'steps_ibfk_1' => ['type' => 'foreign', 'columns' => ['stage_id'], 'references' => ['stages', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -49,8 +49,8 @@ class StepsFixture extends TestFixture
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'duration' => 1,
-                'created' => '2020-01-07 01:40:01',
-                'modified' => '2020-01-07 01:40:01',
+                'created' => '2020-02-07 18:30:07',
+                'modified' => '2020-02-07 18:30:07',
             ],
         ];
         parent::init();

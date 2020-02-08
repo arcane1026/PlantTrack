@@ -47,11 +47,11 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <h6>User Account Details</h6>
-                            <table class="table table-striped">
+                            <h3>User Account Details</h3>
+                            <table class="table table-horizontal table-hover">
                                 <tr>
                                     <th scope="row"><?= __('Username') ?></th>
-                                    <td ><?= h($user->username) ?></td>
+                                    <td class="text-right"><?= h($user->username) ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row"><?= __('Business') ?></th>
@@ -74,8 +74,8 @@
                                     <td><?= $user->locked ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'; ?></td>
                                 </tr>
                             </table>
-                            <h6>User Personal Information</h6>
-                            <table class="table table-striped">
+                            <h3>User Personal Information</h3>
+                            <table class="table table-horizontal table-hover">
                                 <tr>
                                     <th scope="row"><?= __('First Name') ?></th>
                                     <td><?= h($user->first_name) ?></td>

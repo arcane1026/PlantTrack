@@ -47,7 +47,6 @@ class UsersTable extends Table
 
         $this->belongsTo('Businesses', [
             'foreignKey' => 'business_id',
-            'joinType' => 'INNER',
         ]);
         $this->hasMany('Batches', [
             'foreignKey' => 'user_id',

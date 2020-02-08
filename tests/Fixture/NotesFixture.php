@@ -29,9 +29,9 @@ class NotesFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'batch_key_notes' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'step_key_notes' => ['type' => 'foreign', 'columns' => ['step_id'], 'references' => ['steps', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'user_key_notes' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'notes_ibfk_1' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'notes_ibfk_2' => ['type' => 'foreign', 'columns' => ['step_id'], 'references' => ['steps', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'notes_ibfk_3' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -53,8 +53,8 @@ class NotesFixture extends TestFixture
                 'step_id' => 1,
                 'batch_id' => 1,
                 'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'created' => '2020-01-07 01:40:16',
-                'modified' => '2020-01-07 01:40:16',
+                'created' => '2020-02-07 18:28:59',
+                'modified' => '2020-02-07 18:28:59',
             ],
         ];
         parent::init();

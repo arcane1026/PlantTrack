@@ -16,7 +16,7 @@ CREATE TABLE businesses (
 
 CREATE TABLE users (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    business_id			INT 			UNSIGNED NOT NULL,
+    business_id			INT 			UNSIGNED,
     username			VARCHAR(255)	NOT NULL,
     password			VARCHAR(255) 	NOT NULL,
     role				SMALLINT		UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:Employee, 1:Manager, 2:Owner, 3:Site Admin',
@@ -81,19 +81,23 @@ CREATE TABLE batches (
     user_id				INT 			UNSIGNED NOT NULL,
     growth_profile_id	INT 			UNSIGNED NOT NULL,
     plant_id			INT 			UNSIGNED NOT NULL,
+    step_id 			INT 			UNSIGNED NOT NULL,
     name 	 	 		VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
     quantity			INT 			UNSIGNED NOT NULL,
+    yield               DOUBLE          UNSIGNED,
     plant_date			DATETIME,
     harvest_date		DATETIME,
     watched				BOOLEAN			NOT NULL DEFAULT 0,
     testing_status		SMALLINT		UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:Unsent, 1:Sent, 2:Passed, 3:Failed',
+    testing_date        DATETIME,
     resource_path		VARCHAR(255),
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY user_key_batches (user_id) REFERENCES users(id),
     FOREIGN KEY growth_profile_key_batches (growth_profile_id) REFERENCES growth_profiles(id),
-    FOREIGN KEY plant_key_batches (plant_id) REFERENCES plants(id)
+    FOREIGN KEY plant_key_batches (plant_id) REFERENCES plants(id),
+    FOREIGN KEY step_key_batches (step_id) REFERENCES steps(id)
 );
 
 CREATE TABLE readings (

@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-horizontal table-hover">
                                 <tr>
                                     <th scope="row"><?= __('Business Name') ?></th>
                                     <td><?= h($business->name) ?></td>

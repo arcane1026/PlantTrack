@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\Stage $stage
+ * @property \App\Model\Entity\Batch[] $batches
  * @property \App\Model\Entity\Note[] $notes
  * @property \App\Model\Entity\Reading[] $readings
  */
@@ -37,6 +38,7 @@ class Step extends Entity
         'created' => true,
         'modified' => true,
         'stage' => true,
+        'batches' => true,
         'notes' => true,
         'readings' => true,
     ];

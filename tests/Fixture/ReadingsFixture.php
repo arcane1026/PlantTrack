@@ -28,8 +28,8 @@ class ReadingsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'batch_key_readings' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'step_key_readings' => ['type' => 'foreign', 'columns' => ['step_id'], 'references' => ['steps', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'readings_ibfk_1' => ['type' => 'foreign', 'columns' => ['step_id'], 'references' => ['steps', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'readings_ibfk_2' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -51,8 +51,8 @@ class ReadingsFixture extends TestFixture
                 'batch_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'value' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-01-07 01:40:10',
-                'modified' => '2020-01-07 01:40:10',
+                'created' => '2020-02-07 18:29:47',
+                'modified' => '2020-02-07 18:29:47',
             ],
         ];
         parent::init();

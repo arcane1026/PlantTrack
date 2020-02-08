@@ -6,7 +6,7 @@ use App\Controller\AppController;
 /**
  * AccessLog Controller
  *
- * @property \App\Model\Table\AccessLogTable $AccessLog
+ * @property \App\Model\Table\AccessLogsTable $AccessLog
  *
  * @method \App\Model\Entity\AccessLog[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */

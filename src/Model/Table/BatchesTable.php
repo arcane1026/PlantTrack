@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\GrowthProfilesTable&\Cake\ORM\Association\BelongsTo $GrowthProfiles
  * @property \App\Model\Table\PlantsTable&\Cake\ORM\Association\BelongsTo $Plants
+ * @property \App\Model\Table\StepsTable&\Cake\ORM\Association\BelongsTo $Steps
  * @property \App\Model\Table\NotesTable&\Cake\ORM\Association\HasMany $Notes
  * @property \App\Model\Table\ReadingsTable&\Cake\ORM\Association\HasMany $Readings
  * @property \App\Model\Table\ReportsTable&\Cake\ORM\Association\HasMany $Reports
@@ -57,6 +58,10 @@ class BatchesTable extends Table
             'foreignKey' => 'plant_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Steps', [
+            'foreignKey' => 'step_id',
+            'joinType' => 'INNER',
+        ]);
         $this->hasMany('Notes', [
             'foreignKey' => 'batch_id',
         ]);
@@ -98,6 +103,11 @@ class BatchesTable extends Table
             ->notEmptyString('quantity');
 
         $validator
+            ->numeric('yield')
+            ->greaterThanOrEqual('yield', 0)
+            ->allowEmptyString('yield');
+
+        $validator
             ->dateTime('plant_date')
             ->allowEmptyDateTime('plant_date');
 
@@ -111,6 +121,10 @@ class BatchesTable extends Table
 
         $validator
             ->notEmptyString('testing_status');
+
+        $validator
+            ->dateTime('testing_date')
+            ->allowEmptyDateTime('testing_date');
 
         $validator
             ->scalar('resource_path')
@@ -132,6 +146,7 @@ class BatchesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['growth_profile_id'], 'GrowthProfiles'));
         $rules->add($rules->existsIn(['plant_id'], 'Plants'));
+        $rules->add($rules->existsIn(['step_id'], 'Steps'));
 
         return $rules;
     }

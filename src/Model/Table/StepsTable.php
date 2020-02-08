@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Steps Model
  *
  * @property \App\Model\Table\StagesTable&\Cake\ORM\Association\BelongsTo $Stages
+ * @property \App\Model\Table\BatchesTable&\Cake\ORM\Association\HasMany $Batches
  * @property \App\Model\Table\NotesTable&\Cake\ORM\Association\HasMany $Notes
  * @property \App\Model\Table\ReadingsTable&\Cake\ORM\Association\HasMany $Readings
  *
@@ -45,6 +46,9 @@ class StepsTable extends Table
         $this->belongsTo('Stages', [
             'foreignKey' => 'stage_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Batches', [
+            'foreignKey' => 'step_id',
         ]);
         $this->hasMany('Notes', [
             'foreignKey' => 'step_id',

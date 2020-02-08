@@ -26,7 +26,7 @@ class StagesFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'growth_profile_key_stages' => ['type' => 'foreign', 'columns' => ['growth_profile_id'], 'references' => ['growth_profiles', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'stages_ibfk_1' => ['type' => 'foreign', 'columns' => ['growth_profile_id'], 'references' => ['growth_profiles', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -47,8 +47,8 @@ class StagesFixture extends TestFixture
                 'growth_profile_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-01-07 01:39:38',
-                'modified' => '2020-01-07 01:39:38',
+                'created' => '2020-02-07 18:30:01',
+                'modified' => '2020-02-07 18:30:01',
             ],
         ];
         parent::init();

@@ -95,7 +95,7 @@
                                 <tbody>
                                 <tr>
                                     <th>Last Login</th>
-                                    <td><?= $lastLoginDate ?> from <?= $lastLoginIp ?></td>
+                                    <td><?= (!empty($lastLoginDate) && !empty($lastLoginIp)) ? $lastLoginDate . ' from ' . $lastLoginIp : 'No previous login data.' ?></td>
                                 </tr>
                                 </tbody>
                             </table>

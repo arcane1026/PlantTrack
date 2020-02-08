@@ -49,7 +49,7 @@ class BusinessesController extends AppController
      */
     public function viewInfo()
     {
-        $business = $this->Businesses->get($this->Auth->User('id'), [
+        $business = $this->Businesses->get($this->Auth->User('business_id'), [
             'contain' => ['Users'],
         ]);
 
@@ -109,7 +109,7 @@ class BusinessesController extends AppController
      */
     public function editInfo()
     {
-        $business = $this->Businesses->get($this->Auth->User('id'), [
+        $business = $this->Businesses->get($this->Auth->User('business_id'), [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {

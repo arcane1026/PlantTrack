@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
                         <div class="card-icon">
-                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <h4 class="card-title"><?= __('Accounts') ?></h4>
                     </div>

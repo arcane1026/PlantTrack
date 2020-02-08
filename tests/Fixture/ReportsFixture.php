@@ -28,8 +28,8 @@ class ReportsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'batch_key_reports' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'user_key_reports' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'reports_ibfk_1' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'reports_ibfk_2' => ['type' => 'foreign', 'columns' => ['batch_id'], 'references' => ['batches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -51,8 +51,8 @@ class ReportsFixture extends TestFixture
                 'batch_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-01-07 01:40:30',
-                'modified' => '2020-01-07 01:40:30',
+                'created' => '2020-02-07 18:29:55',
+                'modified' => '2020-02-07 18:29:55',
             ],
         ];
         parent::init();

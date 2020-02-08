@@ -16,7 +16,7 @@ class UsersFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'business_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'business_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'username' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'password' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'role' => ['type' => 'smallinteger', 'length' => 5, 'unsigned' => true, 'null' => false, 'default' => '0', 'comment' => '0:Employee, 1:Manager, 2:Owner, 3:Site Admin', 'precision' => null],
@@ -34,7 +34,7 @@ class UsersFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'business_key_users' => ['type' => 'foreign', 'columns' => ['business_id'], 'references' => ['businesses', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'users_ibfk_1' => ['type' => 'foreign', 'columns' => ['business_id'], 'references' => ['businesses', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -63,8 +63,8 @@ class UsersFixture extends TestFixture
                 'resource_path' => 'Lorem ipsum dolor sit amet',
                 'confirmed' => 1,
                 'locked' => 1,
-                'created' => '2020-01-07 01:38:16',
-                'modified' => '2020-01-07 01:38:16',
+                'created' => '2020-02-07 18:30:25',
+                'modified' => '2020-02-07 18:30:25',
             ],
         ];
         parent::init();

@@ -8,7 +8,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * User Entity
  *
  * @property int $id
- * @property int $business_id
+ * @property int|null $business_id
  * @property string $username
  * @property string $password
  * @property int $role

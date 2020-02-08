@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail']);
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'add']);
     }
 
     /**
@@ -203,12 +203,13 @@ class UsersController extends AppController
                 $logEntity->username = $formData['username'];
                 $logEntity->ip_address = $this->request->clientIp();
                 $user = $this->Auth->identify();
-                //var_dump($user);
+                //var_dump($logEntity);
                 if ($user) { // Check that user exists after checking username and password
                     $logEntity->result = 1;
                     if ($user['confirmed'] === true) { // Check that user has confirmed their email address
                         $this->Auth->setUser($user); // Sign user in
                         $this->AccessLog->save($logEntity);
+                        //var_dump($logEntity->errors());
                         return $this->redirect($this->Auth->redirectUrl());
                     } else {
                         $resendURL = Router::url(['controller' => 'Users', 'action' => 'resend-activation-email']) . '/' . base64_encode($user['email']);

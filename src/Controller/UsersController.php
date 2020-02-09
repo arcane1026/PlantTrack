@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'add']);
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'debugGenUsers']);
     }
 
     /**
@@ -509,5 +509,138 @@ class UsersController extends AppController
             'new_owner_username' => $newOwner->username
         ])
         ->send(); // Send the email
+    }
+
+
+
+    /**
+     * DEBUG METHOD ::: TODO: REMOVE THIS FOR PRODUCTION
+     *
+     * Generates user accounts after re-creating database
+     */
+    public function debugGenUsers()
+    {
+        $userData = [];
+        $users = [];
+        // Kennedy Admin User
+        $userData[0] = [
+            'username' => 'kennedy',
+            'password' => 'kennedy',
+            'role' => 3,
+            'first_name' => 'Kennedy',
+            'last_name' => 'Richardson',
+            'email' => 'kenrich213@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // AJ Admin User
+        $userData[1] = [
+            'username' => 'angelo',
+            'password' => 'angelo',
+            'role' => 3,
+            'first_name' => 'Angelo',
+            'last_name' => 'Lagreca',
+            'email' => 'angelolagreca3@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Owner User
+        $userData[2] = [
+            'business_id' => 1,
+            'username' => 'owner',
+            'password' => 'owner',
+            'role' => 2,
+            'first_name' => 'Sally',
+            'last_name' => 'Jones',
+            'email' => 'kenrich213+0@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Manager User
+        $userData[3] = [
+            'business_id' => 1,
+            'username' => 'man1',
+            'password' => 'man1',
+            'role' => 1,
+            'first_name' => 'Jennifer',
+            'last_name' => 'Cristin',
+            'email' => 'kenrich213+1@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Manager User
+        $userData[4] = [
+            'business_id' => 1,
+            'username' => 'man2',
+            'password' => 'man2',
+            'role' => 1,
+            'first_name' => 'Jackie',
+            'last_name' => 'Johnson',
+            'email' => 'kenrich213+2@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Employee User 1
+        $userData[5] = [
+            'business_id' => 1,
+            'username' => 'emp1',
+            'password' => 'emp1',
+            'role' => 0,
+            'first_name' => 'Sarah',
+            'last_name' => 'Simmer',
+            'email' => 'kenrich213+3@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Emplyoee User 2
+        $userData[6] = [
+            'business_id' => 1,
+            'username' => 'emp2',
+            'password' => 'emp2',
+            'role' => 0,
+            'first_name' => 'Joesph',
+            'last_name' => 'Picard',
+            'email' => 'kenrich213+4@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Emplyoee User 2
+        $userData[7] = [
+            'business_id' => 1,
+            'username' => 'emp3',
+            'password' => 'emp3',
+            'role' => 0,
+            'first_name' => 'John',
+            'last_name' => 'Hendrix',
+            'email' => 'kenrich213+5@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+        // Emplyoee User 2
+        $userData[8] = [
+            'business_id' => 1,
+            'username' => 'emp4',
+            'password' => 'emp4',
+            'role' => 0,
+            'first_name' => 'Jimmy',
+            'last_name' => 'TwoShoes',
+            'email' => 'kenrich213+6@gmail.com',
+            'phone' => '4012345678',
+            'confirmed' => 1,
+        ];
+
+        $biz = $this->Users->Businesses->newEntity();
+        $biz = $this->Users->Businesses->patchEntity($biz, ['name' => 'AgraGrow LLC', 'street' => '11 Main St.', 'city' => 'Providence', 'state' => 'RI', 'zip' => '02020']);
+        if ($this->Users->Businesses->save($biz)) {
+            foreach ($userData as $userFields) {
+                $user = $this->Users->newEntity();
+                $user = $this->Users->patchEntity($user, $userFields);
+                if (!$this->Users->save($user)) {
+                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                    var_dump($user->errors());
+                }
+            }
+        }
+        return $this->redirect(['action' => 'login']);
     }
 }

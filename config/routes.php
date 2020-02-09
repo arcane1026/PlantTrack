@@ -81,6 +81,10 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/change-owner', ['controller' => 'Users', 'action' => 'change_owner']);
 
 
+    /* DEBUG ROUTE */
+    $routes->connect('/debug-gen-users', ['controller' => 'Users', 'action' => 'debug_gen_users']);
+
+
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */

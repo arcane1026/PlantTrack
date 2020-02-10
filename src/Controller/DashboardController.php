@@ -19,6 +19,8 @@ class DashboardController extends AppController
     {
         $this->loadModel('AccessLog');
         $lastLogin = $this->AccessLog->find('all')->where(['username' => $this->Auth->User('username')])->order(['AccessLog.created' => 'desc'])->limit(2)->all()->toList();
+        $lastLoginDate = '';
+        $lastLoginIp = '';
         if (!empty($lastLogin) && is_array($lastLogin) && array_key_exists(1, $lastLogin))
         {
             $lastLoginDate = $lastLogin[1]['created'];

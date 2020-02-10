@@ -23,6 +23,11 @@ use Cake\Validation\Validator;
 class EmployeeInvitesTable extends Table
 {
     /**
+     * @var \Cake\ORM\Association
+     */
+    private $Users;
+
+    /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.

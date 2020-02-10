@@ -11,7 +11,7 @@
     </ul>
 </nav>
 <div class="employeeInvites form large-9 medium-8 columns content">
-    <?= $this->Form->create($employeeInvite) ?>
+    <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Add Employee Invite') ?></legend>
         <?php

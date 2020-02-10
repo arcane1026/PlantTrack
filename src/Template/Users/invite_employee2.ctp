@@ -5,9 +5,9 @@
  */
 ?>
 <div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+    <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend><?= __('Enter New Employee Information to Complete Registration!') ?></legend>
         <?php
         // all lines that are comment out need to be saved outside of form
      //   echo $this->Form->control('business_id', ['options' => $businesses]);

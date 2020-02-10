@@ -65,6 +65,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer ">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <?= $this->Form->button(__('<i class="fas fa-plus"></i> Create New Growth Profile'), ['class' => 'btn btn-fill btn-rose']) ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
@@ -532,7 +544,7 @@
         </div>
     </div>
 </div>
-<!--
+
 <div class="growthProfiles form large-9 medium-8 columns content">
     <?= $this->Form->create($growthProfile) ?>
     <fieldset>
@@ -547,4 +559,4 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
--->
+

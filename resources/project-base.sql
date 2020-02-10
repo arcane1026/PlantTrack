@@ -81,7 +81,7 @@ CREATE TABLE batches (
     user_id				INT 			UNSIGNED NOT NULL,
     growth_profile_id	INT 			UNSIGNED NOT NULL,
     plant_id			INT 			UNSIGNED NOT NULL,
-    step_id 			INT 			UNSIGNED NOT NULL,
+    step_id 			INT 			UNSIGNED,
     name 	 	 		VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
     quantity			INT 			UNSIGNED NOT NULL,

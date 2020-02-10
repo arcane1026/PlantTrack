@@ -73,7 +73,7 @@
                                         </td>
 
                                         <td><?= $this->Html->link(h($growthProfile->name), ['action' => 'view', $growthProfile->id]) ?></td>
-                                        <td><?= h($growthProfile->plant->name) ?></td>
+                                        <td><?= (!empty($growthProfile->plant)) ? h($growthProfile->plant->name) : 'None' ?></td>
                                         <td><?= h($growthProfile->description) ?></td>
                                         <td class="text-right">
                                             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $growthProfile->id]) ?>

@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Routing\Router;
 use Cake\Event\Event;
+use Exception;
 
 /**
  * Application Controller
@@ -49,6 +50,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {
@@ -79,10 +81,12 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            'authError' => 'You must sign in to access that location.',
+            'authorize' => 'Controller',
+            'authError' => 'You are not authorized to access that location.',
             // If unauthorized, return them to page they were just on
             'unauthorizedRedirect' => $this->referer()
         ]);
+
 
         // Allow the display action so our PagesController
         // continues to work. Also enable the read only actions.

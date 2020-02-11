@@ -19,7 +19,35 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'debugGenUsers']);
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'debugGenUsers']); // Public actions that don't require authentication.
+    }
+
+    /**
+     * @param null $user
+     * @return bool
+     */
+    public function isAuthorized($user = null)
+    {
+        switch($this->request->getParam('action')) { // Switch on the requested action
+            case 'promote':
+            case 'demote':
+            case 'changeOwner':
+            case 'inviteUser':
+            case 'manage':
+                return (bool)($user['role'] === 2); // If user is owner return true, else false
+                break;
+            case 'index': // TODO: Remove for production
+            case 'add': // TODO: Remove for production
+            case 'edit': // TODO: Remove for production
+            case 'view': // TODO: Remove for production
+            case 'delete': // TODO: Remove for production
+            case 'viewProfile':
+            case 'editProfile':
+            case 'changePassword':
+                return true;
+            default:
+                return false; // Return false by default for any unspecified methods
+        }
     }
 
     /**
@@ -160,7 +188,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('There was an error saving your profile. Please, try again.'));
         }
-        $this->set(compact('user', 'businesses'));
+        $this->set(compact('user'));
     }
 
     /**

@@ -12,6 +12,21 @@ use App\Controller\AppController;
  */
 class AccessLogController extends AppController
 {
+
+    public function isAuthorized($user = null)
+    {
+        switch($this->request->getParam('action')) { // Switch on the requested action
+            case 'index': // Case for action is index
+                return (bool)($user['role'] === 3); // If user['role'] is 3 then return true, else false
+                break;
+            default:
+                return true;
+        }
+
+        // Default deny
+        return true;
+    }
+
     /**
      * Index method
      *

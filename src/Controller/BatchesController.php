@@ -14,6 +14,15 @@ use Cake\Log\Log;
  */
 class BatchesController extends AppController
 {
+
+    /**
+     * @param null $user
+     * @return bool
+     */
+    public function isAuthorized($user = null)
+    {
+        return true; // True by default to allow all for development TODO: SET UP AUTHORIZATION FOR THIS CONTROLLER
+    }
     /**
      * Index method
      *

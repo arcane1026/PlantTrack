@@ -13,6 +13,15 @@ use App\Controller\AppController;
 class PlantsController extends AppController
 {
     /**
+     * @param null $user
+     * @return bool
+     */
+    public function isAuthorized($user = null)
+    {
+        return (bool)($user['role'] === 1 || $user['role'] === 2); // If user is owner or manager return true for all methods
+    }
+
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|null

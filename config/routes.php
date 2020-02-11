@@ -74,6 +74,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/resend-activation-email/*', ['controller' => 'Users', 'action' => 'resend_activation_email']);
     $routes->connect('/change-password', ['controller' => 'Users', 'action' => 'change_password']);
     $routes->connect('/generate-qr-code/*', ['controller' => 'Batches', 'action' => 'qr_code']);
+
     $routes->connect('/employee-manager', ['controller' => 'Users', 'action' => 'manage']);
 
     $routes->connect('/promote/*', ['controller' => 'Users', 'action' => 'promote']);
@@ -83,6 +84,9 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     /* DEBUG ROUTE */
     $routes->connect('/debug-gen-users', ['controller' => 'Users', 'action' => 'debug_gen_users']);
+
+    $routes->connect('/accept-invite/*', ['controller' => 'Users', 'action' => 'invite_Employee_2']);
+    $routes->connect('/invite', ['controller' => 'Users', 'action' => 'invite_Employee']);
 
 
     /**

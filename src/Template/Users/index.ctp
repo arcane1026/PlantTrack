@@ -7,6 +7,7 @@
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
     <div><?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button']) ?></div>
+    <div><?= $this->Html->link(__('Invite Employee'), ['controller' => 'Employee_Invites', 'action' => 'inviteEmployee'], ['class' => 'button']) ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

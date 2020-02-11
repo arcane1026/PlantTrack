@@ -145,3 +145,13 @@ CREATE TABLE access_log (
     result              BOOLEAN         NOT NULL DEFAULT 0 COMMENT '0: Failure, 1: Success',
     created             DATETIME
 );
+
+CREATE TABLE employee_invites (
+    id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    first_name			VARCHAR(30)		NOT NULL,
+    last_name			VARCHAR(30)		NOT NULL,
+    email				VARCHAR(50) 	NOT NULL,
+    phone				VARCHAR(10)		NOT NULL,
+    created				DATETIME,
+    modified			DATETIME
+);

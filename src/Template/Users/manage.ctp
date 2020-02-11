@@ -24,7 +24,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end">
             <div class="form-inline">
-                <?= $this->Html->link(__('<i class="fas fa-envelope"></i> Invite Employee'), ['action' => 'invite'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                <?= $this->Html->link(__('<i class="fas fa-envelope"></i> Invite Employee'), ['action' => 'inviteEmployee'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
                 <?= $this->Html->link(__('<i class="fas fa-user-crown"></i> Change Business Owner'), ['action' => 'change_owner'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
             </div>
             <ul class="navbar-nav">

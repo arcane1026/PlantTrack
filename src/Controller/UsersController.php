@@ -19,7 +19,8 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'debugGenUsers']); // Public actions that don't require authentication.
+
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'employeeInvites2', 'debugGenUsers']); // Public actions that don't require authentication.
     }
 
     /**
@@ -48,6 +49,7 @@ class UsersController extends AppController
             default:
                 return false; // Return false by default for any unspecified methods
         }
+
     }
 
     /**
@@ -220,9 +222,9 @@ class UsersController extends AppController
     {
         $this->layout = 'login';
 
-        if ($this->request->is('post')) {
-            $this->loadModel('AccessLog');
-            $formData = $this->request->getData();
+        if ($this->request->is('post')) {//if request is post
+            $this->loadModel('AccessLog');//load the access log model
+            $formData = $this->request->getData();//get the login data from the form
             $recentAccessAttempts = $this->AccessLog->find('all', ['conditions' => [
                 'AccessLog.created >=' => date('Y-m-d H:i:s', strtotime('-30 minutes'))]]
             )->where(['username' => $formData['username'], 'result' => false])->count();
@@ -498,6 +500,7 @@ class UsersController extends AppController
      *
      * @param $user
      */
+
     private function sendActivationEmail($user) {
         $activateURL = $url = Router::url(['controller' => 'Users', 'action' => 'confirm-email'], ['_full' => true]) . '/' . base64_encode($user['email']) . '/' . sha1($user['id'] . $user['email']);
         $email = new Email('default'); // Create a new email using default email profile (set in app.php)
@@ -540,6 +543,95 @@ class UsersController extends AppController
     }
 
 
+
+
+
+    public function inviteEmployee()//function for owner to invite employee
+    {
+        $this->loadModel('EmployeeInvites');//load Users model
+        $invitation = $this->EmployeeInvites->newEntity();//declare variable that will be used to insert Employee_invite
+        if ($this->request->is('post')) {//If request is a post.....
+            $invitation = $this->EmployeeInvites->patchEntity($invitation, $this->request->getData());//get the form data and patch into invitation variable
+            $invitation['business_id'] =  $this->Auth->User('business_id');;//set invitation business id equal to the if of current user
+            if ($this->EmployeeInvites->save($invitation)) {//if employee_invite saves proper
+                $this->Flash->success(__('Invitation sent. Awaiting Employee Confirmation.'));//success message
+                $this->sendEmployeeInvite($invitation);//send email to new employee with email address from invitation
+                return $this->redirect(['action' => 'manage']);//redirect to manage employees
+            }
+            $this->Flash->error(__('The employee invite could not be saved. Please, try again.'));//if no save
+        }
+        $this->set(compact('invitation'));//sends info to view
+    }
+
+    private function sendEmployeeInvite($invitation) //function that sends invite email
+    {
+        //build the confirmation URL
+        $activateURL = $url = Router::url(['controller' => 'Users', 'action' => 'invite_employee_2'], ['_full' => true]) . '/' . base64_encode($invitation['email']) . '/' . sha1($invitation['id'] . $invitation['email']);
+        $email = new Email('default'); // Create a new email using default email profile (set in app.config)
+        $email->setFrom(['admin@planttrackapp.com' => 'Plant Track']) // Set from address
+        ->setTo($invitation['email']) // Set to address
+        ->setSubject('Please Confirm Your PlantTrack Employee Account!') // Set subject
+        ->setTemplate('employee-register') // Choose which file to send
+        ->setEmailFormat('both') // Send both text and HTML variants
+        ->viewVars([ // Pass variables to the template
+            'first_name' => $invitation['first_name'],
+            'last_name' => $invitation['last_name'],
+            'confirmation_url' => $activateURL
+        ])
+            ->send(); // Send the email
+    }
+
+    public function inviteEmployee2()//function for employee portion of employee_invite
+    {
+        $this->viewBuilder()->setLayout('login'); // Set layout to login
+
+        $this->loadModel('EmployeeInvites');//Load user model
+        if ($this->request->is('post')) { // Check if is post request
+            $data = $this->request->getData(); // Get form data
+            { // Employee add user button click
+                $data['role'] = '0'; // Set role to employee manually in form data
+                $data['confirmed'] = '1'; // Set role to employee manually in form data
+                //$user = $this->Users->newEntity(); // Create a new empty user
+                // $user = $this->Users->patchEntity($user, $data); // Fill the user with form data
+                // ($errors = $user->errors()) { // If there are validation errors
+                // $this->set(compact('user', 'errors')); // Send Errors and User data to view
+                // $this->view = 'invite-employee2'; // re-Set form to step 2
+                //   {//no form errors
+
+                $query = $this->EmployeeInvites->find('all')//query employee invites table
+                ->where(['EmployeeInvites.email =' => $data['email']]);//for the record that has the same first and last name the employee entered in form, better way to do this? what if same first and last name in employee invites table at the same time?
+                $results = $query->toArray();//query and put results into array
+                $data['business_id'] = $results[0]->business_id; //get business from query and set to employee for insert
+                $user = $this->Users->newEntity(); // Create a new user
+                $user = $this->Users->patchEntity($user, $data); // Fill user with form data
+                if ($this->Users->save($user)) { // If the user saved proper
+                    $this->Flash->success(__('Welcome to PlantTrack! Contact your Manager for further instructions.')); // Success message
+                    return $this->redirect(['controller'=>'Users', 'action'=>'login']); // Redirect employee to login page
+                }
+                $this->view = 'invite-employee2'; //reset view
+                $this->set(compact('user')); // Save user data to view
+                //  }
+            }
+        }
+    }
+
+    public function confirmEmployeeEmail($encryptedEmail = null, $accountIdHash = null)//function that confirms employee email, maybe dont need since they already clicked in their email to get here?
+    {
+        $this->loadModel('Users');
+
+        $user = $this->Users->find('all')->where(['email' => base64_decode($encryptedEmail)])->first(); // Find the first user who's email matches the decoded email address
+        if (sha1($user['id'] . $user['email']) === $accountIdHash) { // Check if the hash matches the sha1 of the user id and user's email address.
+            $user['confirmed'] = 1; // Update the user's confirmed value to true
+            $this->Users->save($user); // Save the user
+            $this->Flash->success(__('Your email address has been confirmed. You are now able to sign in.')); // Notify the user
+        } else {
+            $this->Flash->error(__('Sorry we were unable to confirm your email address. Please contact support for further assistance.'));
+        }
+        return $this->redirect(['action' => 'login']); // Redirect user to login page
+        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
+        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
+
+    }
 
     /**
      * DEBUG METHOD ::: TODO: REMOVE THIS FOR PRODUCTION
@@ -671,4 +763,8 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'login']);
     }
+
+
 }
+
+

@@ -20,7 +20,7 @@ class UsersController extends AppController
     {
         parent::initialize();
 
-        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'employeeInvites2', 'debugGenUsers']); // Public actions that don't require authentication.
+        $this->Auth->allow(['logout', 'login', 'register', 'confirmEmail', 'resendActivationEmail', 'inviteEmployee2', 'debugGenUsers']); // Public actions that don't require authentication.
     }
 
     /**
@@ -35,6 +35,7 @@ class UsersController extends AppController
             case 'changeOwner':
             case 'inviteUser':
             case 'manage':
+            case 'inviteEmployee';
                 return (bool)($user['role'] === 2); // If user is owner return true, else false
                 break;
             case 'index': // TODO: Remove for production

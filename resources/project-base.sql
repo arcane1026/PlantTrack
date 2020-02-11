@@ -152,6 +152,7 @@ CREATE TABLE employee_invites (
     last_name			VARCHAR(30)		NOT NULL,
     email				VARCHAR(50) 	NOT NULL,
     phone				VARCHAR(10)		NOT NULL,
+    business_id         INT             NOT NULL,
     created				DATETIME,
     modified			DATETIME
 );

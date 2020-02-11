@@ -525,9 +525,9 @@ class UsersController extends AppController
             $invitation = $this->EmployeeInvites->patchEntity($invitation, $this->request->getData());//get the form data and patch into invitation variable
             $invitation['business_id'] =  $this->Auth->User('business_id');;//set invitation business id equal to the if of current user
             if ($this->EmployeeInvites->save($invitation)) {//if employee_invite saves proper
-                $this->Flash->success(__('The employee invite has been saved.'));//success message
+                $this->Flash->success(__('Invitation sent. Awaiting Employee Confirmation.'));//success message
                 $this->sendEmployeeInvite($invitation);//send email to new employee with email address from invitation
-                return $this->redirect(['action' => 'index']);//redirect to manage employees
+                return $this->redirect(['action' => 'manage']);//redirect to manage employees
             }
             $this->Flash->error(__('The employee invite could not be saved. Please, try again.'));//if no save
         }

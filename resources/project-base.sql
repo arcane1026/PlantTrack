@@ -60,6 +60,7 @@ CREATE TABLE stages (
     growth_profile_id	INT 			UNSIGNED NOT NULL,
     name 				VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
+    order               INT             NOT NULL,
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY growth_profile_key_stages (growth_profile_id) REFERENCES growth_profiles(id)
@@ -70,7 +71,8 @@ CREATE TABLE steps (
     stage_id			INT 			UNSIGNED NOT NULL,
     name 	 	 		VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
-    duration			INT 			UNSIGNED NOT NULL COMMENT 'Duration of step in days.',
+    duration			INT 			UNSIGNED NOT NULL COMMENT 'Duration of step in hours.',
+    order               INT             NOT NULL,
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY stage_key_steps (stage_id) REFERENCES stages(id)

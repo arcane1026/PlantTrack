@@ -33,7 +33,14 @@ class AppController extends Controller
         ['icon' => 'box', 'name' => 'Untested', 'style' => 'default'],
         ['icon' => 'sync', 'name' => 'In Progress', 'style' => 'warning'],
         ['icon' => 'badge-check', 'name' => 'Passed', 'style' => 'success'],
-        ['icon' => 'times', 'name' => 'Failed', 'style' => 'danger']];
+        ['icon' => 'times', 'name' => 'Failed', 'style' => 'danger']
+    ];
+
+    protected $stageStepStatuses = [
+        'danger' => 'Incomplete',
+        'warning' => 'In Progress',
+        'success' => 'Complete',
+    ];
 
     protected $userRoles = [
         ['name' => 'Employee'],
@@ -105,5 +112,26 @@ class AppController extends Controller
         $activePrimaryNav = $controller;
 
         $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action'));
+    }
+
+    /**
+     * Redirect (Override)
+     *
+     * Redirects the user to the referrer unless there is a hidden field with another URL.
+     *
+     * @param array|string $url
+     * @param int $status
+     * @return \Cake\Http\Response|null
+     */
+    public function redirect($url, $status = 302)
+    {
+        if ($this->request->getData('redirect', '')) {
+            return parent::redirect($this->request->getData('redirect'), $status);
+        }
+        return parent::redirect($url, $status);
+    }
+
+    protected function redirectReferrerNoLogin() {
+
     }
 }

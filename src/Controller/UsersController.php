@@ -35,7 +35,8 @@ class UsersController extends AppController
             case 'changeOwner':
             case 'inviteUser':
             case 'manage':
-            case 'inviteEmployee';
+            case 'inviteEmployee':
+            case 'deleteInvitation':
                 return (bool)($user['role'] === 2); // If user is owner return true, else false
                 break;
             case 'index': // TODO: Remove for production
@@ -82,12 +83,14 @@ class UsersController extends AppController
         $employees = $this->paginate($this->Users->find('all', [
             'contain' => ['Businesses'],
         ])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 0]));
-        $managers = $this->paginate($this->Users->find('all', [
+        $managers = $this->Users->find('all', [
             'contain' => ['Businesses'],
-        ])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 1]));
+        ])->where(['business_id' => $this->Auth->User('business_id'), 'role' => 1]);
+        $this->loadModel('EmployeeInvites');
+        $pendingInvites = $this->EmployeeInvites->find('all')->where(['business_id' => $this->Auth->User('business_id')])->toList();
 
         $userRoles = $this->userRoles;
-        $this->set(compact('employees', 'managers', 'userRoles'));
+        $this->set(compact('employees', 'managers', 'userRoles', 'pendingInvites'));
 
     }
 
@@ -292,7 +295,7 @@ class UsersController extends AppController
                     ->equals('authorized', 1, 'You must certify that you are an authorized representative of this business.');
                 $business = $this->Users->Businesses->newEntity(); // Create a new business
                 $business = $this->Users->Businesses->patchEntity($business, $data); // Fill the business with form data
-                $errors = $business->errors();
+                $errors = $business->getErrors();
                 $valErrors = $validator->errors($this->request->getData());
                 if (!empty($errors) && !empty($valErrors)) {
                     $errors = array_merge($errors, $valErrors);
@@ -319,7 +322,7 @@ class UsersController extends AppController
                 $data['role'] = '2'; // Set role to owner manually in form data
                 $user = $this->Users->newEntity(); // Create a new empty user
                 $user = $this->Users->patchEntity($user, $data); // Fill the user with form data
-                $errors = $user->errors();
+                $errors = $user->getErrors();
                 $valErrors = $validator->errors($this->request->getData());
                 if (!empty($errors) && !empty($valErrors)) {
                     $errors = array_merge($errors, $valErrors);
@@ -549,17 +552,27 @@ class UsersController extends AppController
 
     public function inviteEmployee()//function for owner to invite employee
     {
-        $this->loadModel('EmployeeInvites');//load Users model
-        $invitation = $this->EmployeeInvites->newEntity();//declare variable that will be used to insert Employee_invite
-        if ($this->request->is('post')) {//If request is a post.....
+        $this->loadModel('EmployeeInvites'); // Load EmployeeInvites Model
+        $invitation = $this->EmployeeInvites->newEntity(); // Declare variable that will be used to insert Employee_invite
+        if ($this->request->is('post')) { // If request is a post
             $invitation = $this->EmployeeInvites->patchEntity($invitation, $this->request->getData());//get the form data and patch into invitation variable
-            $invitation['business_id'] =  $this->Auth->User('business_id');;//set invitation business id equal to the if of current user
-            if ($this->EmployeeInvites->save($invitation)) {//if employee_invite saves proper
-                $this->Flash->success(__('Invitation sent. Awaiting Employee Confirmation.'));//success message
-                $this->sendEmployeeInvite($invitation);//send email to new employee with email address from invitation
-                return $this->redirect(['action' => 'manage']);//redirect to manage employees
+            $existingUser = $this->Users->find('all', [
+                'conditions' => [
+                    'email' => $invitation->email
+                ]
+            ])->first();
+            if (empty($existingUser)) { // No user found with email address.
+                $invitation['business_id'] = $this->Auth->User('business_id'); //set invitation business id equal to the if of current user
+                if ($this->EmployeeInvites->save($invitation)) { //if employee_invite saves proper
+                    $this->Flash->success(__('Invitation sent. Awaiting Employee Confirmation.')); //success message
+                    $this->sendEmployeeInvite($invitation); //send email to new employee with email address from invitation
+                    return $this->redirect(['action' => 'manage']); //redirect to manage employees
+                } else { // Errors saving to invites table
+                    $this->Flash->error(__('There was an error sending the invitation. Please, try again.')); // Set error message
+                }
+            } else { // User with that email already exists
+                $this->Flash->error(__('A user with that email address already exists.')); // Set error message
             }
-            $this->Flash->error(__('The employee invite could not be saved. Please, try again.'));//if no save
         }
         $this->set(compact('invitation'));//sends info to view
     }
@@ -582,56 +595,67 @@ class UsersController extends AppController
             ->send(); // Send the email
     }
 
-    public function inviteEmployee2()//function for employee portion of employee_invite
+    public function inviteEmployee2($encryptedEmail = null, $accountIdHash = null)//function for employee portion of employee_invite
     {
+        $this->loadModel('EmployeeInvites'); // Load EmployeeInvites Model
         $this->viewBuilder()->setLayout('login'); // Set layout to login
+        $invitation = $this->EmployeeInvites->find('all')->where(['email' => base64_decode($encryptedEmail)])->first(); // Find the first user who's email matches the decoded email address
+        if (sha1($invitation['id'] . $invitation['email']) === $accountIdHash) { // Check if the hash matches the sha1 of the user id and user's email address.
+            $user = $this->Users->newEntity(); // Create a new user
+            $user->first_name = $invitation->first_name; // Set first_name to invitation's first_name
+            $user->last_name = $invitation->last_name; // Set last_name to invitation's last_name
+            $user->phone = $invitation->phone; // Set phone to invitation's phone
+            if ($this->request->is('post')) { // Check if is post request
 
-        $this->loadModel('EmployeeInvites');//Load user model
-        if ($this->request->is('post')) { // Check if is post request
-            $data = $this->request->getData(); // Get form data
-            { // Employee add user button click
-                $data['role'] = '0'; // Set role to employee manually in form data
-                $data['confirmed'] = '1'; // Set role to employee manually in form data
-                //$user = $this->Users->newEntity(); // Create a new empty user
-                // $user = $this->Users->patchEntity($user, $data); // Fill the user with form data
-                // ($errors = $user->errors()) { // If there are validation errors
-                // $this->set(compact('user', 'errors')); // Send Errors and User data to view
-                // $this->view = 'invite-employee2'; // re-Set form to step 2
-                //   {//no form errors
 
-                $query = $this->EmployeeInvites->find('all')//query employee invites table
-                ->where(['EmployeeInvites.email =' => $data['email']]);//for the record that has the same first and last name the employee entered in form, better way to do this? what if same first and last name in employee invites table at the same time?
-                $results = $query->toArray();//query and put results into array
-                $data['business_id'] = $results[0]->business_id; //get business from query and set to employee for insert
-                $user = $this->Users->newEntity(); // Create a new user
+                $data = $this->request->getData(); // Get form data
+                $data['role'] = '0'; // Set role to employee
+                $data['confirmed'] = '1'; // Set confirmed flag to true
+                $data['business_id'] = $invitation->business_id; // Set business_id to invitation's business_id
+                $data['email'] = $invitation->email; // Set email to invitation's email
+                $validator = new Validator();
+                $validator
+                    ->requirePresence('repeat_password')
+                    ->notEmptyString('repeat_password', 'Repeat Password is required.')
+                    ->equalToField('password', 'repeat_password', 'Password and Repeat Password must match.')
+                    ->requirePresence('agreement', 'You must agree to the terms and conditions.')
+                    ->equals('agreement', 1, 'You must agree to the terms and conditions.');
                 $user = $this->Users->patchEntity($user, $data); // Fill user with form data
-                if ($this->Users->save($user)) { // If the user saved proper
-                    $this->Flash->success(__('Welcome to PlantTrack! Contact your Manager for further instructions.')); // Success message
-                    return $this->redirect(['controller'=>'Users', 'action'=>'login']); // Redirect employee to login page
+                $errors = $user->errors();
+                $valErrors = $validator->errors($this->request->getData());
+                if (!empty($errors) && !empty($valErrors)) {
+                    $errors = array_merge($errors, $valErrors);
+                } else if (!empty($valErrors) && empty($errors)) {
+                    $errors = $valErrors;
                 }
-                $this->view = 'invite-employee2'; //reset view
-                $this->set(compact('user')); // Save user data to view
-                //  }
+                if (empty($errors) && $this->Users->save($user)) { // If no validation errors and the user saved properly
+                    $this->EmployeeInvites->delete($invitation);
+                    $this->Flash->success(__('Your PlantTrack account has been created. Please sign in.')); // Success message
+                    return $this->redirect(['action'=>'login']); // Redirect employee to login page
+                } else {
+                    //$this->Flash->error(__('Sorry something went wrong with your invitation.')); // Set error message
+                    $errors = $user->getErrors();
+                    $this->set(compact('errors')); // Save user data to view
+                }
             }
+            $this->set(compact('user')); // Save user data to view
+        } else { // Hash did not match
+            $this->Flash->error(__('Sorry something went wrong with your invitation.')); // Set error message
+            return $this->redirect(['action' => 'login']); // Redirect to login page
         }
     }
 
-    public function confirmEmployeeEmail($encryptedEmail = null, $accountIdHash = null)//function that confirms employee email, maybe dont need since they already clicked in their email to get here?
-    {
-        $this->loadModel('Users');
-
-        $user = $this->Users->find('all')->where(['email' => base64_decode($encryptedEmail)])->first(); // Find the first user who's email matches the decoded email address
-        if (sha1($user['id'] . $user['email']) === $accountIdHash) { // Check if the hash matches the sha1 of the user id and user's email address.
-            $user['confirmed'] = 1; // Update the user's confirmed value to true
-            $this->Users->save($user); // Save the user
-            $this->Flash->success(__('Your email address has been confirmed. You are now able to sign in.')); // Notify the user
+    public function deleteInvitation($id = null) {
+        $this->request->allowMethod(['post', 'delete']);
+        $this->loadModel('EmployeeInvites');
+        $employeeInvite = $this->EmployeeInvites->get($id);
+        if ($this->EmployeeInvites->delete($employeeInvite)) {
+            $this->Flash->success(__('The employee invite has been deleted.'));
         } else {
-            $this->Flash->error(__('Sorry we were unable to confirm your email address. Please contact support for further assistance.'));
+            $this->Flash->error(__('The employee invite could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'login']); // Redirect user to login page
-        $this->layout = 'login'; // TODO: REMOVE FOR PRODUCTION
-        $this->view = 'login'; // TODO: REMOVE FOR PRODUCTION
 
+        return $this->redirect(['action' => 'manage']);
     }
 
     /**

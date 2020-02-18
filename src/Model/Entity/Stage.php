@@ -36,4 +36,23 @@ class Stage extends Entity
         'growth_profile' => true,
         'steps' => true,
     ];
+
+    /**
+     * @return int|null
+     */
+    protected function _getNextStepId()
+    {
+        //$steps = $this->stage->steps;
+        var_dump($this->stage_id);
+        $batch = $this->Batches->get($this->stage_id, [
+            'contain' => 'GrowthProfiles.Stages.Steps'
+        ]);
+        die();
+        for ($i=0;$i<count($steps);$i++) {
+            if ($steps[$i]->id === $this->id) {
+                return $steps[$i + 1]->id ?? null;
+            }
+        }
+        return null;
+    }
 }

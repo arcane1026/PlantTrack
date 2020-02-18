@@ -80,6 +80,14 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/promote/*', ['controller' => 'Users', 'action' => 'promote']);
     $routes->connect('/demote/*', ['controller' => 'Users', 'action' => 'demote']);
     $routes->connect('/change-owner', ['controller' => 'Users', 'action' => 'change_owner']);
+    $routes->connect('/view-batch/*', ['controller' => 'Batches', 'action' => 'view']);
+    $routes->connect('/timeline/*', ['controller' => 'Batches', 'action' => 'timeline']);
+    $routes->connect('/add-note', ['controller' => 'Batches', 'action' => 'add_note']);
+    $routes->connect('/add-reading', ['controller' => 'Batches', 'action' => 'add_reading']);
+    $routes->connect('/edit-note/*', ['controller' => 'Batches', 'action' => 'edit_note']);
+    $routes->connect('/edit-reading/*', ['controller' => 'Batches', 'action' => 'edit_reading']);
+    $routes->connect('/delete-note/*', ['controller' => 'Batches', 'action' => 'delete_note']);
+    $routes->connect('/delete-reading/*', ['controller' => 'Batches', 'action' => 'delete_reading']);
 
 
     /* DEBUG ROUTE */

@@ -6,7 +6,7 @@
 ?>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
     <div class="container-fluid">
         <div class="navbar-wrapper">
             <div class="navbar-minimize">
@@ -17,17 +17,43 @@
             </div>
             <a class="navbar-brand" href="#pablo"><?= __('View Batch') ?></a>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-from-left"></i> Next Step'), ['action' => 'next_step', $batch->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-qrcode"></i> QR Code'), ['action' => 'qr_code', $batch->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-comment-alt-lines"></i>'), ['action' => 'timeline', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-link btn-large btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Timeline View']) ?>
+                </li>
+                <?php if ($batch->get('step_id') === null && $batch->get('plant_date') === null): ?>
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-hand-holding-seedling"></i>'), ['action' => 'plant', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Plant Batch']) ?>
+                    </li>
+                <?php elseif ($batch->get('step_id') !== null): ?>
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i>'), ['action' => 'add_note', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Note']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i>'), ['action' => 'add_reading', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Reading']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-from-left"></i>'), ['action' => 'next_step', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-large btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Move Batch to Next Step']) ?>
+                    </li>
+                <?php else: ?>
+                <?php endif; ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-qrcode"></i>'), ['action' => 'qr_code', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Generate QR Code']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-edit"></i>'), ['action' => 'edit', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Batch']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the batch named: {0}?', $batch->name), 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Batch']) ?>
                 </li>
             </ul>
         </div>
@@ -40,148 +66,143 @@
         <?= $this->Flash->render(); ?>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card batch-card">
                     <div class="card-header card-header-rose card-header-icon">
-                        <div class="card-toolbar">
-                            <?= $this->Html->link(__('<i class="fas fa-fw fa-edit"></i>'), ['action' => 'edit', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only']) ?>
-                            <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the batch named: {0}?', $batch->name)]) ?>
-                        </div>
+
                         <div class="card-icon">
                             <i class="fas fa-box-full"></i>
                         </div>
-                        <h4 class="card-title"><?= __('Batch Details') ?></h4>
+                        <h4 class="card-title font-weight-bold"><?= h($batch->name) ?>
+                            <div class="batch-description col-md-6 col-sm-6 font-weight-light" style="color: #000;"
+                                 rel="tooltip" data-placement="bottom" title=""
+                                 data-original-title="<?= h($batch->description) ?>"><?= h($batch->description) ?></div>
+                        </h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-horizontal table-hover">
-                                <tr>
-                                    <th><?= __('Name') ?></th>
-                                    <td class="text-right"><?= h($batch->name) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Description') ?></th>
-                                    <td class="text-right"><?= h($batch->description) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Resource Path (Image)') ?></th>
-                                    <td class="text-right"><?= h($batch->resource_path) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Created By') ?></th>
-                                    <td class="text-right"><?= $batch->has('user') ? $this->Html->link($batch->user->first_name . ' ' . $batch->user->last_name, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Created On') ?></th>
-                                    <td class="text-right"><?= h($batch->created) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Last Modified') ?></th>
-                                    <td class="text-right"><?= h($batch->modified) ?></td>
-                                </tr>
-                            </table>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-horizontal table-hover">
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Plant') ?></th>
+                                                <td class="text-right text-nowrap"><?= $batch->has('plant') ? $this->Html->link(h($batch->plant->name), ['controller' => 'Plants', 'action' => 'view', $batch->plant->id]) : '' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Growth Profile') ?></th>
+                                                <td class="text-right text-nowrap"><?= $batch->has('growth_profile') ? $this->Html->link(h($batch->growth_profile->name), ['controller' => 'GrowthProfiles', 'action' => 'view', $batch->growth_profile->id]) : ''  ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Created By') ?></th>
+                                                <td class="text-right text-nowrap"><?= $batch->has('user') ? $this->Html->link($batch->user->first_name . ' ' . $batch->user->last_name, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Planted') ?></th>
+                                                <td class="text-right text-nowrap">
+                                                    <span class="pt-tooltip"
+                                                          <?= (!empty($batch->plant_date)) ? ' rel="tooltip" data-placement="bottom" title="" data-original-title="' . h($batch->plant_date->format('F d, Y')) . '"' : '' ?>><?= (!empty($batch->plant_date)) ? h($batch->plant_date->format('m/d/Y')) : 'Not Planted' ?></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Est Completion') ?></th>
+                                                <td class="text-right text-nowrap"><?= 'Unknown'//h($batch->modified)  ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-horizontal table-hover">
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Stage') ?></th>
+                                                <td class="text-right text-nowrap"><?= (!empty($batch->current_stage)) ? h($batch->current_stage->name) : 'Not Planted' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Stage Progress') ?></th>
+                                                <td class="text-right text-nowrap"><?= (!empty($batch->current_stage)) ? h($batch->current_stage->percent_complete) . '%' : 'Not Planted' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Step') ?></th>
+                                                <td class="text-right text-nowrap"><?= (!empty($batch->current_step)) ? h($batch->current_step->name) : 'Not Planted' ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Stage Start') ?></th>
+                                                <td class="text-right text-nowrap">
+                                                    <div class="pt-tooltip"
+                                                         <?= (!empty($batch->plant_date)) ? ' rel="tooltip" data-placement="bottom" title="" data-original-title="' . h($batch->plant_date->format('F d, Y')) . '"' : '' ?>><?= (!empty($batch->plant_date)) ? h($batch->plant_date->format('m/d/Y')) : 'Not Planted' ?></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="text-nowrap"><?= __('Est Stage End') ?></th>
+                                                <td class="text-right text-nowrap"><?= 'Unknown'//h($batch->modified)  ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card"
+                                         style="width: 100%; height: 100%; background-color: #fcfcfc; margin-top: 0px; margin-bottom: 0px; background-image: url('http://static.coastlineapplications.com/plant_track/planttrack_logo_icon_cream.png'); background-position:center center; background-size: contain; background-repeat: no-repeat"></div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <?php foreach ($batch->growth_profile->stages as $stage): ?>
+                                    <div class="col-md-6 col-lg-4 col-xl-4 col-sm-12 d-flex align-items-stretch">
+                                        <div class="card">
+                                            <div class="card-header h3 text-center font-weight-bold text-nowrap"><?= $stage->name ?></div>
+                                            <div class="h2 text-center font-weight-bold <?= 'text-' . $stage->status; ?>"><?= $stage->percent_complete . '&percnt;' ?></div>
+                                            <div class="card-body">
+                                                <div class="container-fluid">
+                                                    <div class="row batch-steps" style="justify-content: space-evenly">
+                                                        <?php $counter = 1;
+                                                        foreach ($stage->steps as $step): ?>
+                                                            <?= $this->Html->link((string)$counter, ['action' => 'timeline', '#' => $step->id, $batch->id], ['escape' => false, 'class' => 'btn btn-just-icon btn-fab btn-round btn-' . $step->status, 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => $step->name]) ?>
+                                                            <?php $counter++; endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--
 
-<nav id="page-navbar" class="navbar navbar-transparent navbar-absolute">
-    <div class="container-fluid">
-        <div>
-            <div class="navbar-minimize">
-                <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                    <i class="far fa-ellipsis-v visible-on-sidebar-regular"></i>
-                    <i class="far fa-bars visible-on-sidebar-mini"></i>
-                </button>
-            </div>
-            <a class="navbar-brand"><?= __('View Batch') ?></a>
-        </div>
-        <div class="form-inline">
-            <?= $this->Html->link(__('<i class="fas fa-fw fa-pencil-alt"></i> Edit'), ['action' => 'edit', $batch->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
-            <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i> Delete'), ['action' => 'delete', $batch->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete the batch named: {0}?', $batch->name)]) ?>
-        </div>
-    </div>
-</nav>
-
-<div class="content">
-    <div class="container-fluid">
-        <?= $this->Flash->render(); ?>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <h4 class="card-header card-header-icon" data-background-color="rose">
-                        <i class="fas fa-leaf"></i> <?= __('Batch Details') ?>
-                    </h4>
-
-                    <div class="card-content">
-                        <h4 class="card-title">&nbsp;</h4>
-                        <div class="table-responsive">
-                            <table class="table vertical-table">
-                                <tbody>
-                                <tr>
-                                    <th><?= __('Name') ?></th>
-                                    <td class="text-right"><?= h($batch->name) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Description') ?></th>
-                                    <td class="text-right"><?= h($batch->description) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Resource Path (Image)') ?></th>
-                                    <td class="text-right"><?= h($batch->resource_path) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Created By') ?></th>
-                                    <td class="text-right"><?= $batch->has('user') ? $this->Html->link($batch->user->first_name . ' ' . $batch->user->last_name, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Created On') ?></th>
-                                    <td class="text-right"><?= h($batch->created) ?></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><?= __('Last Modified') ?></th>
-                                    <td class="text-right"><?= h($batch->modified) ?></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <h4 class="card-header card-header-icon" data-background-color="rose">
-                        <i class="fas fa-box-full"></i> <?= __('Batches Using This Batch') ?>
-                    </h4>
+                <div class="card batch-card">
+                    <div class="card-header card-header-rose card-header-icon">
 
-                    <div class="card-content">
-                        <h4 class="card-title">&nbsp;</h4>
-                        <div class="table-responsive">
-                            <?php if (!empty($batch->batches)): ?>
-                                <table cellpadding="0" cellspacing="0" class="table">
-                                    <tr>
-                                        <th scope="col"><?= __('Name') ?></th>
-                                        <th scope="col"><?= __('Watched') ?></th>
-                                        <th scope="col"><?= __('Description') ?></th>
-                                        <th class="text-right" scope="col"><?= __('Created') ?></th>
-                                    </tr>
-                                    <?php foreach ($batch->batches as $batches): ?>
-                                        <tr>
-                                            <td><?= $this->Html->link(h($batches->name), ['controller' => 'Batches', 'action' => 'view', $batches->id]) ?></td>
-                                            <td><?= h($batches->watched) ?></td>
-                                            <td><?= h($batches->description) ?></td>
-                                            <td class="text-right"><?= h($batches->created) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </table>
-                            <?php else: ?>
-                                <div>There are no batches using this batch.</div>
-                            <?php endif; ?>
+                        <div class="card-icon">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
+                        <h4 class="card-title font-weight-bold">Notes
+                            <?= $this->Html->link('All Notes', ['action' => 'view-notes', $batch->id], ['escape' => false, 'class' => 'btn btn-rose float-right']) ?>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row" >
+                                <?php foreach ($notes as $note): ?>
+                                    <div class="col-md-4 d-flex align-items-stretch">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h6 class="text-nowrap float-left"><i class="fas fa-user"></i> <?= $note->user->username ?></h6>
+                                                <h6 class="text-nowrap text-right float-right" rel="tooltip" data-placement="bottom" title="" data-original-title="<?= $note->created->format('F d, Y') ?>"><i class="fas fa-clock"></i> <?= $note->created->format('m/d/Y') ?></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="h4 no-margin"><?= $note->body ?></div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <?= ($activeUser['role'] === 2 || $activeUser['id'] === $note->user_id) ? $this->Html->link(__('<i class="fas fa-edit"></i>'), ['controller' => 'Batches', 'action' => 'edit_note', $note->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Note']) : '' ?>
+                                                <?= ($activeUser['role'] === 2 || $activeUser['id'] === $note->user_id) ? $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'delete', $note->id], ['confirm' => __('Are you sure you want to delete # {0}?', $note->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Note']) : '' ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,32 +210,39 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <h4 class="card-header card-header-icon" data-background-color="rose">
-                        <i class="fas fa-hand-holding-seedling"></i> <?= __('Growth Profiles Using This Batch') ?>
-                    </h4>
-
-                    <div class="card-content">
-                        <h4 class="card-title">&nbsp;</h4>
-                        <div class="table-responsive">
-                            <?php if (!empty($batch->growth_profiles)): ?>
-                                <table cellpadding="0" cellspacing="0" class="table">
-                                    <tr>
-                                        <th scope="col"><?= __('Name') ?></th>
-                                        <th scope="col"><?= __('Description') ?></th>
-                                        <th class="text-right" scope="col"><?= __('Created') ?></th>
-                                    </tr>
-                                    <?php foreach ($batch->growth_profiles as $growthProfiles): ?>
-                                        <tr>
-                                            <td><?= $this->Html->link(h($growthProfiles->name), ['controller' => 'GrowthProfiles', 'action' => 'view', $growthProfiles->id]) ?></td>
-                                            <td><?= h($growthProfiles->description) ?></td>
-                                            <td class="text-right"><?= h($growthProfiles->created) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </table>
-                            <?php else: ?>
-                                <div>There are no growth profiles using this batch.</div>
-                            <?php endif; ?>
+                <div class="card batch-card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-thermometer-quarter"></i>
+                        </div>
+                        <h4 class="card-title font-weight-bold">Readings
+                            <?= $this->Html->link('All Readings', ['action' => 'view-notes', $batch->id], ['escape' => false, 'class' => 'btn btn-rose float-right']) ?>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <?php foreach ($readings as $reading): ?>
+                                    <div class="col-md-4">
+                                        <div class="table-responsive">
+                                            <table class="table table-horizontal table-hover">
+                                                <tr>
+                                                    <th scope="row" class="text-nowrap"><?= __('Reading Type') ?></th>
+                                                    <td class="text-right text-nowrap"><?= $reading->name ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-nowrap"><?= __('Reading Value') ?></th>
+                                                    <td class="text-right text-nowrap"><?= $reading->value ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="text-nowrap"><?= __('Date Taken') ?></th>
+                                                    <td class="text-right text-nowrap"><?= $reading->created ?></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,287 +251,3 @@
 
     </div>
 </div>
-
-
-
-
-
-
-
-<div class="batches view large-9 medium-8 columns content">
-    <h3><?= h($batch->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $batch->has('user') ? $this->Html->link($batch->user->id, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($batch->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Description') ?></th>
-            <td><?= h($batch->description) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Resource Path') ?></th>
-            <td><?= h($batch->resource_path) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($batch->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($batch->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($batch->modified) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Batches') ?></h4>
-        <?php if (!empty($batch->batches)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Growth Profile Id') ?></th>
-                <th scope="col"><?= __('Batch Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Quantity') ?></th>
-                <th scope="col"><?= __('Batch Date') ?></th>
-                <th scope="col"><?= __('Harvest Date') ?></th>
-                <th scope="col"><?= __('Watched') ?></th>
-                <th scope="col"><?= __('Testing Status') ?></th>
-                <th scope="col"><?= __('Resource Path') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($batch->batches as $batches): ?>
-            <tr>
-                <td><?= h($batches->id) ?></td>
-                <td><?= h($batches->user_id) ?></td>
-                <td><?= h($batches->growth_profile_id) ?></td>
-                <td><?= h($batches->batch_id) ?></td>
-                <td><?= h($batches->name) ?></td>
-                <td><?= h($batches->description) ?></td>
-                <td><?= h($batches->quantity) ?></td>
-                <td><?= h($batches->batch_date) ?></td>
-                <td><?= h($batches->harvest_date) ?></td>
-                <td><?= h($batches->watched) ?></td>
-                <td><?= h($batches->testing_status) ?></td>
-                <td><?= h($batches->resource_path) ?></td>
-                <td><?= h($batches->created) ?></td>
-                <td><?= h($batches->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Batches', 'action' => 'view', $batches->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Batches', 'action' => 'edit', $batches->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Batches', 'action' => 'delete', $batches->id], ['confirm' => __('Are you sure you want to delete # {0}?', $batches->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Growth Profiles') ?></h4>
-        <?php if (!empty($batch->growth_profiles)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Batch Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($batch->growth_profiles as $growthProfiles): ?>
-            <tr>
-                <td><?= h($growthProfiles->id) ?></td>
-                <td><?= h($growthProfiles->user_id) ?></td>
-                <td><?= h($growthProfiles->batch_id) ?></td>
-                <td><?= h($growthProfiles->name) ?></td>
-                <td><?= h($growthProfiles->description) ?></td>
-                <td><?= h($growthProfiles->created) ?></td>
-                <td><?= h($growthProfiles->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'GrowthProfiles', 'action' => 'view', $growthProfiles->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'GrowthProfiles', 'action' => 'edit', $growthProfiles->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'GrowthProfiles', 'action' => 'delete', $growthProfiles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfiles->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-</div> -->
-
-<!--
-<div class="batches view large-9 medium-8 columns content">
-    <h3><?= h($batch->name) ?></h3>
-    <?= $this->Html->link(__('Generate QR Code'), ['action' => 'qr_code', $batch->growth_profile->id], ['class' => 'button']) ?>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $batch->has('user') ? $this->Html->link($batch->user->id, ['controller' => 'Users', 'action' => 'view', $batch->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Growth Profile') ?></th>
-            <td><?= $batch->has('growth_profile') ? $this->Html->link($batch->growth_profile->name, ['controller' => 'GrowthProfiles', 'action' => 'view', $batch->growth_profile->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Batch') ?></th>
-            <td><?= $batch->has('batch') ? $this->Html->link($batch->batch->name, ['controller' => 'Batches', 'action' => 'view', $batch->batch->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($batch->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Description') ?></th>
-            <td><?= h($batch->description) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Resource Path') ?></th>
-            <td><?= h($batch->resource_path) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($batch->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Quantity') ?></th>
-            <td><?= $this->Number->format($batch->quantity) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Testing Status') ?></th>
-            <td><?= $this->Number->format($batch->testing_status) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Batch Date') ?></th>
-            <td><?= h($batch->batch_date) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Harvest Date') ?></th>
-            <td><?= h($batch->harvest_date) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($batch->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($batch->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Watched') ?></th>
-            <td><?= $batch->watched ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Notes') ?></h4>
-        <?php if (!empty($batch->notes)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Step Id') ?></th>
-                <th scope="col"><?= __('Batch Id') ?></th>
-                <th scope="col"><?= __('Body') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($batch->notes as $notes): ?>
-            <tr>
-                <td><?= h($notes->id) ?></td>
-                <td><?= h($notes->user_id) ?></td>
-                <td><?= h($notes->step_id) ?></td>
-                <td><?= h($notes->batch_id) ?></td>
-                <td><?= h($notes->body) ?></td>
-                <td><?= h($notes->created) ?></td>
-                <td><?= h($notes->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Notes', 'action' => 'view', $notes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Notes', 'action' => 'edit', $notes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Notes', 'action' => 'delete', $notes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $notes->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Readings') ?></h4>
-        <?php if (!empty($batch->readings)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Step Id') ?></th>
-                <th scope="col"><?= __('Batch Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Value') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($batch->readings as $readings): ?>
-            <tr>
-                <td><?= h($readings->id) ?></td>
-                <td><?= h($readings->step_id) ?></td>
-                <td><?= h($readings->batch_id) ?></td>
-                <td><?= h($readings->name) ?></td>
-                <td><?= h($readings->value) ?></td>
-                <td><?= h($readings->created) ?></td>
-                <td><?= h($readings->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Readings', 'action' => 'view', $readings->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Readings', 'action' => 'edit', $readings->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Readings', 'action' => 'delete', $readings->id], ['confirm' => __('Are you sure you want to delete # {0}?', $readings->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Reports') ?></h4>
-        <?php if (!empty($batch->reports)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Batch Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Description') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($batch->reports as $reports): ?>
-            <tr>
-                <td><?= h($reports->id) ?></td>
-                <td><?= h($reports->user_id) ?></td>
-                <td><?= h($reports->batch_id) ?></td>
-                <td><?= h($reports->name) ?></td>
-                <td><?= h($reports->description) ?></td>
-                <td><?= h($reports->created) ?></td>
-                <td><?= h($reports->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Reports', 'action' => 'view', $reports->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Reports', 'action' => 'edit', $reports->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reports', 'action' => 'delete', $reports->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reports->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-</div>
--->

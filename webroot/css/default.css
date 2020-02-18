@@ -85,3 +85,72 @@ body {
     background-position: center center;
     background-image: url('http://static.coastlineapplications.com/plant_track/planttrack_logo_icon_cream.png')
 }
+.nav.navbar-nav.nav-mobile-menu .nav-item .btn {
+    display: block;
+    color: #fff;
+    text-align: left;
+    line-height: 20px;
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: 13px;
+}
+.nav.navbar-nav.nav-mobile-menu .nav-item .btn i {
+    float: initial;
+    display: inline-block;
+    line-height: 26px;
+}
+.navbar .navbar-nav .nav-item .btn {
+    margin-right: 15px;
+}
+
+/* Batches */
+.batch-card {
+
+}
+.batch-card .batch-description {
+    float: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+.card.full-height {
+    height: 100%;
+    box-sizing: border-box;
+}
+.no-margin {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.timeline > li.timeline-start, .timeline > li.timeline-end {
+    text-align: center;
+}
+.timeline > li.timeline-end {
+    margin-bottom: -40px;
+}
+.timeline > li.timeline-start > .timeline-panel, .timeline > li.timeline-end > .timeline-panel {
+    float: initial;
+    display: inline-block;
+}
+.timeline > li.timeline-start > .timeline-panel:after, .timeline > li.timeline-start > .timeline-panel:before, .timeline > li.timeline-end > .timeline-panel:after, .timeline > li.timeline-end > .timeline-panel:before {
+    display: none;
+}
+.main-panel > .navbar .btn i {
+    font-size: 1rem !important;
+}
+
+.navbar-absolute {
+
+}
+.pt-tooltip {
+    display: inline-block;
+}
+.bg-warning {
+    background-color:
+        #ff9800 !important;
+}
+.batch-steps > * {
+    margin-left: 5px;
+    margin-right: 5px;
+}

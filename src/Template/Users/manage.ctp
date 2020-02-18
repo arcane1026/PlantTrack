@@ -23,12 +23,13 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
-            <div class="form-inline">
-                <?= $this->Html->link(__('<i class="fas fa-envelope"></i> Invite Employee'), ['action' => 'inviteEmployee'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-                <?= $this->Html->link(__('<i class="fas fa-user-crown"></i> Change Business Owner'), ['action' => 'change_owner'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-            </div>
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-user-plus"></i>'), ['action' => 'inviteEmployee'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Invite Employee']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-user-crown"></i>'), ['action' => 'change_owner'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Change Business Owner']) ?>
                 </li>
             </ul>
         </div>
@@ -91,27 +92,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-5 text-sm-center">
-                                <div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">
-                                    <?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-7 text-sm-center">
-                                <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                    <ul class="pagination">
-                                        <?= $this->Paginator->first('<< ' . __('first')) ?>
-                                        <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                                        <?= $this->Paginator->numbers() ?>
-                                        <?= $this->Paginator->next(__('next') . ' >') ?>
-                                        <?= $this->Paginator->last(__('last') . ' >>') ?>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-rose card-header-icon">
@@ -184,132 +169,60 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-rose card-header-icon">
+                        <div class="card-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4 class="card-title">Pending Invites</h4>
+                    </div>
+                    <div class="card-body">
+                        <?php if (!empty($pendingInvites)): ?>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($pendingInvites as $employee): ?>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </td>
 
+                                        <td><?= h($employee->first_name) ?></td>
+                                        <td><?= h($employee->last_name) ?></td>
+                                        <td><?= h($employee->email) ?></td>
+                                        <td><?= h($employee->phone) ?></td>
+                                        <td><?= $this->Form->postLink('<i class="fas fa-trash"></i>', ['action' => 'delete_invitation', $employee->id], ['escape' => false, 'class' => 'btn btn-sm btn-link btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Invitation', 'confirm' => __('Are you sure you want to delete the invitation for {0}?', $employee->first_name . ' ' . $employee->last_name)]) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php else: ?>
+                        <div class="text-center">No Invitations Pending</div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-<!--
-<div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
-    <div><?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button']) ?></div>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('growth_profile_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plant_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('quantity') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('plant_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('harvest_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('watched') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('testing_status') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('resource_path') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user): ?>
-            <tr>
-                <td><?= $this->Number->format($user->id) ?></td>
-                <td><?= $user->has('user') ? $this->Html->link($user->user->id, ['controller' => 'Users', 'action' => 'view', $user->user->id]) : '' ?></td>
-                <td><?= $user->has('growth_profile') ? $this->Html->link($user->growth_profile->name, ['controller' => 'GrowthProfiles', 'action' => 'view', $user->growth_profile->id]) : '' ?></td>
-                <td><?= $user->has('plant') ? $this->Html->link($user->plant->name, ['controller' => 'Plants', 'action' => 'view', $user->plant->id]) : '' ?></td>
-                <td><?= h($user->name) ?></td>
-                <td><?= h($user->description) ?></td>
-                <td><?= $this->Number->format($user->quantity) ?></td>
-                <td><?= h($user->plant_date) ?></td>
-                <td><?= h($user->harvest_date) ?></td>
-                <td><?= h($user->watched) ?></td>
-                <td><?= ''//$testingStatuses[$user->testing_status] ?></td>
-                <td><?= h($user->resource_path) ?></td>
-                <td><?= h($user->created) ?></td>
-                <td><?= h($user->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
-</div>
--->
-<!--
-<div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
-    <div><?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button']) ?></div>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('business_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('username') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('role') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('phone') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('resource_path') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('confirmed') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('locked') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('created') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user): ?>
-            <tr>
-                <td><?= $this->Number->format($user->id) ?></td>
-                <td><?= $user->has('business') ? $this->Html->link($user->business->name, ['controller' => 'Businesses', 'action' => 'view', $user->business->id]) : '' ?></td>
-                <td><?= h($user->username) ?></td>
-                <td><?= $this->Number->format($user->role) ?></td>
-                <td><?= h($user->first_name) ?></td>
-                <td><?= h($user->last_name) ?></td>
-                <td><?= h($user->email) ?></td>
-                <td><?= h($user->phone) ?></td>
-                <td><?= h($user->resource_path) ?></td>
-                <td><?= ($user->confirmed) ? '<i class="fas fa-check"></i>' : '<i class="fas fa-ban"></i>' ?></td>
-                <td><?= ($user->locked) ? '<i class="fas fa-check"></i>' : '<i class="fas fa-ban"></i>' ?></td>
-                <td><?= h($user->created) ?></td>
-                <td><?= h($user->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
-</div>
--->

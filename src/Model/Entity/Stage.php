@@ -38,21 +38,10 @@ class Stage extends Entity
     ];
 
     /**
-     * @return int|null
+     * @return string
      */
-    protected function _getNextStepId()
+    protected function _getDuration()
     {
-        //$steps = $this->stage->steps;
-        var_dump($this->stage_id);
-        $batch = $this->Batches->get($this->stage_id, [
-            'contain' => 'GrowthProfiles.Stages.Steps'
-        ]);
-        die();
-        for ($i=0;$i<count($steps);$i++) {
-            if ($steps[$i]->id === $this->id) {
-                return $steps[$i + 1]->id ?? null;
-            }
-        }
-        return null;
+        return array_sum(array_column($this->steps ?? [], 'duration')); // Return sum of duration fields of stage's steps
     }
 }

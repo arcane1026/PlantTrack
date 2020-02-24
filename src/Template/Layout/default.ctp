@@ -134,6 +134,9 @@
         md.initDashboardPageCharts();
         md.initFormExtendedDatetimepickers();
 
+        $( ".sortable" ).sortable({
+            handle: ".handle"
+        });
         //md.initVectorMap();
 
     });

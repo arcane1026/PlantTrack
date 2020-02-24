@@ -42,4 +42,12 @@ class GrowthProfile extends Entity
         'batches' => true,
         'stages' => true,
     ];
+
+    /**
+     * @return string
+     */
+    protected function _getDuration()
+    {
+        return array_sum(array_column($this->stages, 'duration')); // Return sum of duration fields of stage's steps
+    }
 }

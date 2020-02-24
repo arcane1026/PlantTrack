@@ -154,3 +154,8 @@ body {
     margin-left: 5px;
     margin-right: 5px;
 }
+.handle {
+    cursor: move;
+    padding: 3px;
+    display: inline-block;
+}

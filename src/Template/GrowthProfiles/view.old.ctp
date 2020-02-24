@@ -5,7 +5,6 @@
  */
 ?>
 
-<?= $this->Form->create($growthProfile) ?>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
@@ -16,7 +15,7 @@
                     <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo"><?= __('View Growth Profile') ?></a>
+            <a class="navbar-brand" href="#pablo"><?= __('Growth Profile') ?></a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -28,7 +27,7 @@
             <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
                 <li class="nav-item">
-
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-edit"></i>'), ['action' => 'edit', $growthProfile->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Growth Profile']) ?>
                 </li>
                 <li class="nav-item">
                     <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $growthProfile->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the growth profile named: {0}?', $growthProfile->name), 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Growth Profile']) ?>
@@ -41,28 +40,24 @@
 <div class="content">
     <div class="container-fluid">
         <?= $this->Flash->render(); ?>
-        <!--<div class="text-center">
+        <div class="text-center">
             <div class="h3 no-margin">Growth Profile: <?= h($growthProfile->name) ?></div>
-        </div>-->
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-timeline card-plain" style="margin-top: 0;">
+                <?= $this->Form->create($growthProfile) ?>
+                <div class="card card-timeline card-plain">
                     <div class="card-body">
-                        <ul class="timeline" style="margin-top: 0;">
+                        <ul class="timeline">
                             <li class="timeline-start">
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
-
                                         <div class="h3 no-margin"><?= h($growthProfile->name) ?></div>
                                     </div>
                                     <h6>
                                         <div><?= h($growthProfile->description) ?></div><br />
-                                        <div><?= ($growthProfile->duration > 24) ? h((int)($growthProfile->duration / 24)) . ' days ' . $growthProfile->duration % 24 . ' hours' : h($growthProfile->duration) . ' hours' ?> total duration</div>
+                                        <div><?= h($growthProfile->duration) ?> hours total duration</div>
                                     </h6>
-                                    <div class="card-footer">
-                                        <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'edit', $growthProfile->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Growth Profile']) ?>
-                                        <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'delete', $growthProfile->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Growth Profile']) ?>
-                                    </div>
                                 </div>
                             </li>
                             <?php $stageCount = 0; foreach ($growthProfile->stages as $stage): $stageCount++; ?>
@@ -76,38 +71,25 @@
                                             <p><?= h($stage->description) ?></p>
                                             <table class="table table-hover">
                                                 <tbody>
-                                                <tr class="h5"></td>
-                                                    <td><div>Duration:</div></td>
-                                                    <td class="text-right text-nowrap"><div><?= ($stage->duration > 24) ? h((int)($stage->duration / 24)) . ' days ' . $stage->duration % 24 . ' hours' : h($stage->duration) . ' hours' ?></div></td>
-                                                </tr>
+                                                    <tr class="h5"></td>
+                                                        <td><div>Duration:</div></td>
+                                                        <td class="text-right text-nowrap"><div><?= h($stage->duration) ?> hours</div></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="card-footer">
-                                                <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'edit_stage', $stage->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Stage']) ?>
-                                                <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'delete_stage', $stage->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Stage']) ?>
-                                            </div>
                                         </div>
                                         <div class="timeline-body">
                                             <div class="h5 no-margin"><u class="font-weight-bold">Steps</u></div>
                                             <table class="table table-hover">
-                                                <tbody class="sortable">
+                                                <tbody>
                                                     <?php foreach ($stage->steps as $step): ?>
-                                                        <tr id="<?= $step->id ?>" class="h5"></td>
-                                                            <td><div class="handle"><i class="far fa-grip-lines"></i></div></td>
-                                                            <td style="width: 100%; "><div rel="tooltip" data-placement="bottom" title="" data-original-title="<?= h($step->description) ?>"><?= h($step->name) ?></div></td>
-                                                            <td class="text-right text-nowrap"><div><?= h($step->duration) ?> h</div></td>
-                                                            <td class="text-right">
-                                                                <div class="btn-group btn-group-sm">
-                                                                    <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'editStep', $step->id], ['class' => 'btn btn-xs btn-link', 'escape' => false]) ?>
-                                                                    <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'deleteStep', $step->id], ['class' => 'btn btn-xs btn-link', 'escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $step->id)]) ?>
-                                                                </div>
-                                                            </td>
+                                                        <tr id="<?= $step->id ?>" class="h5" rel="tooltip" data-placement="bottom" title="" data-original-title="<?= h($step->description) ?>"></td>
+                                                            <td><div><?= h($step->name) ?></div></td>
+                                                            <td class="text-right text-nowrap"><div><?= h($step->duration) ?> hours</div></td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 </tbody>
                                             </table>
-                                            <?= $this->Html->link(__('<i class="fas fa-plus"></i> Add Step'), ['action' => 'addStep', $stage->id], ['class' => 'btn btn-sm btn-rose', 'escape' => false]) ?>
                                         </div>
                                     </div>
                                 </li>
@@ -117,17 +99,19 @@
                                     <div class="timeline-heading">
                                         <div class="h3 no-margin">Growth Profile End</div>
                                     </div>
-                                    <h6></h6>
+                                    <h6>
+
+                                    </h6>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <?= $this->Form->end() ?>
             </div>
         </div>
     </div>
 </div>
-<?= $this->Form->end() ?>
 <!--
 
 <div class="growthProfiles view large-9 medium-8 columns content">

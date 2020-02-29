@@ -129,18 +129,23 @@
 <?= $this->Html->script('material-dashboard.min.js') . PHP_EOL ?>
 
 <script>
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        md.initDashboardPageCharts();
-        md.initFormExtendedDatetimepickers();
+
 
         $( ".sortable" ).sortable({
             handle: ".handle"
         });
         //md.initVectorMap();
 
-    });
+
+    // Create a new line chart object where as first parameter we pass in a selector
+    // that is resolving to our chart container element. The Second parameter
+    // is the actual data object.
+    if(typeof data !== 'undefined'){// if statement to avoid javascript errors on pages without charts
+        new Chartist.Line('#chart1', data);
+        new Chartist.Bar('#chart2', data);
+    }
 </script>
+
 </body>
 </html>
 <!--

@@ -23,11 +23,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
+        <div class="collapse navbar-collapse justify-content-end"><form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i><p class="d-inline-block">New Batch</p>'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link']) ?>
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i>'), ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'New Batch']) ?>
                 </li>
             </ul>
         </div>

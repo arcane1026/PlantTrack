@@ -74,6 +74,10 @@ class StagesTable extends Table
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
+        $validator
+            ->integer('stage_order')
+            ->notEmptyString('stage_order');
+
         return $validator;
     }
 

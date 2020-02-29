@@ -87,6 +87,10 @@ class StepsTable extends Table
             ->requirePresence('duration', 'create')
             ->notEmptyString('duration');
 
+        $validator
+            ->integer('step_order')
+            ->notEmptyString('step_order');
+
         return $validator;
     }
 

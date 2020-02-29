@@ -159,3 +159,6 @@ body {
     padding: 3px;
     display: inline-block;
 }
+body {
+    overflow-y: scroll;
+}

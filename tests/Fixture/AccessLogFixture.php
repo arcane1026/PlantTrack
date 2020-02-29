@@ -50,7 +50,7 @@ class AccessLogFixture extends TestFixture
                 'password' => 'Lorem ipsum dolor sit amet',
                 'ip_address' => 'Lorem ipsum dolor sit amet',
                 'result' => 1,
-                'created' => '2020-02-07 18:59:41',
+                'created' => '2020-02-28 16:54:58',
             ],
         ];
         parent::init();

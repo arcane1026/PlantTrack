@@ -40,6 +40,7 @@ class BatchesController extends AppController
             case 'deleteReading':
             case 'viewNotes':
             case 'viewReadings':
+            case 'setYield':
                 return true;
             default:
                 return false; // Return false by default for any unspecified methods
@@ -55,7 +56,7 @@ class BatchesController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'GrowthProfiles', 'Plants'],
             'limit' => 5,
-            'conditions' => ['business_id' => $this->Auth->User('business_id')]
+            'conditions' => ['Batches.business_id' => $this->Auth->User('business_id')]
         ];
         $batches = $this->paginate($this->Batches);
         $testingStatuses = $this->testingStatuses;
@@ -268,10 +269,9 @@ class BatchesController extends AppController
             $data['testing_status'] = 0;
             //$data['plant_date'] = '01/24/2020 09:48 AM';
             //$data['plant_date'] = [ 'year' => '2020', 'month' => '24', 'day' => '01', 'hour' => '09','minute' => '48'];
-            $data['plant_date'] = str_replace('/','-', $data['plant_date'] ?? '');
-
-            Log::write('debug', $data);
+            //$data['plant_date'] = str_replace('/','-', $data['plant_date'] ?? '');
             $batch = $this->Batches->patchEntity($batch, $data);
+            $batch->business_id = $this->Auth->User('business_id');
             if ($this->Batches->save($batch)) {
                 $this->Flash->success(__('The batch has been saved.'));
 
@@ -443,5 +443,81 @@ class BatchesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Note id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function setYield($id = null)
+    {
+        $batch = $this->Batches->get($id, [
+            'contain' => [],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $batch = $this->Batches->patchEntity($batch, $data);
+            if ($this->Batches->save($batch)) {
+                $this->Flash->success(__('Yield has been saved.'));
+
+                return $this->redirect(['action' => 'view', $id]);
+            }
+            $this->Flash->error(__('The yield could not be saved. Please, try again.'));
+        }
+        $this->set(compact('batch'));
+    }
+    /**
+     * View Readings method
+     *
+     * @param string|null $id Batch id.
+     * @return \Cake\Http\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function viewReadings($id = null)
+    {
+        $batch = $this->Batches->get($id);
+        $readings = $this->paginate($this->Batches->Readings->find('all',[
+            'conditions' => [
+                'batch_id' => $batch->id
+            ],
+            'contain' => [
+                'Steps.Stages'
+            ]
+        ]));
+
+        $this->set(compact('batch', 'readings'));
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function addReading($id = null)
+    {
+        $batch = $this->Batches->get($id, [
+            'contain' => [],
+        ]);
+        $reading = $this->Batches->Readings->newEntity();
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $data['user_id'] = $this->Auth->User('id');
+            $data['batch_id'] = $batch->id;
+            $data['step_id'] = $batch->step_id;
+            $reading = $this->Batches->Readings->patchEntity($reading, $data);
+            if ($this->Batches->Readings->save($reading)) {
+                $this->Flash->success(__('The reading has been saved.'));
+
+                return $this->redirect(['action' => 'view', $id]);
+            }
+            $this->Flash->error(__('The reading could not be saved. Please, try again.'));
+        }
+        foreach ($this->readingTypes as $readingType) {
+            $readingTypes[$readingType] = $readingType;
+        }
+        $this->set(compact('reading', 'readingTypes'));
     }
 }

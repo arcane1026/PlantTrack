@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  * @property int $growth_profile_id
  * @property string $name
  * @property string $description
+ * @property int $stage_order
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -31,6 +32,7 @@ class Stage extends Entity
         'growth_profile_id' => true,
         'name' => true,
         'description' => true,
+        'stage_order' => true,
         'created' => true,
         'modified' => true,
         'growth_profile' => true,
@@ -43,5 +45,12 @@ class Stage extends Entity
     protected function _getDuration()
     {
         return array_sum(array_column($this->steps ?? [], 'duration')); // Return sum of duration fields of stage's steps
+    }
+    /**
+     * @return string
+     */
+    protected function _getTotalSteps()
+    {
+        return count($this->steps ?? []); // Return count of this stage's steps
     }
 }

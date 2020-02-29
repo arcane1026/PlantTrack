@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Businesses Model
  *
+ * @property \App\Model\Table\BatchesTable&\Cake\ORM\Association\HasMany $Batches
+ * @property \App\Model\Table\EmployeeInvitesTable&\Cake\ORM\Association\HasMany $EmployeeInvites
+ * @property \App\Model\Table\GrowthProfilesTable&\Cake\ORM\Association\HasMany $GrowthProfiles
+ * @property \App\Model\Table\PlantsTable&\Cake\ORM\Association\HasMany $Plants
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\HasMany $Users
  *
  * @method \App\Model\Entity\Business get($primaryKey, $options = [])
@@ -40,6 +44,18 @@ class BusinessesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->hasMany('Batches', [
+            'foreignKey' => 'business_id',
+        ]);
+        $this->hasMany('EmployeeInvites', [
+            'foreignKey' => 'business_id',
+        ]);
+        $this->hasMany('GrowthProfiles', [
+            'foreignKey' => 'business_id',
+        ]);
+        $this->hasMany('Plants', [
+            'foreignKey' => 'business_id',
+        ]);
         $this->hasMany('Users', [
             'foreignKey' => 'business_id',
         ]);

@@ -60,6 +60,7 @@
                                         <div><?= ($growthProfile->duration > 24) ? h((int)($growthProfile->duration / 24)) . ' days ' . $growthProfile->duration % 24 . ' hours' : h($growthProfile->duration) . ' hours' ?> total duration</div>
                                     </h6>
                                     <div class="card-footer">
+                                        <?= $this->Html->link(__('<i class="fas fa-plus"></i>'), ['action' => 'addStage', $growthProfile->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'New Stage']) ?>
                                         <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'edit', $growthProfile->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Growth Profile']) ?>
                                         <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'delete', $growthProfile->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Growth Profile']) ?>
                                     </div>
@@ -82,10 +83,6 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="card-footer">
-                                                <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'edit_stage', $stage->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Stage']) ?>
-                                                <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'delete_stage', $stage->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Stage']) ?>
-                                            </div>
                                         </div>
                                         <div class="timeline-body">
                                             <div class="h5 no-margin"><u class="font-weight-bold">Steps</u></div>
@@ -98,16 +95,20 @@
                                                             <td class="text-right text-nowrap"><div><?= h($step->duration) ?> h</div></td>
                                                             <td class="text-right">
                                                                 <div class="btn-group btn-group-sm">
-                                                                    <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'editStep', $step->id], ['class' => 'btn btn-xs btn-link', 'escape' => false]) ?>
-                                                                    <?= $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'deleteStep', $step->id], ['class' => 'btn btn-xs btn-link', 'escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $step->id)]) ?>
+                                                                    <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'editStep', $step->id], ['escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Step']) ?>
+                                                                    <?= ($stage->total_steps > 1) ? $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'deleteStep', $step->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id), 'escape' => false, 'class' => 'btn btn-sm btn-link', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Step']) : '' ?>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
-
                                                 </tbody>
                                             </table>
-                                            <?= $this->Html->link(__('<i class="fas fa-plus"></i> Add Step'), ['action' => 'addStep', $stage->id], ['class' => 'btn btn-sm btn-rose', 'escape' => false]) ?>
+                                            <div class="card-footer">
+                                                <?= $this->Html->link(__('<i class="fas fa-plus"></i>'), ['action' => 'addStep', $stage->id], ['class' => 'btn btn-sm btn-link', 'escape' => false, 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Step']) ?>
+                                                <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'editStage', $stage->id], ['class' => 'btn btn-sm btn-link', 'escape' => false, 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Stage']) ?>
+                                                <?= ($growthProfile->total_stages > 1) ? $this->Form->postLink(__('<i class="fas fa-trash"></i>'), ['action' => 'deleteStage', $stage->id], ['class' => 'btn btn-sm btn-link', 'escape' => false, 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Stage', 'confirm' => __('Are you sure you want to delete the stage {0}?', $stage->name)]) : '<div style="width: 29.5px;"></div>' ?>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </li>

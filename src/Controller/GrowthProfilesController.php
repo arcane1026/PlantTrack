@@ -30,6 +30,9 @@ class GrowthProfilesController extends AppController
     {
         $this->paginate = [
             'contain' => ['Users', 'Plants'],
+            'conditions' => [
+                'GrowthProfiles.business_id' => $this->Auth->User('business_id')
+            ]
         ];
         $growthProfiles = $this->paginate($this->GrowthProfiles);
 
@@ -62,15 +65,57 @@ class GrowthProfilesController extends AppController
         $growthProfile = $this->GrowthProfiles->newEntity();
         if ($this->request->is('post')) {
             $growthProfile = $this->GrowthProfiles->patchEntity($growthProfile, $this->request->getData());
-            if ($this->GrowthProfiles->save($growthProfile)) {
+            $step = $this->GrowthProfiles->Stages->Steps->newEntity();
+            $step->step_order = 0;
+            $step->name = "First Step";
+            $step->description = "You can remname this step to suit your needs.";
+            $step->duration = 0;
+            $stage = $this->GrowthProfiles->Stages->newEntity();
+            $stage->stage_order = 0;
+            $stage->name = "First Stage";
+            $stage->description = "You can rename this stage to suit your needs.";
+            $stage->steps = [$step];
+            $growthProfile->user_id = $this->Auth->User('id');
+            $growthProfile->business_id = $this->Auth->User('business_id');
+            $growthProfile->stages = [$stage];
+            if ($savedProfile = $this->GrowthProfiles->save($growthProfile)) {
                 $this->Flash->success(__('The growth profile has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $savedProfile->id]);
             }
             $this->Flash->error(__('The growth profile could not be saved. Please, try again.'));
         }
         $plants = $this->GrowthProfiles->Plants->find('list', ['limit' => 200]);
         $this->set(compact('growthProfile', 'plants'));
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function addStage($id = null)
+    {
+        $stage = $this->GrowthProfiles->Stages->newEntity();
+        $growthProfile = $this->GrowthProfiles->get($id);
+        if ($this->request->is('post')) {
+            $stage = $this->GrowthProfiles->Stages->patchEntity($stage, $this->request->getData());
+            $stage->stage_order = $this->GrowthProfiles->find('all')->where(['id' => $stage->growth_profile_id])->count();
+            $stage->growth_profile_id = $id;
+            $step = $this->GrowthProfiles->Stages->Steps->newEntity();
+            $step->name = "First Step";
+            $step->description = "You can edit this step to suit your needs";
+            $step->step_order = 0;
+            $step->duration = 0;
+            $stage->steps = [$step];
+            if ($this->GrowthProfiles->Stages->save($stage)) {
+                $this->Flash->success(__('The step has been saved.'));
+
+                return $this->redirect(['action' => 'view', $stage->growth_profile_id]);
+            }
+            $this->Flash->error(__('The step could not be saved. Please, try again.'));
+        }
+        $this->set(compact('growthProfile', 'stage'));
     }
 
     /**
@@ -86,37 +131,16 @@ class GrowthProfilesController extends AppController
         ]);
         if ($this->request->is('post')) {
             $step = $this->GrowthProfiles->Stages->Steps->patchEntity($step, $this->request->getData());
+            $step->step_order = $this->GrowthProfiles->Stages->find('all')->where(['id' => $step->stage_id])->count();
             $step->stage_id = $id;
             if ($this->GrowthProfiles->Stages->Steps->save($step)) {
-                $this->Flash->success(__('The step has been saved.'));
-
-                return $this->redirect(['action' => 'edit', $stage->growth_profile_id]);
-            }
-            $this->Flash->error(__('The step could not be saved. Please, try again.'));
-        }
-        $this->set(compact('step', 'stage'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function addStage($id = null)
-    {
-        $stage = $this->GrowthProfiles->Stages->newEntity();
-        $growthProfile = $this->GrowthProfiles->get($id);
-        if ($this->request->is('post')) {
-            $stage = $this->GrowthProfiles->Stages->patchEntity($stage, $this->request->getData());
-            $stage->growth_profile_id = $id;
-            if ($this->GrowthProfiles->Stages->save($stage)) {
                 $this->Flash->success(__('The step has been saved.'));
 
                 return $this->redirect(['action' => 'view', $stage->growth_profile_id]);
             }
             $this->Flash->error(__('The step could not be saved. Please, try again.'));
         }
-        $this->set(compact('growthProfile', 'stage'));
+        $this->set(compact('step', 'stage'));
     }
 
     /**
@@ -152,30 +176,6 @@ class GrowthProfilesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function editStep($id = null)
-    {
-        $step = $this->GrowthProfiles->Stages->Steps->get($id, [
-            'contain' => ['Stages.GrowthProfiles'],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $step = $this->GrowthProfiles->Stages->Steps->patchEntity($step, $this->request->getData());
-            if ($this->GrowthProfiles->Stages->Steps->save($step)) {
-                $this->Flash->success(__('The step has been saved.'));
-
-                return $this->redirect(['action' => 'view', $step->stage->growth_profile_id]);
-            }
-            $this->Flash->error(__('The step could not be saved. Please, try again.'));
-        }
-        $this->set(compact('step'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Step id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function editStage($id = null)
     {
         $stage = $this->GrowthProfiles->Stages->get($id, [
@@ -192,6 +192,30 @@ class GrowthProfilesController extends AppController
             $this->Flash->error(__('The step could not be saved. Please, try again.'));
         }
         $this->set(compact('stage'));
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Step id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function editStep($id = null)
+    {
+        $step = $this->GrowthProfiles->Stages->Steps->get($id, [
+            'contain' => ['Stages.GrowthProfiles'],
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $step = $this->GrowthProfiles->Stages->Steps->patchEntity($step, $this->request->getData());
+            if ($this->GrowthProfiles->Stages->Steps->save($step)) {
+                $this->Flash->success(__('The step has been saved.'));
+
+                return $this->redirect(['action' => 'view', $step->stage->growth_profile_id]);
+            }
+            $this->Flash->error(__('The step could not be saved. Please, try again.'));
+        }
+        $this->set(compact('step'));
     }
 
     /**
@@ -221,14 +245,14 @@ class GrowthProfilesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function deleteStep($id = null)
+    public function deleteStage($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $step = $this->GrowthProfiles->Stages->Steps->get($id,[
-            'contain' => ['Stages.GrowthProfiles']
+        $stage = $this->GrowthProfiles->Stages->get($id,[
+            'contain' => ['GrowthProfiles', 'Steps']
         ]);
-        $gpId = $step->stage->growth_profile_id;
-        if ($this->GrowthProfiles->Stages->Steps->delete($step)) {
+        $gpId = $stage->growth_profile_id;
+        if ($this->GrowthProfiles->Stages->delete($stage)) {
             $this->Flash->success(__('The step has been deleted.'));
         } else {
             $this->Flash->error(__('The step could not be deleted. Please, try again.'));
@@ -244,14 +268,14 @@ class GrowthProfilesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function deleteStage($id = null)
+    public function deleteStep($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $stage = $this->GrowthProfiles->Stages->get($id,[
-            'contain' => ['GrowthProfiles', 'Steps']
+        $step = $this->GrowthProfiles->Stages->Steps->get($id,[
+            'contain' => ['Stages.GrowthProfiles']
         ]);
-        $gpId = $stage->growth_profile_id;
-        if ($this->GrowthProfiles->Stages->delete($stage)) {
+        $gpId = $step->stage->growth_profile_id;
+        if ($this->GrowthProfiles->Stages->Steps->delete($step)) {
             $this->Flash->success(__('The step has been deleted.'));
         } else {
             $this->Flash->error(__('The step could not be deleted. Please, try again.'));

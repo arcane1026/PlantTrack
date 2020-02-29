@@ -51,8 +51,8 @@ class ReadingsFixture extends TestFixture
                 'batch_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'value' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-02-07 18:29:47',
-                'modified' => '2020-02-07 18:29:47',
+                'created' => '2020-02-28 16:24:47',
+                'modified' => '2020-02-28 16:24:47',
             ],
         ];
         parent::init();

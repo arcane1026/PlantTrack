@@ -39,12 +39,15 @@
                         <?= $this->Html->link(__('<i class="fas fa-fw fa-sticky-note"></i>'), ['action' => 'add_note', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Note']) ?>
                     </li>
                     <li class="nav-item">
-                        <?= $this->Html->link(__('<i class="fas fa-fw fa-thermometer-quarter"></i>'), ['action' => 'add_reading', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Reading']) ?>
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-temperature-low"></i>'), ['action' => 'add_reading', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Add Reading']) ?>
                     </li>
                     <li class="nav-item">
                         <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-from-left"></i>'), ['action' => 'next_step', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-large btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Move Batch to Next Step']) ?>
                     </li>
                 <?php else: ?>
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-chart-line"></i>'), ['action' => 'set_yield', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Set Yield']) ?>
+                    </li>
                 <?php endif; ?>
                 <li class="nav-item">
                     <?= $this->Html->link(__('<i class="fas fa-fw fa-qrcode"></i>'), ['action' => 'qr_code', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Generate QR Code']) ?>
@@ -216,7 +219,7 @@
                             <i class="fas fa-thermometer-quarter"></i>
                         </div>
                         <h4 class="card-title font-weight-bold">Readings
-                            <?= $this->Html->link('All Readings', ['action' => 'view-notes', $batch->id], ['escape' => false, 'class' => 'btn btn-rose float-right']) ?>
+                            <?= $this->Html->link('All Readings', ['action' => 'view-readings', $batch->id], ['escape' => false, 'class' => 'btn btn-rose float-right']) ?>
                         </h4>
                     </div>
                     <div class="card-body">

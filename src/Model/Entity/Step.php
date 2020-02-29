@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $description
  * @property int $duration
+ * @property int $step_order
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -35,6 +36,7 @@ class Step extends Entity
         'name' => true,
         'description' => true,
         'duration' => true,
+        'step_order' => true,
         'created' => true,
         'modified' => true,
         'stage' => true,

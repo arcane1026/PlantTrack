@@ -51,8 +51,8 @@ class ReportsFixture extends TestFixture
                 'batch_id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'description' => 'Lorem ipsum dolor sit amet',
-                'created' => '2020-02-07 18:29:55',
-                'modified' => '2020-02-07 18:29:55',
+                'created' => '2020-02-28 16:43:18',
+                'modified' => '2020-02-28 16:43:18',
             ],
         ];
         parent::init();

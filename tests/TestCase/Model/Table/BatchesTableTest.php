@@ -27,6 +27,7 @@ class BatchesTableTest extends TestCase
         'app.Users',
         'app.GrowthProfiles',
         'app.Plants',
+        'app.Businesses',
         'app.Steps',
         'app.Notes',
         'app.Readings',

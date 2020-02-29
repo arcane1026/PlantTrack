@@ -10,7 +10,8 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property int $growth_profile_id
  * @property int $plant_id
- * @property int $step_id
+ * @property int $business_id
+ * @property int|null $step_id
  * @property string $name
  * @property string $description
  * @property int $quantity
@@ -27,6 +28,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\GrowthProfile $growth_profile
  * @property \App\Model\Entity\Plant $plant
+ * @property \App\Model\Entity\Business $business
  * @property \App\Model\Entity\Step $step
  * @property \App\Model\Entity\Note[] $notes
  * @property \App\Model\Entity\Reading[] $readings
@@ -47,6 +49,7 @@ class Batch extends Entity
         'user_id' => true,
         'growth_profile_id' => true,
         'plant_id' => true,
+        'business_id' => true,
         'step_id' => true,
         'name' => true,
         'description' => true,
@@ -63,6 +66,7 @@ class Batch extends Entity
         'user' => true,
         'growth_profile' => true,
         'plant' => true,
+        'business' => true,
         'step' => true,
         'notes' => true,
         'readings' => true,

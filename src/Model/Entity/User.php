@@ -71,7 +71,12 @@ class User extends Entity
         'password',
     ];
 
-    // Add this method
+    /**
+     * Hashes the user's password when setting it in the entity.
+     *
+     * @param $value
+     * @return mixed
+     */
     protected function _setPassword($value)
     {
         if (strlen($value)) {

@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $user_id
+ * @property int $business_id
  * @property string $name
  * @property string $description
  * @property string|null $resource_path
@@ -15,6 +16,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Business $business
  * @property \App\Model\Entity\Batch[] $batches
  * @property \App\Model\Entity\GrowthProfile[] $growth_profiles
  */
@@ -31,12 +33,14 @@ class Plant extends Entity
      */
     protected $_accessible = [
         'user_id' => true,
+        'business_id' => true,
         'name' => true,
         'description' => true,
         'resource_path' => true,
         'created' => true,
         'modified' => true,
         'user' => true,
+        'business' => true,
         'batches' => true,
         'growth_profiles' => true,
     ];

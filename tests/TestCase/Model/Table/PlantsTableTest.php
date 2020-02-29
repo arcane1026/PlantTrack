@@ -25,6 +25,7 @@ class PlantsTableTest extends TestCase
     public $fixtures = [
         'app.Plants',
         'app.Users',
+        'app.Businesses',
         'app.Batches',
         'app.GrowthProfiles',
     ];

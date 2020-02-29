@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\GrowthProfilesTable&\Cake\ORM\Association\BelongsTo $GrowthProfiles
  * @property \App\Model\Table\PlantsTable&\Cake\ORM\Association\BelongsTo $Plants
+ * @property \App\Model\Table\BusinessesTable&\Cake\ORM\Association\BelongsTo $Businesses
  * @property \App\Model\Table\StepsTable&\Cake\ORM\Association\BelongsTo $Steps
  * @property \App\Model\Table\NotesTable&\Cake\ORM\Association\HasMany $Notes
  * @property \App\Model\Table\ReadingsTable&\Cake\ORM\Association\HasMany $Readings
@@ -58,9 +59,12 @@ class BatchesTable extends Table
             'foreignKey' => 'plant_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Businesses', [
+            'foreignKey' => 'business_id',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsTo('Steps', [
             'foreignKey' => 'step_id',
-            'joinType' => 'INNER',
         ]);
         $this->hasMany('Notes', [
             'foreignKey' => 'batch_id',
@@ -146,6 +150,7 @@ class BatchesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['growth_profile_id'], 'GrowthProfiles'));
         $rules->add($rules->existsIn(['plant_id'], 'Plants'));
+        $rules->add($rules->existsIn(['business_id'], 'Businesses'));
         $rules->add($rules->existsIn(['step_id'], 'Steps'));
 
         return $rules;

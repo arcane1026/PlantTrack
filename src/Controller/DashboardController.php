@@ -35,7 +35,15 @@ class DashboardController extends AppController
             $lastLoginDate = $lastLogin[1]['created'];
             $lastLoginIp = $lastLogin[1]['ip_address'];
         }
-        $this->set(compact('lastLoginDate', 'lastLoginIp'));
+        if ($this->Auth->User('role') === 2) {
+            $this->loadModel('Plants');
+            $this->loadModel('GrowthProfiles');
+            $this->loadModel('Batches');
+            $plants = $this->Plants->find('all')->count();
+            $growthProfiles = $this->GrowthProfiles->find('all')->count();
+            $batches = $this->Batches->find('all')->count();
+        }
+        $this->set(compact('lastLoginDate', 'lastLoginIp', 'plants', 'batches', 'growthProfiles'));
     }
 
 }

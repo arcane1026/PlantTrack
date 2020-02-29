@@ -63,8 +63,8 @@ class UsersFixture extends TestFixture
                 'resource_path' => 'Lorem ipsum dolor sit amet',
                 'confirmed' => 1,
                 'locked' => 1,
-                'created' => '2020-02-07 18:30:25',
-                'modified' => '2020-02-07 18:30:25',
+                'created' => '2020-02-28 16:23:47',
+                'modified' => '2020-02-28 16:23:47',
             ],
         ];
         parent::init();

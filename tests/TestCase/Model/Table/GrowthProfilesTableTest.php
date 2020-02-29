@@ -25,6 +25,7 @@ class GrowthProfilesTableTest extends TestCase
     public $fixtures = [
         'app.GrowthProfiles',
         'app.Users',
+        'app.Businesses',
         'app.Plants',
         'app.Batches',
         'app.Stages',

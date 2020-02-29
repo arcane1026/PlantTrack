@@ -1,4 +1,4 @@
-CREATE DATABASE plant_track;
+CREATE DATABASE IF NOT EXISTS plant_track;
 
 USE plant_track;
 
@@ -35,23 +35,27 @@ CREATE TABLE users (
 CREATE TABLE plants (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id				INT				UNSIGNED NOT NULL,
+    business_id			INT 			UNSIGNED NOT NULL,
     name				VARCHAR(50)		NOT NULL,
     description			VARCHAR(100)	NOT NULL,
     resource_path		VARCHAR(255),
     created				DATETIME,
     modified			DATETIME,
-    FOREIGN KEY user_key_plants (user_id) REFERENCES users(id)
+    FOREIGN KEY user_key_plants (user_id) REFERENCES users(id),
+    FOREIGN KEY business_key_plants (business_id) REFERENCES businesses(id)
 );
 
 CREATE TABLE growth_profiles (
     id					INT 			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id				INT 			UNSIGNED NOT NULL,
+    business_id			INT 			UNSIGNED NOT NULL,
     plant_id			INT 			UNSIGNED,
     name 				VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY user_key_growth_profiles (user_id) REFERENCES users(id),
+    FOREIGN KEY business_key_growth_profiles (business_id) REFERENCES businesses(id),
     FOREIGN KEY plant_key_growth_profiles (plant_id) REFERENCES plants(id)
 );
 
@@ -60,7 +64,7 @@ CREATE TABLE stages (
     growth_profile_id	INT 			UNSIGNED NOT NULL,
     name 				VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
-    order               INT             NOT NULL,
+    stage_order         INT             NOT NULL DEFAULT 0,
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY growth_profile_key_stages (growth_profile_id) REFERENCES growth_profiles(id)
@@ -72,7 +76,7 @@ CREATE TABLE steps (
     name 	 	 		VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
     duration			INT 			UNSIGNED NOT NULL COMMENT 'Duration of step in hours.',
-    order               INT             NOT NULL,
+    step_order          INT             NOT NULL DEFAULT 0,
     created				DATETIME,
     modified			DATETIME,
     FOREIGN KEY stage_key_steps (stage_id) REFERENCES stages(id)
@@ -83,6 +87,7 @@ CREATE TABLE batches (
     user_id				INT 			UNSIGNED NOT NULL,
     growth_profile_id	INT 			UNSIGNED NOT NULL,
     plant_id			INT 			UNSIGNED NOT NULL,
+    business_id			INT 			UNSIGNED NOT NULL,
     step_id 			INT 			UNSIGNED,
     name 	 	 		VARCHAR(30)		NOT NULL,
     description 		VARCHAR(100)	NOT NULL,
@@ -99,7 +104,8 @@ CREATE TABLE batches (
     FOREIGN KEY user_key_batches (user_id) REFERENCES users(id),
     FOREIGN KEY growth_profile_key_batches (growth_profile_id) REFERENCES growth_profiles(id),
     FOREIGN KEY plant_key_batches (plant_id) REFERENCES plants(id),
-    FOREIGN KEY step_key_batches (step_id) REFERENCES steps(id)
+    FOREIGN KEY step_key_batches (step_id) REFERENCES steps(id),
+    FOREIGN KEY business_key_batches (business_id) REFERENCES businesses(id)
 );
 
 CREATE TABLE readings (

@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * GrowthProfiles Model
  *
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\BusinessesTable&\Cake\ORM\Association\BelongsTo $Businesses
  * @property \App\Model\Table\PlantsTable&\Cake\ORM\Association\BelongsTo $Plants
  * @property \App\Model\Table\BatchesTable&\Cake\ORM\Association\HasMany $Batches
  * @property \App\Model\Table\StagesTable&\Cake\ORM\Association\HasMany $Stages
@@ -45,6 +46,10 @@ class GrowthProfilesTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Businesses', [
+            'foreignKey' => 'business_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('Plants', [
@@ -95,6 +100,7 @@ class GrowthProfilesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['business_id'], 'Businesses'));
         $rules->add($rules->existsIn(['plant_id'], 'Plants'));
 
         return $rules;

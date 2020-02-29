@@ -16,6 +16,10 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
+ * @property \App\Model\Entity\Batch[] $batches
+ * @property \App\Model\Entity\EmployeeInvite[] $employee_invites
+ * @property \App\Model\Entity\GrowthProfile[] $growth_profiles
+ * @property \App\Model\Entity\Plant[] $plants
  * @property \App\Model\Entity\User[] $users
  */
 class Business extends Entity
@@ -38,6 +42,10 @@ class Business extends Entity
         'zip' => true,
         'created' => true,
         'modified' => true,
+        'batches' => true,
+        'employee_invites' => true,
+        'growth_profiles' => true,
+        'plants' => true,
         'users' => true,
     ];
 }

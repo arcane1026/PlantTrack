@@ -49,6 +49,12 @@ class AppController extends Controller
         ['name' => 'Admin']
     ];
 
+    protected $readingTypes = [
+        'Temperature',
+        'Humidity',
+        'PH',
+    ];
+
     /**
      * Initialization hook method.
      *
@@ -102,6 +108,8 @@ class AppController extends Controller
 
         $activeUser = [];
         $activeUser['username'] = $this->Auth->User('username');
+        $activeUser['first_name'] = $this->Auth->User('first_name');
+        $activeUser['last_name'] = $this->Auth->User('last_name');
         $activeUser['id'] = $this->Auth->User('id');
         $activeUser['business_id'] = $this->Auth->User('business_id');
         $activeUser['role'] = $this->Auth->User('role');
@@ -110,8 +118,9 @@ class AppController extends Controller
         $controller = $this->getName();
         $action = $this->request->getParam('action');
         $activePrimaryNav = $controller;
+        $userRoles = $this->userRoles;
 
-        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action'));
+        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action', 'userRoles'));
     }
 
     /**

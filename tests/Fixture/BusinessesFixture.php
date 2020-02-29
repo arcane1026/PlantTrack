@@ -49,8 +49,8 @@ class BusinessesFixture extends TestFixture
                 'city' => 'Lorem ipsum dolor sit amet',
                 'state' => 'Lo',
                 'zip' => 'Lor',
-                'created' => '2020-02-07 18:28:01',
-                'modified' => '2020-02-07 18:28:01',
+                'created' => '2020-02-28 16:23:29',
+                'modified' => '2020-02-28 16:23:29',
             ],
         ];
         parent::init();

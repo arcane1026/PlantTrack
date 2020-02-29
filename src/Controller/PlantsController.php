@@ -64,6 +64,7 @@ class PlantsController extends AppController
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->User('id');
             $plant = $this->Plants->patchEntity($plant, $data);
+            $plant->business_id = $this->Auth->User('business_id');
             if ($this->Plants->save($plant)) {
                 $this->Flash->success(__('The plant has been saved.'));
 

@@ -22,6 +22,7 @@ class StepsControllerTest extends TestCase
     public $fixtures = [
         'app.Steps',
         'app.Stages',
+        'app.Batches',
         'app.Notes',
         'app.Readings',
     ];

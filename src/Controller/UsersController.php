@@ -522,7 +522,7 @@ class UsersController extends AppController
     }
 
     /**
-     * Send NEw Owner Notification Emails
+     * Send New Owner Notification Emails
      * Email to send notification of ownership transfer to old owner and new owner.
      *
      * @param $user

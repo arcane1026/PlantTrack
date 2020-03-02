@@ -267,7 +267,6 @@ class BatchesController extends AppController
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->User('id');
             $data['testing_status'] = 0;
-            //$data['plant_date'] = '01/24/2020 09:48 AM';
             //$data['plant_date'] = [ 'year' => '2020', 'month' => '24', 'day' => '01', 'hour' => '09','minute' => '48'];
             //$data['plant_date'] = str_replace('/','-', $data['plant_date'] ?? '');
             $batch = $this->Batches->patchEntity($batch, $data);

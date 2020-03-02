@@ -127,6 +127,8 @@
 <?= $this->Html->script('plugins/chartist.min.js') . PHP_EOL ?>
 <?= $this->Html->script('plugins/bootstrap-notify.js') . PHP_EOL ?>
 <?= $this->Html->script('material-dashboard.min.js') . PHP_EOL ?>
+<?= $this->Html->script('material-dashboard.min.js') . PHP_EOL ?>
+
 
 <script>
 
@@ -142,7 +144,8 @@
     // is the actual data object.
     if(typeof data !== 'undefined'){// if statement to avoid javascript errors on pages without charts
         new Chartist.Line('#chart1', data);
-        new Chartist.Bar('#chart2', data);
+        new Chartist.Bar('#chart2', data, options);
+        new Chartist.Pie('#chart3', data);
     }
 </script>
 

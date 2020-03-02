@@ -55,6 +55,10 @@ class AppController extends Controller
         'PH',
     ];
 
+    protected $plantCount;
+    protected $batchCount;
+    protected $growthProfileCount;
+
     /**
      * Initialization hook method.
      *
@@ -119,8 +123,20 @@ class AppController extends Controller
         $action = $this->request->getParam('action');
         $activePrimaryNav = $controller;
         $userRoles = $this->userRoles;
+        if ($this->Auth->User('role') < 3) {
+            $this->loadModel('Plants');
+            $this->loadModel('GrowthProfiles');
+            $this->loadModel('Batches');
+            $this->plantCount = $plantCount = $this->Plants->find('all')->where(['Plants.business_id' => $this->Auth->User('business_id')])->count();
+            $this->growthProfileCount = $growthProfileCount = $this->GrowthProfiles->find('all')->where(['GrowthProfiles.business_id' => $this->Auth->User('business_id')])->count();
+            $this->batchCount = $batchCount = $this->Batches->find('all')->where(['Batches.business_id' => $this->Auth->User('business_id')])->count();
+        } else {
+            $plantCount = -1;
+            $growthProfileCount = -1;
+            $batchCount = -1;
+        }
 
-        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action', 'userRoles'));
+        $this->set(compact('activeUser', 'webroot', 'activePrimaryNav', 'action', 'userRoles', 'plantCount', 'growthProfileCount', 'batchCount'));
     }
 
     /**

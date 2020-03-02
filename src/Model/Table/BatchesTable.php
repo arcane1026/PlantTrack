@@ -68,9 +68,13 @@ class BatchesTable extends Table
         ]);
         $this->hasMany('Notes', [
             'foreignKey' => 'batch_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('Readings', [
             'foreignKey' => 'batch_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('Reports', [
             'foreignKey' => 'batch_id',

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 
 /**
  * Plants Controller
@@ -30,8 +31,22 @@ class PlantsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Users'],
+            'conditions' => [
+                'Plants.business_id' => $this->Auth->User('business_id')
+            ]
         ];
         $plants = $this->paginate($this->Plants);
+        $this->loadModel('GrowthProfiles');
+        if ($this->growthProfileCount > 0) {
+            $this->loadModel('Batches');
+            if ($this->batchCount === 0) {
+                $this->Flash->error('Now <a href="' . Router::url(['controller' => 'Batches', 'action' => 'add']) . '">Create A Batch</a> to start using PlantTrack.', ['escape' => false]);
+            }
+        } else {
+            $this->Flash->error('Now continue to <a href="' . Router::url(['controller' => 'GrowthProfiles', 'action' => 'add']) . '">Create A Growth Profile</a> to continue setup.', ['escape' => false]);
+        }
+
+
 
         $this->set(compact('plants'));
     }

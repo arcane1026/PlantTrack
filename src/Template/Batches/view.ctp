@@ -56,7 +56,7 @@
                     <?= $this->Html->link(__('<i class="fas fa-fw fa-edit"></i>'), ['action' => 'edit', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Batch']) ?>
                 </li>
                 <li class="nav-item">
-                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the batch named: {0}?', $batch->name), 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Batch']) ?>
+                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $batch->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the batch named: {0}?\nAll related notes and readings will be deleted as well.', $batch->name), 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Batch']) ?>
                 </li>
             </ul>
         </div>
@@ -136,8 +136,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" class="text-nowrap"><?= __('Est Stage End') ?></th>
-                                                <td class="text-right text-nowrap"><?= 'Unknown'//h($batch->modified)  ?></td>
+                                                <th scope="row" class="text-nowrap"><?= __('Yield') ?></th>
+                                                <td class="text-right text-nowrap"><?= (!empty($batch->yield)) ? h($batch->yield) .' lbs' : 'No Yield Set' ?></td>
                                             </tr>
                                         </table>
                                     </div>

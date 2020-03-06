@@ -60,6 +60,8 @@ class GrowthProfilesTable extends Table
         ]);
         $this->hasMany('Stages', [
             'foreignKey' => 'growth_profile_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

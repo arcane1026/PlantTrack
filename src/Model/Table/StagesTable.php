@@ -47,6 +47,8 @@ class StagesTable extends Table
         ]);
         $this->hasMany('Steps', [
             'foreignKey' => 'stage_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

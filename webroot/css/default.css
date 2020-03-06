@@ -162,3 +162,17 @@ body {
 body {
     overflow-y: scroll;
 }
+.alert a {
+    font-weight: bold;
+}
+.alert a:hover {
+    text-decoration: underline;
+}
+.nav-item:hover .nav-link.disabled {
+    background: initial !important;
+    cursor: not-allowed !important;
+}
+.nav-item.disabled:hover {
+    background: initial !important;
+    cursor: not-allowed !important;
+}

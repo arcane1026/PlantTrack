@@ -49,12 +49,18 @@ class StepsTable extends Table
         ]);
         $this->hasMany('Batches', [
             'foreignKey' => 'step_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('Notes', [
             'foreignKey' => 'step_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('Readings', [
             'foreignKey' => 'step_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

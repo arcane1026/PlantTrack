@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 
 /**
  * GrowthProfiles Controller
@@ -35,6 +36,10 @@ class GrowthProfilesController extends AppController
             ]
         ];
         $growthProfiles = $this->paginate($this->GrowthProfiles);
+        $this->loadModel('Batches');
+        if ($this->batchCount === 0) {
+            $this->Flash->error('Now <a href="' . Router::url(['controller' => 'Batches', 'action' => 'add']) . '">Create A Batch</a> to start using PlantTrack.', ['escape' => false]);
+        }
 
         $this->set(compact('growthProfiles'));
     }
@@ -228,8 +233,12 @@ class GrowthProfilesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $growthProfile = $this->GrowthProfiles->get($id);
-        if ($this->GrowthProfiles->delete($growthProfile)) {
+        $growthProfile = $this->GrowthProfiles->get($id, [
+            'contain' => ['batches']
+        ]);
+        if (count($growthProfile->batches) > 0) {
+            $this->Flash->error(__('Sorry, you can\'t delete a growth profile which has batches that rely on it. You must delete the batches first.'));
+        } else if ($this->GrowthProfiles->delete($growthProfile)) {
             $this->Flash->success(__('The growth profile has been deleted.'));
         } else {
             $this->Flash->error(__('The growth profile could not be deleted. Please, try again.'));

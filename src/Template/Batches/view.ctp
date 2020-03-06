@@ -136,8 +136,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" class="text-nowrap"><?= __('Est Stage End') ?></th>
-                                                <td class="text-right text-nowrap"><?= 'Unknown'//h($batch->modified)  ?></td>
+                                                <th scope="row" class="text-nowrap"><?= __('Yield') ?></th>
+                                                <td class="text-right text-nowrap"><?= (!empty($batch->yield)) ? h($batch->yield) .' lbs' : 'No Yield Set' ?></td>
                                             </tr>
                                         </table>
                                     </div>

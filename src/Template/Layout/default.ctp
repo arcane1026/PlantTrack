@@ -132,7 +132,6 @@
 
 <script>
 
-
         $( ".sortable" ).sortable({
             handle: ".handle"
         });
@@ -143,9 +142,9 @@
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
     if(typeof data !== 'undefined'){// if statement to avoid javascript errors on pages without charts
-        new Chartist.Line('#chart1', data);
+        new Chartist.Line('#chart1', data, options);
         new Chartist.Bar('#chart2', data, options);
-        new Chartist.Pie('#chart3', data);
+        new Chartist.Pie('#chart3', data, options);
     }
 </script>
 

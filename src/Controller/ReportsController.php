@@ -160,45 +160,6 @@ class ReportsController extends AppController
         $this->set('yValues', $chartValues);
     }
 
-    public function bpePie()// batches by user ID
-    {
-        $this->loadModel('Batches'); // Load Batches Model
-        $userIdsInBatches = $this->Batches->find()->extract('user_id');// returns a list of all user Ids in the Batches table
-        // arrays for charts values and labels
-        $chartValues = [];
-        $chartLabels1 = [];
-        $chartLabels2 = [];
-
-        // query unique userids in batches table
-        foreach ($userIdsInBatches as $ids) {
-            if (!in_array($ids, $chartLabels1)) {
-                array_push($chartLabels1, $ids);
-            }
-        }
-
-        // Convert to associated user_name
-        foreach ($chartLabels1 as $idFromBatchTable) {
-            $niceLabelObject = $this->Batches->Users->find()->where(['id' => $idFromBatchTable])->first();// Query plant table for the plant name associated with the id from batches table
-            $niceLabel = $niceLabelObject['username'];
-            array_push($chartLabels2, $niceLabel);
-        }
-
-        // get chart values
-        foreach ($chartLabels1 as $users) {
-            $value = $this->Batches->find()->where(['user_id' => $users])->count();// count batches per user
-            array_push($chartValues, $value);
-        }
-
-        // get business information for report headers
-        $business_id = $this->Auth->User('business_id'); // Get business id associated with logged in user
-        $business_label = $this->Businesses->find()->where(['id =' => $business_id])->extract('name')->first();
-        $this->set('businessName', $business_label);
-
-        // pass chart values to view
-        $this->set('xLabels', $chartLabels2);
-        $this->set('yValues', $chartValues);
-    }
-
     public function BatchesPerPlant()// batches by Plant
     {
         $this->loadModel('Batches'); // Load Batches Model
@@ -238,7 +199,7 @@ class ReportsController extends AppController
         $this->set('yValues', $chartValues);
     }
 
-    public function bbpLine()// batches by Plant
+    public function bbpPie()// batches by Plant
     {
         $this->loadModel('Batches'); // Load Batches Model
         $this->loadModel('Businesses'); // Load Batches Model
@@ -329,28 +290,25 @@ class ReportsController extends AppController
         $this->set('yValues', $chartValues);
     }
 
-    public function pieTest()// Generates data for average batch yield by Plant type to date
-    {
-
-    }
-
     public function batchReadingsLine()// Readings for steps for batch x line graph
     {
         $this->loadModel('Batches'); // Load Batches Model
         $this->loadModel('Businesses'); // Load Batches Model
         $this->loadModel('Readings'); // Load Batches Model
 
-        $batchx = 9;
+        $batchesx = [];
 
         $business_id = $this->Auth->User('business_id'); // Get business id associated with logged in user
         $business_label = $this->Businesses->find()->where(['id =' => $business_id])->extract('name')->first();
         $this->set('businessName', $business_label);
 
 
+       $batchx = 9;
         // Get all readings of batch x id
         $stepsForBatchx = $this->Readings->find()->where(['batch_id =' => $batchx])->extract('step_id');// returns a list of all user Ids in the Batches table
         $chartLabels1 = [];// Array of all UNIQUE plant Ids in the batches table
         $chartValues = [];// Array to hold chart values
+
 
         // Push all unique ids into array
         foreach ($stepsForBatchx as $steps) {
@@ -364,14 +322,15 @@ class ReportsController extends AppController
         // Query to count number of batches of a particular plant type
         // Push all unique ids into array
         foreach ($valuesForBatchx as $values) {
-            if (!in_array($values, $chartValues)) {
+
                 array_push($chartValues, $values);
-            }
         }
         // Set labels and values
         $this->set('xLabels', $chartLabels1);
         $this->set('yValues', $chartValues);
     }
+
+
 
 
 

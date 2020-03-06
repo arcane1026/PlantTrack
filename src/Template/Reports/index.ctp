@@ -63,14 +63,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Batches per Plant Line</td>
-                                    <td>The total number of batches per plant type represented in a line graph</td>
-                                    <td><?= $this->Html->link(__('Get Report'), ['action' => 'bbpLine'], ['class' => 'nav-link btn btn-rose']) ?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Average Yield per Batch Unit</td>
-                                    <td>Average yield of one batch unit of every plant type plant</td>
+                                    <td>Average Yield per Batch </td>
+                                    <td>Average yield per Batch Unit by Plant</td>
                                     <td><?= $this->Html->link(__('Get Report'), ['action' => 'batchYieldByPlant'], ['class' => 'nav-link btn btn-rose']) ?>
                                     </td>
                                 </tr>
@@ -81,15 +75,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Batches per Employee Pie Chart</td>
-                                    <td>Employee batch productivity report represented in a Pie chart</td>
-                                    <td><?= $this->Html->link(__('Get Report'), ['action' => 'bpePie'], ['class' => 'nav-link btn btn-rose']) ?>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>Readings per Step for Batch</td>
                                     <td> Readings for steps for selected batch represented in line graph</td>
                                     <td><?= $this->Html->link(__('Get Report'), ['action' => 'batchReadingsLine'], ['class' => 'nav-link btn btn-rose']) ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Batches per Plant Pie</td>
+                                    <td>The total number of batches per plant type represented in a line graph</td>
+                                    <td><?= $this->Html->link(__('Get Report'), ['action' => 'bbpPie'], ['class' => 'nav-link btn btn-rose']) ?>
                                     </td>
                                 </tr>
                                 </tbody>

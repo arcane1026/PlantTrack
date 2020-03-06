@@ -36,17 +36,13 @@
 <!-- End Navbar -->
 
 
-<div class="reports form large-9 large-8 columns content">
 
-    <div class="card mb-3">
-        <div class="card-header card-header" data-header-animation="true">
-            <div class="ct-chart" id="chart3" style="height: 500px" ></div>
-        </div>
+<div class="reports form large-9 large-8 columns content" style = "width: 60%; margin: 0 auto;">
+    <div class="card mb-3" style="padding-top: 30px">
+        <center>  <h4 class="navbar-brand" style="font-size: 50px">Batches per Plant</h4></center>
+        <div class="ct-chart" id = "chart3" style="height:500px" ></div>
         <div class="card-body">
-            <h4 class="card-title">Batches per Employee</h4>
             <p class="card-category"><?php echo $businessName ?></p>
-        </div>
-        <div class="card-footer">
             <div class="stats">
                 <i class="material-icons">access_time</i> Report Generated
                 <?php echo date("M,d,Y h:i:s A ", (time() - 3600 * 5))
@@ -55,7 +51,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 
 <!-- script that generates data for chart-->
@@ -69,8 +65,8 @@
         // Our series array that contains series objects or in this case series data arrays
         series: [
             <?php  foreach ($yValues as $value) {
-                echo($value . ',');
-            }?>
+            echo($value . ',');
+        }?>
         ],
     };
 
@@ -90,5 +86,36 @@
         margin: auto;
         width: 60%;
         padding: 10px;
+    }
+
+    .ct-chart .ct-series-a .ct-slice-pie {
+        fill: #e91e63;
+    }
+
+    .ct-chart .ct-series-b .ct-slice-pie {
+        fill: #62e91e;
+    }
+
+    .ct-chart .ct-series-c .ct-slice-pie {
+        fill: #1ea9e9;
+    }
+
+    .ct-chart .ct-series-d .ct-slice-pie {
+        fill: #e9621e;
+    }
+
+    .ct-chart .ct-series-e .ct-slice-pie {
+        fill: #e9c71e;
+    }
+
+    .ct-chart .ct-series-f .ct-slice-pie {
+        fill: #d33d44;
+    }
+    .ct-label {
+        font-size: 20px;
+        font-family: Roboto, Helvetica, Arial, sans-serif !important;
+        color: black !important;
+        text-align: center !important;
+        font-weight: bold;
     }
 </style>

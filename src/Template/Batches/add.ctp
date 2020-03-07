@@ -86,24 +86,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="row">
-                                <label class="col-md-3 col-form-label">Planting Date</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <?= ''//$this->Form->control('plant_date', ['empty' => true, 'label' => false]); ?>
-                                        <?= ''//$this->Form->control('plant_date', ['empty' => true, 'label' => false, 'year' => ['class' => 'form-control col-md-2'], 'month' => ['class' => 'form-control col-md-2'], 'day' => ['class' => 'form-control'], 'hour' => ['class' => 'form-control'], 'minute' => ['class' => 'form-control'], 'second' => ['class' => 'form-control']]); ?>
-                                        <?= ''//$this->Form->control('plant_date', ['empty' => true, 'label' => false, 'type' => 'text', 'class' => 'form-control datetimepicker']); // ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-md-3 col-form-label">Harvesting Date</label>
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <?= ''//$this->Form->control('harvest_date', ['empty' => true, 'label' => false, 'class' => 'form-control']); ?>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="row">
                                 <label class="col-md-3 col-form-label">Favorite</label>
                                 <div class="col-md-9">

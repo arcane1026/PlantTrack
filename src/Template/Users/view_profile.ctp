@@ -23,10 +23,13 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-user-shield"></i> Change Password'), ['action' => 'change_password'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-                    <?= $this->Html->link(__('<i class="fas fa-user-edit"></i> Edit Profile'), ['action' => 'edit_profile'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-user-shield"></i>'), ['action' => 'change_password'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Change Password']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-user-edit"></i>'), ['action' => 'edit_profile'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Profile']) ?>
                 </li>
             </ul>
         </div>

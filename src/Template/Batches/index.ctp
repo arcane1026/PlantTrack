@@ -23,7 +23,8 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end"><form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
+        <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i>'), ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'New Batch']) ?>
@@ -59,7 +60,6 @@
                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('testing_status') ?></th>
                                     <th scope="col"><?= $this->Paginator->sort('plant_date') ?></th>
                                     <th scope="col"><?= $this->Paginator->sort('harvest_date') ?></th>
-                                    <th scope="col" class="text-right"><?= $this->Paginator->sort('resource_path') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -93,7 +93,6 @@
                                         </td>
                                         <td><?= h($batch->plant_date) ?></td>
                                         <td><?= h($batch->harvest_date) ?></td>
-                                        <td class="text-right"><?= h($batch->resource_path) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

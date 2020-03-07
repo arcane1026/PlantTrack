@@ -55,9 +55,6 @@
                                 <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-edit"></i> </span><span class="sidebar-normal"> Edit Profile </span>'), ['controller' => 'Users', 'action' => 'edit_profile'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                             <li class="nav-item">
-                                <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-user-cog"></i> </span><span class="sidebar-normal"> User Settings </span>'), ['controller' => 'Users', 'action' => 'settings'], ['escape' => false, 'class' => 'nav-link']) ?>
-                            </li>
-                            <li class="nav-item">
                                 <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-fw fa-sign-out-alt"></i> </span><span class="sidebar-normal"> Sign Out </span>'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false, 'class' => 'nav-link']) ?>
                             </li>
                         </ul>

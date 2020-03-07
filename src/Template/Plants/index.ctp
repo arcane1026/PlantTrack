@@ -24,9 +24,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-plus"></i> New Plant'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i>'), ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'New Plant']) ?>
                 </li>
             </ul>
         </div>
@@ -54,7 +55,6 @@
                                     <th scope="col"></th>
                                     <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                                     <th scope="col" class="fill-remaining"><?= $this->Paginator->sort('description') ?></th>
-                                    <th scope="col" class="text-right"><?= __('Actions') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -73,10 +73,6 @@
 
                                         <td><?= $this->Html->link(h($plant->name), ['action' => 'view', $plant->id]) ?></td>
                                         <td><?= h($plant->description) ?></td>
-                                        <td class="text-right">
-                                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $plant->id]) ?>
-                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $plant->id], ['confirm' => __('Are you sure you want to delete # {0}?', $plant->id)]) ?>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

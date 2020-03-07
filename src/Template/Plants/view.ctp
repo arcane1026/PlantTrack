@@ -23,10 +23,13 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-fw fa-pencil-alt"></i> Edit'), ['action' => 'edit', $plant->id], ['escape' => false, 'class' => 'btn btn-rose']) ?>
-                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i> Delete'), ['action' => 'delete', $plant->id], ['escape' => false, 'class' => 'btn btn-danger', 'confirm' => __('Are you sure you want to delete the plant named: {0}?', $plant->name)]) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-edit"></i>'), ['action' => 'edit', $plant->id], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Plant']) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Form->postLink(__('<i class="fas fa-fw fa-trash"></i>'), ['action' => 'delete', $plant->id], ['escape' => false, 'class' => 'btn btn-sm btn-danger btn-icon-only', 'confirm' => __('Are you sure you want to delete the plant named: {0}?', $plant->name), 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Delete Plant']) ?>
                 </li>
             </ul>
         </div>

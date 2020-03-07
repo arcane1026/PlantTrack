@@ -24,9 +24,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-plus"></i> New Growth Profile'), ['action' => 'add'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-fw fa-plus"></i>'), ['action' => 'add'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'New Growth Profile']) ?>
                 </li>
             </ul>
         </div>
@@ -55,7 +56,6 @@
                                     <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                                     <th scope="col"><?= $this->Paginator->sort('plant_id') ?></th>
                                     <th scope="col" class="fill-remaining"><?= $this->Paginator->sort('description') ?></th>
-                                    <th scope="col" class="text-right"><?= __('Actions') ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -75,10 +75,6 @@
                                         <td><?= $this->Html->link(h($growthProfile->name), ['action' => 'view', $growthProfile->id]) ?></td>
                                         <td><?= (!empty($growthProfile->plant)) ? h($growthProfile->plant->name) : 'None' ?></td>
                                         <td><?= h($growthProfile->description) ?></td>
-                                        <td class="text-right">
-                                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $growthProfile->id]) ?>
-                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $growthProfile->id], ['confirm' => __('Are you sure you want to delete # {0}?', $growthProfile->id)]) ?>
-                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

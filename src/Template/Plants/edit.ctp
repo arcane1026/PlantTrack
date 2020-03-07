@@ -31,6 +31,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
             </ul>
         </div>
@@ -65,28 +66,6 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <?= $this->Form->control('description', ['label' => false, 'class' => 'form-control']); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <label class="col-md-3 col-form-label">Plant Image</label>
-                            <div class="col-md-9">
-                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                    <div class="fileinput-new thumbnail">
-                                        <img src="/pt/img/image_placeholder.jpg" alt="...">
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
-                                    <div>
-                                                <span class="btn btn-rose btn-round btn-file">
-                                                    <span class="fileinput-new">Select image</span>
-                                                    <span class="fileinput-exists">Change</span>
-                                                    <input type="hidden"><!--<input type="file" name="...">--><?= $this->Form->control('resource_path', ['label' => false, 'class' => 'form-control', 'type' => 'file']); ?>
-                                                </span>
-                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-
                                 </div>
                             </div>
                         </div>

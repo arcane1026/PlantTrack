@@ -21,9 +21,6 @@ $growthProfilesDisabled = ($plantCount === 0) ? 'disabled' : '';
                 <li class="nav-item ">
                     <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-users"></i> </span> <span class="sidebar-normal"> Manage Employees </span>'), ['controller' => 'Users', 'action' => 'manage'], ['escape' => false, 'class' => 'nav-link']) ?>
                 </li>
-                <li class="nav-item ">
-                    <?= $this->Html->link(__('<span class="sidebar-mini"> <i class="fal fa-cogs"></i> </span> <span class="sidebar-normal"> Application Settings </span>'), ['controller' => 'Businesses', 'action' => 'settings'], ['escape' => false, 'class' => 'nav-link']) ?>
-                </li>
             </ul>
         </div>
     </li>

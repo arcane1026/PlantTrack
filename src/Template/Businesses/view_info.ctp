@@ -23,9 +23,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-edit"></i> Edit Information'), ['action' => 'edit_info'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('<i class="fas fa-edit"></i>'), ['action' => 'edit_info'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Edit Business']) ?>
                 </li>
             </ul>
         </div>

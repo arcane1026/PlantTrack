@@ -26,9 +26,12 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-                <li class="form-inline">
-                    <?= $this->Html->link(__('<i class="fas fa-plus"></i> Back'), ['action' => 'index'], ['escape' => false, 'class' => 'nav-link btn btn-rose']) ?>
-                </li>
+                <form class="navbar-form"></form> <?php // FORM MUST EXIST FOR UI TO WORK ?>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <?= $this->Html->link(__('<i class="fas fa-fw fa-arrow-left"></i>'), ['action' => 'index'], ['escape' => false, 'class' => 'btn btn-sm btn-rose btn-icon-only', 'data-placement' => 'bottom', 'title' => '', 'rel' => 'tooltip', 'data-original-title' => 'Back to Reports']) ?>
+                    </li>
+                </ul>
             </ul>
         </div>
     </div>
@@ -44,8 +47,8 @@
         <div class="card-body">
             <p class="card-category"><?php echo $businessName ?></p>
             <div class="stats">
-                <i class="material-icons">access_time</i> Report Generated
-                <?php echo date("M,d,Y h:i:s A ", (time() - 3600 * 5))
+                <i class="far fa-clock text-gray"></i> Report Generated
+                <?php echo date("F d, Y, h:i A ", (time() - 3600 * 5))
                     . "by " . $activeUser['username'] ?>
             </div>
         </div>
